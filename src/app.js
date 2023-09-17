@@ -31,6 +31,7 @@ import randomjokeRouter from "./routes/public/randomjoke.routes.js";
 import bookRouter from "./routes/public/book.routes.js";
 import quoteRouter from "./routes/public/quote.routes.js";
 import mealRouter from "./routes/public/meal.routes.js";
+import dogRouter from "./routes/public/dog.routes.js";
 
 app.use("/api/v1/healthcheck", healthcheckRouter);
 
@@ -45,6 +46,8 @@ app.use("/api/v1/public/books", bookRouter);
 app.use("/api/v1/public/quotes", quoteRouter);
 
 app.use("/api/v1/public/meals", mealRouter);
+
+app.use("/api/v1/public/dogs", dogRouter);
 
 // common error handling middleware
 app.use(errorHandler);

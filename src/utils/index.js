@@ -71,19 +71,19 @@ export const getPaginatedPayload = (
   page,
   limit
 ) => {
+  const prevPageUrl = `${
+    req.protocol + "://" + req.get("host") + req.baseUrl
+  }?page=${page - 1}&limit=${limit}`;
+  const nextPageUrl = `${
+    req.protocol + "://" + req.get("host") + req.baseUrl
+  }?page=${page + 1}&limit=${limit}`;
+
   const payload = {
-    previousPage:
-      page > 1
-        ? `${req.protocol + "://" + req.get("host") + req.baseUrl}?page=${
-            page - 1
-          }&limit=${limit}`
-        : null,
+    previousPage: page > 1 ? prevPageUrl : null,
     currentPage: `${req.protocol + "://" + req.get("host") + req.originalUrl}`,
     nextPage:
       dataArray.length === limit && [...dataArray].pop()?.id < totalDataCount
-        ? `${req.protocol + "://" + req.get("host") + req.baseUrl}?page=${
-            page + 1
-          }&limit=${limit}`
+        ? nextPageUrl
         : null,
     data: dataArray,
   };

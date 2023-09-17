@@ -1,4 +1,6 @@
 import randomProductsJson from "../../json/randomproduct.json" assert { type: "json" };
+
+import { filterObjectKeys } from "../../utils/index.js";
 import { ApiError } from "../../utils/ApiError.js";
 import { ApiResponse } from "../../utils/ApiResponse.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
@@ -6,6 +8,9 @@ import { asyncHandler } from "../../utils/asyncHandler.js";
 const getRandomProducts = asyncHandler(async (req, res) => {
   const page = +(req.query.page || 1);
   const limit = +(req.query.limit || 10);
+
+  const query = req.query.query?.toLowerCase(); // search query
+  const inc = req.query.inc?.split(","); // only include fields mentioned in this query
 
   const allProducts = randomProductsJson;
 
@@ -16,6 +21,22 @@ const getRandomProducts = asyncHandler(async (req, res) => {
     startPosition + limit
   );
 
+  let randomProductsArray = (
+    query
+      ? [...randomProductsJson].filter((product) => {
+          return (
+            product.title.toLowerCase().includes(query) ||
+            product.description.toLowerCase().includes(query) ||
+            product.category.toLowerCase().includes(query)
+          );
+        })
+      : [...randomProductsJson]
+  ).slice(startPosition, startPosition + limit);
+
+  if (inc && inc[0]?.trim()) {
+    randomProductsArray = filterObjectKeys(inc, randomProductsArray);
+  }
+
   const payload = {
     previousPage:
       page > 1
@@ -25,6 +46,7 @@ const getRandomProducts = asyncHandler(async (req, res) => {
         : null,
     currentPage: `${req.protocol + "://" + req.get("host") + req.originalUrl}`,
     nextPage:
+      randomProductsArray.length === limit &&
       [...randomProductsArray].pop()?.id < allProducts.length
         ? `${req.protocol + "://" + req.get("host") + req.baseUrl}?page=${
             page + 1

@@ -2,6 +2,7 @@
   "name": "multiverse",
   "version": "1.0.0",
   "description": "<!-- MultiVerse Go ! Owner - Pavankumar Mhaske -->",
+  "type": "module",
   "main": "src/index.js",
   "scripts": {
     "start": "nodemon index.js"

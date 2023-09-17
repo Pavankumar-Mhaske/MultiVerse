@@ -7,8 +7,12 @@
   "scripts": {
     "start": "nodemon index.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "apihub"
+  ],
+
+
+  "author": "Pavankumar Mhaske",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.1",

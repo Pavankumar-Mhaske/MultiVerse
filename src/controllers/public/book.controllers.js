@@ -42,7 +42,7 @@ const getBooks = asyncHandler(async (req, res) => {
     );
 });
 
-const getBooksId = asyncHandler(async (req, res) => {
+const getBookById = asyncHandler(async (req, res) => {
   const { bookId } = req.params;
 
   const book = booksJson.find((book) => +book.id === +bookId);
@@ -67,4 +67,4 @@ const getARandomBook = asyncHandler(async (req, res) => {
     );
 });
 
-export { getBooks, getBooksId, getARandomBook };
+export { getBooks, getBookById, getARandomBook };

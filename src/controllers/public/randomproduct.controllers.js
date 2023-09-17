@@ -1,9 +1,10 @@
 import randomProductsJson from "../../json/randomproduct.json" assert { type: "json" };
 
-import { filterObjectKeys } from "../../utils/index.js";
+import { filterObjectKeys, getPaginatedPayload } from "../../utils/index.js";
 import { ApiError } from "../../utils/ApiError.js";
 import { ApiResponse } from "../../utils/ApiResponse.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
+import { get } from "mongoose";
 
 const getRandomProducts = asyncHandler(async (req, res) => {
   const page = +(req.query.page || 1);
@@ -15,11 +16,6 @@ const getRandomProducts = asyncHandler(async (req, res) => {
   const allProducts = randomProductsJson;
 
   const startPosition = +(page - 1) * limit;
-
-  const randomProductsArray = [...randomProductsJson].slice(
-    startPosition,
-    startPosition + limit
-  );
 
   let randomProductsArray = (
     query
@@ -37,28 +33,20 @@ const getRandomProducts = asyncHandler(async (req, res) => {
     randomProductsArray = filterObjectKeys(inc, randomProductsArray);
   }
 
-  const payload = {
-    previousPage:
-      page > 1
-        ? `${req.protocol + "://" + req.get("host") + req.baseUrl}?page=${
-            page - 1
-          }&limit=${limit}`
-        : null,
-    currentPage: `${req.protocol + "://" + req.get("host") + req.originalUrl}`,
-    nextPage:
-      randomProductsArray.length === limit &&
-      [...randomProductsArray].pop()?.id < allProducts.length
-        ? `${req.protocol + "://" + req.get("host") + req.baseUrl}?page=${
-            page + 1
-          }&limit=${limit}`
-        : null,
-    products: randomProductsArray,
-  };
-
   return res
     .status(200)
     .json(
-      new ApiResponse(200, payload, "Random products fetched successfully")
+      new ApiResponse(
+        200,
+        getPaginatedPayload(
+          randomProductsArray,
+          allProducts.length,
+          req,
+          page,
+          limit
+        ),
+        "Random products fetched successfully"
+      )
     );
 });
 

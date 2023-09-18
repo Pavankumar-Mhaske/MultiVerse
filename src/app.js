@@ -40,7 +40,9 @@ import catRouter from "./routes/public/cat.routes.js";
 import userRouter from "./routes/apps/auth/user.routes.js";
 import categoryRouter from "./routes/apps/ecommerce/category.routes.js";
 import addressRouter from "./routes/apps/ecommerce/address.routes.js";
+import profileRouter from "./routes/apps/ecommerce/profile.routes.js";
 
+// * Public apis
 app.use("/api/v1/healthcheck", healthcheckRouter);
 
 app.use("/api/v1/public/randomusers", randomuserRouter);
@@ -63,7 +65,7 @@ app.use("/api/v1/public/cats", catRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/ecommerce/categories", categoryRouter);
 app.use("/api/v1/ecommerce/addresses", addressRouter);
-
+app.use("/api/v1/ecommerce/profile", profileRouter);
 
 // common error handling middleware
 app.use(errorHandler);

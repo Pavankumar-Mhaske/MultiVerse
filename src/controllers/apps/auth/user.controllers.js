@@ -128,7 +128,7 @@ const loginUser = asyncHandler(async (req, res) => {
       new ApiResponse(
         200,
         { user: loggedInUser, accessToken, refreshToken }, // send access and refresh token in response if client decides to save them by themselves
-        "Users registered successfully"
+        "Users logged in successfully"
       )
     );
 });

@@ -6,8 +6,26 @@ import connectDB from "./db/index.js";
  * This means you can not use it with common js modules or Node version < 14.
  */
 
-await connectDB();
+const majorNodeVersion = +process.env.NODE_VERSION.split(".")[0];
 
-app.listen(process.env.PORT || 8080, () => {
-  console.log(`Server running on port : ${process.env.PORT || 8080}`);
-});
+if (majorNodeVersion >= 14) {
+  try {
+    await connectDB();
+    app.listen(process.env.PORT || 8080, () =>
+      console.log("Server is running on port: " + process.env.PORT)
+    );
+  } catch (err) {
+    console.log("Mongo db connect error: ", err);
+  }
+} else {
+  connectDB()
+    .then(() => {
+      app.listen(process.env.PORT || 8080, () =>
+        console.log("Server is running on port: " + process.env.PORT)
+      );
+    })
+    .catch((err) => {
+      console.log("Mongo db connect error: ", err);
+    });
+}
+console.log("Node version: ", majorNodeVersion);

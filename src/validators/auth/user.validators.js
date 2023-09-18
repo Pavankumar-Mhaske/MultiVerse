@@ -7,7 +7,7 @@ import { body } from "express-validator";
  * @param {import("express").NextFunction} next
  */
 
-const userRegisterValidator = (req, res, next) => {
+const userRegisterValidator = () => {
   return [
     body("email")
       .notEmpty()
@@ -29,4 +29,12 @@ const userRegisterValidator = (req, res, next) => {
   ];
 };
 
-export { userRegisterValidator };
+const userLoginValidator = () => {
+  return [
+    body("email").optional().isEmail().withMessage("Email is invalid"),
+    body("username").optional(),
+    body("password").notEmpty().withMessage("Password is required"),
+  ];
+};
+
+export { userRegisterValidator, userLoginValidator };

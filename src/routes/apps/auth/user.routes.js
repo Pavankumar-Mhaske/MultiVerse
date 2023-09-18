@@ -1,5 +1,7 @@
 import { Router } from "express";
 import {
+  forgotPasswordRequest,
+  resetForgottenPassword,
   changeCurrentPassword,
   getCurrentUser,
   loginUser,
@@ -12,6 +14,8 @@ import {
   userChangeCurrentPasswordValidator,
   userLoginValidator,
   userRegisterValidator,
+  userForgotPasswordValidator,
+  userResetForgottenPasswordValidator,
 } from "../../../validators/auth/user.validators.js";
 
 import { validate } from "../../../validators/validate.js";
@@ -24,6 +28,16 @@ router.route("/register").post(userRegisterValidator(), validate, registerUser);
 router.route("/login").post(userLoginValidator(), validate, loginUser);
 router.route("/refresh-token").post(refreshAccessToken);
 router.route("/verify-email/:verificationToken").post(verifyEmail);
+router
+  .route("/forgot-password")
+  .post(userForgotPasswordValidator(), validate, forgotPasswordRequest);
+router
+  .route("/reset-password/:resetToken")
+  .post(
+    userResetForgottenPasswordValidator(),
+    validate,
+    resetForgottenPassword
+  );
 
 // Secured routes
 router.route("/current-user").get(verifyJWT, getCurrentUser);

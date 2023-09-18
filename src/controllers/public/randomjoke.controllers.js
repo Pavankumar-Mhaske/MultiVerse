@@ -33,8 +33,6 @@ const getRandomJokes = asyncHandler(async (req, res) => {
         200,
         getPaginatedPayload(
           randomJokesArray,
-          
-          req,
           page,
           limit
         ),

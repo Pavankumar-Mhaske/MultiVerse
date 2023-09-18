@@ -34,7 +34,7 @@ const getCats = asyncHandler(async (req, res) => {
     .json(
       new ApiResponse(
         200,
-        getPaginatedPayload(catsArray, req, page, limit),
+        getPaginatedPayload(catsArray, page, limit),
         "Cats fetched successfully"
       )
     );

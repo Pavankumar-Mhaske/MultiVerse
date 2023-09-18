@@ -1,5 +1,5 @@
 import { body, param } from "express-validator";
-
+import { UserRolesEnum } from "../../constants.js";
 /**
  *
  * @param {import("express").Request} req
@@ -26,8 +26,8 @@ const userRegisterValidator = () => {
     body("password").trim().notEmpty().withMessage("Password is required"),
     body("role")
       .optional()
-      .isIn(["ADMIN", "USER"])
-      .withMessage("There are only 2 roles 'USER' and 'ADMIN'"),
+      .isIn(Object.values(UserRolesEnum))
+      .withMessage("Invalid user role"),
   ];
 };
 
@@ -64,8 +64,8 @@ const userAssignRoleValidator = () => {
   return [
     body("role")
       .optional()
-      .isIn(["ADMIN", "USER"])
-      .withMessage("There are only 2 roles 'USER' and 'ADMIN'"),
+      .isIn(Object.values(UserRolesEnum))
+      .withMessage("Invalid user role"),
   ];
 };
 

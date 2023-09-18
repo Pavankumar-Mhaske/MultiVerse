@@ -1,6 +1,6 @@
 import dogsJson from "../../json/dogs.json" assert { type: "json" };
 import {
-  deepClone,
+  
   filterObjectKeys,
   getPaginatedPayload,
 } from "../../utils/helpers.js";
@@ -18,13 +18,13 @@ const getDogs = asyncHandler(async (req, res) => {
  
 
   let dogsArray = query
-    ? deepClone(dogsJson).filter((dog) => {
+    ? structuredClone(dogsJson).filter((dog) => {
         return (
           dog.name?.toLowerCase().includes(query) ||
           dog.breed_group?.toLowerCase().includes(query)
         );
       })
-    : deepClone(dogsJson);
+    : structuredClone(dogsJson);
 
   if (inc && inc[0]?.trim()) {
     dogsArray = filterObjectKeys(inc, dogsArray);

@@ -10,6 +10,7 @@ import {
   getStaticFilePath,
   removeImageFile,
 } from "../../../utils/helpers.js";
+import { MAXIMUM_SUB_IMAGE_COUNT } from "../../../constants.js";
 
 const getAllProducts = asyncHandler(async (req, res) => {
   const products = await Product.find({});
@@ -105,7 +106,7 @@ const updateProduct = asyncHandler(async (req, res) => {
   const newSubImages = subImages.length; // Newly uploaded sub images
   const totalSubImages = existedSubImages + newSubImages;
 
-  if (totalSubImages > 4) {
+  if (totalSubImages > MAXIMUM_SUB_IMAGE_COUNT) {
     // We want user to only add at max 4 sub images
     // If the existing sub images + new sub images count exceeds 4
     // We want to throw an error
@@ -120,7 +121,9 @@ const updateProduct = asyncHandler(async (req, res) => {
     }
     throw new ApiError(
       400,
-      "Maximum 4 sub images are allowed for a product. There are already " +
+      "Maximum " +
+        MAXIMUM_SUB_IMAGE_COUNT +
+        " sub images are allowed for a product. There are already " +
         existedSubImages +
         " sub images attached to the product."
     );
@@ -300,6 +303,6 @@ export {
   deleteProduct,
   getProductById,
   getProductsByCategory,
-    updateProduct,
-    removeProductSubImage,
+  updateProduct,
+  removeProductSubImage,
 };

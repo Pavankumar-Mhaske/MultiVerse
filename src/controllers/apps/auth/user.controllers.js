@@ -10,6 +10,8 @@ import {
   sendEmail,
 } from "../../../utils/mail.js";
 
+import { UserRolesEnum } from "../../../constants.js";
+
 const registerUser = asyncHandler(async (req, res) => {
   // TODO: setup validator middleware or logic to handle data validation
 
@@ -28,7 +30,8 @@ const registerUser = asyncHandler(async (req, res) => {
     password,
     username,
     isEmailVerified: false,
-    role: role || "USER",
+
+    role: role || UserRolesEnum.USER,
   });
 
   // TODO: Add method in userSchema to generate email verification token and verify the email based on that token with expiry
@@ -432,5 +435,4 @@ export {
   refreshAccessToken,
   verifyEmail,
   resendEmailVerification,
-
 };

@@ -2,7 +2,7 @@
 
 import catsJson from "../../json/cats.json" assert { type: "json" };
 import {
-  deepClone,
+  
   filterObjectKeys,
   getPaginatedPayload,
 } from "../../utils/helpers.js";
@@ -17,13 +17,13 @@ const getCats = asyncHandler(async (req, res) => {
   const inc = req.query.inc?.split(","); // only include fields mentioned in this query
 
   let catsArray = query
-    ? deepClone(catsJson).filter((cat) => {
+    ? structuredClone(catsJson).filter((cat) => {
         return (
           cat.name?.toLowerCase().includes(query) ||
           cat.temperament?.toLowerCase().includes(query)
         );
       })
-    : deepClone(catsJson);
+    : structuredClone(catsJson);
 
   if (inc && inc[0]?.trim()) {
     catsArray = filterObjectKeys(inc, catsArray);

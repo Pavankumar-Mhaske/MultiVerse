@@ -1,6 +1,6 @@
 import mealsJson from "../../json/meals.json" assert { type: "json" };
 import {
-  deepClone,
+  
   filterObjectKeys,
   getPaginatedPayload,
 } from "../../utils/helpers.js";
@@ -15,13 +15,13 @@ const getMeals = asyncHandler(async (req, res) => {
   const inc = req.query.inc?.split(","); // only include fields mentioned in this query
 
   let mealsArray = query
-    ? deepClone(mealsJson).filter((meal) => {
+    ? structuredClone(mealsJson).filter((meal) => {
         return (
           meal.strMeal?.toLowerCase().includes(query) ||
           meal.strCategory?.includes(query)
         );
       })
-    : deepClone(mealsJson);
+    : structuredClone(mealsJson);
 
   if (inc && inc[0]?.trim()) {
     mealsArray = filterObjectKeys(inc, mealsArray);

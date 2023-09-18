@@ -1,23 +1,6 @@
 import fs from "fs";
 
-/**
- *
- * @param {object | any[]} obj
- * @returns {object | any[]}
- * @description function responsible for deep cloning the object/array to avoid mutation of the original entity
- */
-export const deepClone = (obj) => {
-  if (!obj) return obj;
-  const result = Array.isArray(obj) ? [] : {};
-  Object.entries(obj).map(([key, value]) => {
-    if (typeof value !== "object") {
-      result[key] = value;
-    } else {
-      result[key] = deepClone(obj[key]);
-    }
-  });
-  return result;
-};
+
 
 /**
  *
@@ -62,9 +45,9 @@ export const deepClone = (obj) => {
  */
 
 export const filterObjectKeys = (fieldsArray, objectArray) => {
-  const filteredArray = deepClone(objectArray).map((originalObj) => {
+  const filteredArray = structuredClone(objectArray).map((originalObj) => {
     let obj = {};
-    deepClone(fieldsArray)?.forEach((field) => {
+    structuredClone(fieldsArray)?.forEach((field) => {
       if (field?.trim() in originalObj) {
         obj[field] = originalObj[field];
       }
@@ -90,7 +73,7 @@ export const getPaginatedPayload = (dataArray, page, limit) => {
 
   const totalItems = dataArray.length; // total documents present after applying search query
 
-  dataArray = deepClone(dataArray).slice(startPosition, startPosition + limit);
+  dataArray = structuredClone(dataArray).slice(startPosition, startPosition + limit);
 
   const payload = {
     page,
@@ -98,7 +81,7 @@ export const getPaginatedPayload = (dataArray, page, limit) => {
     totalPages: Math.ceil(totalItems / limit),
     previousPage: page > 1 ? true : false,
     nextPage:
-      dataArray.length === limit && deepClone(dataArray).pop()?.id < totalItems
+      dataArray.length === limit && structuredClone(dataArray).pop()?.id < totalItems
         ? true
         : null,
 

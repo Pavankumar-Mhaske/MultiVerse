@@ -1,7 +1,7 @@
 import randomJokesJson from "../../json/randomjoke.json" assert { type: "json" };
 
 import {
-  deepClone,
+  
   filterObjectKeys,
   getPaginatedPayload,
 } from "../../utils/helpers.js";
@@ -17,10 +17,10 @@ const getRandomJokes = asyncHandler(async (req, res) => {
   const inc = req.query.inc?.split(","); // only include fields mentioned in this query
 
   let randomJokesArray = query
-    ? deepClone(randomJokesJson).filter((joke) => {
+    ? structuredClone(randomJokesJson).filter((joke) => {
         return joke.content.toLowerCase().includes(query);
       })
-    : deepClone(randomJokesJson);
+    : structuredClone(randomJokesJson);
 
   if (inc && inc[0]?.trim()) {
     randomJokesArray = filterObjectKeys(inc, randomJokesArray);

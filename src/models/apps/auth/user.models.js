@@ -3,6 +3,7 @@ import crypto from "crypto";
 import bcrypt from "bcrypt";
 
 import mongoose, { Schema } from "mongoose";
+import { UserRolesEnum } from "../../../constants.js";
 
 const userSchema = new Schema(
   {
@@ -23,8 +24,8 @@ const userSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ["USER", "ADMIN"],
-      default: "USER",
+      enum: Object.values(UserRolesEnum),
+      default: UserRolesEnum.USER,
       required: true,
     },
     password: {

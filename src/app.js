@@ -45,6 +45,8 @@ import addressRouter from "./routes/apps/ecommerce/address.routes.js";
 import profileRouter from "./routes/apps/ecommerce/profile.routes.js";
 import productRouter from "./routes/apps/ecommerce/product.routes.js";
 import cartRouter from "./routes/apps/ecommerce/cart.routes.js";
+import orderRouter from "./routes/apps/ecommerce/order.routes.js";
+
 
 // * Public apis
 app.use("/api/v1/healthcheck", healthcheckRouter);
@@ -72,6 +74,7 @@ app.use("/api/v1/ecommerce/addresses", addressRouter);
 app.use("/api/v1/ecommerce/products", productRouter);
 app.use("/api/v1/ecommerce/profile", profileRouter);
 app.use("/api/v1/ecommerce/cart", cartRouter);
+app.use("/api/v1/ecommerce/order", orderRouter);
 
 // common error handling middleware
 app.use(errorHandler);

@@ -11,6 +11,7 @@ import {
   removeImageFile,
 } from "../../../utils/helpers.js";
 import { MAXIMUM_SUB_IMAGE_COUNT } from "../../../constants.js";
+import { Category } from "../../../models/apps/ecommerce/category.models.js";
 
 const getAllProducts = asyncHandler(async (req, res) => {
   const products = await Product.find({});
@@ -22,6 +23,12 @@ const getAllProducts = asyncHandler(async (req, res) => {
 
 const createProduct = asyncHandler(async (req, res) => {
   const { name, description, category, price, stock } = req.body;
+
+  const categoryToBeAdded = await Category.findById(category);
+
+  if (!categoryToBeAdded) {
+    throw new ApiError(404, "Category does not exist");
+  }
 
   // Check if user has uploaded a main image
   if (!req.files?.mainImage || !req.files?.mainImage.length) {

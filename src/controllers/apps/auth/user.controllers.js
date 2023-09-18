@@ -1,3 +1,4 @@
+import bcrypt from "bcrypt";
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
 import { User } from "../../../models/apps/auth/user.models.js";
@@ -268,6 +269,28 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
   }
 });
 
+const changeCurrentPassword = asyncHandler(async (req, res) => {
+  const { oldPassword, newPassword } = req.body;
+
+  const user = await User.findById(req.user?._id);
+
+  // check the old password
+  const isPasswordValid = await user.isPasswordCorrect(oldPassword);
+
+  if (!isPasswordValid) {
+    throw new ApiError(400, "Invalid old password");
+  }
+
+  // assign new password in plain text
+  // We have a pre save method attached to user schema which automatically hashes the password whenever added/modified
+  user.password = newPassword;
+  await user.save({ validateBeforeSave: false });
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "Password changed successfully"));
+});
+
 const getCurrentUser = asyncHandler(async (req, res) => {
   return res
     .status(200)
@@ -275,6 +298,7 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 });
 
 export {
+  changeCurrentPassword,
   registerUser,
   loginUser,
   getCurrentUser,

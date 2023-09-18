@@ -18,6 +18,7 @@ import {
   userRegisterValidator,
   userForgotPasswordValidator,
   userResetForgottenPasswordValidator,
+  userPathVariableValidator,
 } from "../../../validators/auth/user.validators.js";
 
 import { validate } from "../../../validators/validate.js";
@@ -57,6 +58,12 @@ router
 
 router
   .route("/assign-role/:userId")
-  .post(verifyJWT, userAssignRoleValidator(), validate, assignRole);
+  .post(
+    verifyJWT,
+    userPathVariableValidator(),
+    userAssignRoleValidator(),
+    validate,
+    assignRole
+  );
 
 export default router;

@@ -69,6 +69,12 @@ const userAssignRoleValidator = () => {
   ];
 };
 
+const userPathVariableValidator = () => {
+  return [
+    param("userId").notEmpty().isMongoId().withMessage("Invalid user id"),
+  ];
+};
+
 export {
   userForgotPasswordValidator,
   userResetForgottenPasswordValidator,
@@ -76,4 +82,5 @@ export {
   userLoginValidator,
   userChangeCurrentPasswordValidator,
   userAssignRoleValidator,
+  userPathVariableValidator,
 };

@@ -39,6 +39,7 @@ import catRouter from "./routes/public/cat.routes.js";
 // * App routes
 import userRouter from "./routes/apps/auth/user.routes.js";
 import categoryRouter from "./routes/apps/ecommerce/category.routes.js";
+import addressRouter from "./routes/apps/ecommerce/address.routes.js";
 
 app.use("/api/v1/healthcheck", healthcheckRouter);
 
@@ -61,6 +62,8 @@ app.use("/api/v1/public/cats", catRouter);
 // * App apis
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/ecommerce/categories", categoryRouter);
+app.use("/api/v1/ecommerce/addresses", addressRouter);
+
 
 // common error handling middleware
 app.use(errorHandler);

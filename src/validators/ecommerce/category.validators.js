@@ -1,16 +1,12 @@
 import { body, param } from "express-validator";
 
-const createCategoryValidator = () => {
-  return [body("name").notEmpty().withMessage("Category name is required")];
-};
 
-const updateCategoryValidator = () => {
+
+const categoryRequestBodyValidator = () => {
   return [
-    body("name").notEmpty().withMessage("Category name is required"),
-    param("categoryId")
-      .notEmpty()
-      .isMongoId()
-      .withMessage("Invalid category id"),
+    
+
+      body("name").trim().notEmpty().withMessage("Category name is required"),
   ];
 };
 
@@ -24,7 +20,6 @@ const categoryPathVariableValidator = () => {
 };
 
 export {
-  createCategoryValidator,
-  updateCategoryValidator,
+  categoryRequestBodyValidator,
   categoryPathVariableValidator,
 };

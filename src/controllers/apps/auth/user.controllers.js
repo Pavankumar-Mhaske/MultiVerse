@@ -59,7 +59,12 @@ const loginUser = asyncHandler(async (req, res) => {
   const refreshToken = user.generateRefreshToken();
 
   // TODO: Save the refresh token with the user model to only allow refresh token which is not used
+  user.refreshToken = refreshToken;
   user.password = undefined;
+  user.save();
+  const createdUser = await User.findById(user._id).select(
+    "-password -refreshToken"
+  );
 
   const options = {
     httpOnly: true,
@@ -68,27 +73,30 @@ const loginUser = asyncHandler(async (req, res) => {
 
   return res
     .status(200)
-    .cookie("accessToken", accessToken, { ...options })
-    .cookie("refreshToken", refreshToken, { ...options })
+    .cookie("accessToken", accessToken, options )
+    .cookie("refreshToken", refreshToken, options )
     .json(
       new ApiResponse(
         200,
-        { user, accessToken, refreshToken },
+        { user:createdUser , accessToken, refreshToken },
         "Users registered successfully"
       )
     );
 });
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
-  const refreshToken = req.cookies.refreshToken || req.body.refreshToken;
+  const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken;
 
-  if (!refreshToken) {
+
+
+
+  if (!incomingRefreshToken) {
     throw new ApiError(401, "Unauthorized request");
   }
 
   try {
     const decodedToken = jwt.verify(
-      refreshToken,
+      incomingRefreshToken,
       process.env.REFRESH_TOKEN_SECRET
     );
 
@@ -98,6 +106,13 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
       // 498: expired or otherwise invalid token.
       throw new ApiError(498, "Invalid refresh token");
     }
+
+    if (incomingRefreshToken !== user?.refreshToken) {
+      // If token is valid but is used already
+      // 498: expired or otherwise invalid token.
+      throw new ApiError(498, "Refresh token is expired or used");
+    }
+
     const options = {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -107,14 +122,17 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     // TODO: Save the refresh token with the user model to only allow refresh token which is not used
     // TODO: Once used remove/replace the token with the new token in user model
 
+    user.refreshToken = newRefreshToken;
+    user.save();
+
     return res
       .status(200)
-      .cookie("accessToken", accessToken, { ...options })
-      .cookie("refreshToken", newRefreshToken, { ...options })
+      .cookie("accessToken", accessToken, options )
+      .cookie("refreshToken", newRefreshToken, options )
       .json(
         new ApiResponse(
           200,
-          { accessToken, refreshToken },
+          { accessToken, refreshToken: newRefreshToken  },
           "Access token refreshed"
         )
       );

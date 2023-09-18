@@ -6,6 +6,7 @@ import {
   changeCurrentPassword,
   getCurrentUser,
   loginUser,
+  logoutUser,
   refreshAccessToken,
   registerUser,
   verifyEmail,
@@ -43,6 +44,7 @@ router
   );
 
 // Secured routes
+router.route("/logout").post(verifyJWT, logoutUser);
 router.route("/current-user").get(verifyJWT, getCurrentUser);
 router
   .route("/change-password")

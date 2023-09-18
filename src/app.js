@@ -34,6 +34,9 @@ import mealRouter from "./routes/public/meal.routes.js";
 import dogRouter from "./routes/public/dog.routes.js";
 import catRouter from "./routes/public/cat.routes.js";
 
+// * App routes
+import userRouter from "./routes/apps/auth/user.routes.js";
+
 app.use("/api/v1/healthcheck", healthcheckRouter);
 
 app.use("/api/v1/public/randomusers", randomuserRouter);
@@ -51,6 +54,9 @@ app.use("/api/v1/public/meals", mealRouter);
 app.use("/api/v1/public/dogs", dogRouter);
 
 app.use("/api/v1/public/cats", catRouter);
+
+// * App apis
+app.use("/api/v1/users", userRouter);
 
 // common error handling middleware
 app.use(errorHandler);

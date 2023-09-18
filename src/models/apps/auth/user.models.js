@@ -29,12 +29,14 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: [true, "Password is required"],
-      },
+    },
     isEmailVerified: {
       type: Boolean,
       default: false,
     },
-
+    refreshToken: {
+      type: String,
+    },
     forgotPasswordToken: {
       type: String,
       select: false,

@@ -28,7 +28,7 @@ const errorHandler = (err, req, res, next) => {
 
     // set a message from native Error instance or a custom one
     const message = error.message || "Something went wrong";
-    error = new ApiError(statusCode, message, error.stack);
+    error = new ApiError(statusCode, message, error?.errors || [], error.stack);
   }
 
   // Now we are sure that the `error` variable will be an instance of ApiError class

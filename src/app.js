@@ -2,6 +2,10 @@ import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 import cors from "cors";
 import express from "express";
+import { DB_NAME } from "./constants.js";
+import { dbInstance } from "./db/index.js";
+import { ApiError } from "./utils/ApiError.js";
+import { ApiResponse } from "./utils/ApiResponse.js";
 
 dotenv.config({
   path: "./.env",
@@ -47,7 +51,6 @@ import productRouter from "./routes/apps/ecommerce/product.routes.js";
 import cartRouter from "./routes/apps/ecommerce/cart.routes.js";
 import orderRouter from "./routes/apps/ecommerce/order.routes.js";
 
-
 // * Public apis
 app.use("/api/v1/healthcheck", healthcheckRouter);
 
@@ -75,6 +78,18 @@ app.use("/api/v1/ecommerce/products", productRouter);
 app.use("/api/v1/ecommerce/profile", profileRouter);
 app.use("/api/v1/ecommerce/cart", cartRouter);
 app.use("/api/v1/ecommerce/orders", orderRouter);
+
+app.delete("/api/v1/reset-db", async (req, res) => {
+  if (dbInstance) {
+    dbInstance.connection.db.dropDatabase({
+      dbName: DB_NAME,
+    });
+    return res
+      .status(200)
+      .json(new ApiResponse(200, "Database dropped successfully"));
+  }
+  throw new ApiError(500, "Something went wrong while dropping the database");
+});
 
 // common error handling middleware
 app.use(errorHandler);

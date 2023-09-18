@@ -175,6 +175,9 @@ const verifyEmail = asyncHandler(async (req, res) => {
     );
 });
 
+// This controller is called when user is logged in and he has snackbar that your email is not verified
+// In case he did not get the email or the email verification token is expired
+// he will be able to resend the token while he is logged in
 const resendEmailVerification = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user?._id);
 

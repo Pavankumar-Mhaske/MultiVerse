@@ -1,4 +1,3 @@
-
 import crypto from "crypto";
 import jwt from "jsonwebtoken";
 import { User } from "../../../models/apps/auth/user.models.js";
@@ -68,7 +67,7 @@ const registerUser = asyncHandler(async (req, res) => {
   );
 
   return res
-    .status(200)
+    .status(201)
     .json(
       new ApiResponse(
         200,
@@ -138,7 +137,7 @@ const verifyEmail = asyncHandler(async (req, res) => {
   const { verificationToken } = req.params;
 
   if (!verificationToken) {
-    throw ApiError(400, "Email verification token is missing");
+    throw new ApiError(400, "Email verification token is missing");
   }
 
   // generate a hash from the token that we are receiving
@@ -373,6 +372,22 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "Password changed successfully"));
 });
 
+const assignRole = asyncHandler(async (req, res) => {
+  const { userId } = req.params;
+  const { role } = req.body;
+  const user = await User.findById(userId);
+
+  if (!user) {
+    throw new Error(404, "User does not exist");
+  }
+  user.role = role;
+  await user.save({ validateBeforeSave: false });
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, {}, "Role changed for the user"));
+});
+
 const getCurrentUser = asyncHandler(async (req, res) => {
   return res
     .status(200)
@@ -380,6 +395,7 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 });
 
 export {
+  assignRole,
   forgotPasswordRequest,
   resetForgottenPassword,
   changeCurrentPassword,

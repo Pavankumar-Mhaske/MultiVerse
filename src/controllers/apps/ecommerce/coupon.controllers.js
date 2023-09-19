@@ -30,8 +30,9 @@ const createCoupon = asyncHandler(async (req, res) => {
   }
 
   if (minimumCartValue && +minimumCartValue < +discountValue) {
-    // This is important because if minimum cart value is 100 and discount value is 300,
+    // This is important because if minimum cart value is 100 and discount value is 300 and,
     // if user apply the coupon on 150 cart value the cart value will be in negative
+
     throw new ApiError(
       400,
       "Minimum cart value must be greater than or equal to the discount value"
@@ -118,7 +119,7 @@ const applyCoupon = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, newCart, "Coupon applied successfully"));
 });
 
-const removeCoupon = asyncHandler(async (req, res) => {
+const removeCouponFromCart = asyncHandler(async (req, res) => {
   // Find the user cart and remove the coupon from it
   await Cart.findOneAndUpdate(
     {
@@ -139,6 +140,35 @@ const removeCoupon = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, newCart, "Coupon removed successfully"));
 });
 
+const updateCouponActiveStatus = asyncHandler(async (req, res) => {
+  const { isActive } = req.body;
+  const { couponId } = req.params;
+
+  const updatedCoupon = await Coupon.findByIdAndUpdate(
+    couponId,
+    {
+      $set: {
+        isActive,
+      },
+    },
+    { new: true }
+  );
+
+  if (!updatedCoupon) {
+    throw new ApiError(404, "Coupon does not exist");
+  }
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        updatedCoupon,
+        `Coupon is ${updatedCoupon?.isActive ? "active" : "inactive"}`
+      )
+    );
+});
+
 const getAllCoupons = asyncHandler(async (req, res) => {
   const coupons = await Coupon.find({});
   return res
@@ -151,7 +181,7 @@ const getCouponById = asyncHandler(async (req, res) => {
 
   const coupon = await Coupon.findById(couponId);
   if (!coupon) {
-    throw new ApiError(404, "Coupon does not exists");
+    throw new ApiError(404, "Coupon does not exist");
   }
   return res
     .status(200)
@@ -234,7 +264,7 @@ const deleteCoupon = asyncHandler(async (req, res) => {
 
   const deletedCoupon = await Coupon.findByIdAndDelete(couponId);
   if (!deletedCoupon) {
-    throw new ApiError(404, "Coupon does not exists");
+    throw new ApiError(404, "Coupon does not exist");
   }
   return res
     .status(200)
@@ -250,5 +280,6 @@ export {
   getCouponById,
   updateCoupon,
   applyCoupon,
-  removeCoupon,
+  removeCouponFromCart,
+  updateCouponActiveStatus,
 };

@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import crypto from "crypto";
 import { nanoid } from "nanoid";
 import Razorpay from "razorpay";
@@ -18,7 +19,7 @@ import {
   sendEmail,
 } from "../../../utils/mail.js";
 import { getCart } from "./cart.controllers.js";
-import mongoose from "mongoose";
+//TODO: shft generate unpaid order logic into the common utility function
 
 // * UTILITY FUNCTIONS
 const generatePaypalAccessToken = async () => {
@@ -105,6 +106,8 @@ const orderFulfillmentHelper = async (orderPaymentId, req) => {
 
   cart.items = []; // empty the cart
 
+  cart.coupon = null; // remove the associated coupon
+
   await cart.save({ validateBeforeSave: false });
   return order;
 };
@@ -157,11 +160,14 @@ const generateRazorpayOrder = asyncHandler(async (req, res) => {
   const orderItems = cart.items;
   const userCart = await getCart(req.user._id);
 
-  // calculate the total price of the order
+  // note down th total cart value and cart value after the discount
+  // If no coupon is applied the total and discounted prices will be the same
   const totalPrice = userCart.cartTotal;
 
+  const totalDiscountedPrice = userCart.discountedTotal;
+
   const orderOptions = {
-    amount: parseInt(totalPrice) * 100, // in paisa
+    amount: parseInt(totalDiscountedPrice) * 100, // in paisa
     currency: "INR", // Might accept from client
     receipt: nanoid(10),
   };
@@ -191,8 +197,10 @@ const generateRazorpayOrder = asyncHandler(async (req, res) => {
         customer: req.user._id,
         items: orderItems,
         orderPrice: totalPrice ?? 0,
+        discountedOrderPrice: totalDiscountedPrice ?? 0,
         paymentProvider: PaymentProviderEnum.RAZORPAY,
         paymentId: razorpayOrder.id,
+        coupon: userCart.coupon?._id,
       });
       if (unpaidOrder) {
         // if order is created then only proceed with the payment
@@ -263,8 +271,10 @@ const generatePaypalOrder = asyncHandler(async (req, res) => {
 
   const userCart = await getCart(req.user._id);
 
-  // calculate the total price of the order
+  // note down th total cart value and cart value after the discount
+  // If no coupon is applied the total and discounted prices will be the same
   const totalPrice = userCart.cartTotal;
+  const totalDiscountedPrice = userCart.discountedTotal;
 
   const response = await paypalApi("/", {
     intent: "CAPTURE",
@@ -272,7 +282,7 @@ const generatePaypalOrder = asyncHandler(async (req, res) => {
       {
         amount: {
           currency_code: "USD",
-          value: (totalPrice * 0.012).toFixed(0), // convert indian rupees to dollars        },
+          value: (totalDiscountedPrice * 0.012).toFixed(0), // convert indian rupees to dollars        },
         },
       },
     ],
@@ -289,8 +299,10 @@ const generatePaypalOrder = asyncHandler(async (req, res) => {
       customer: req.user._id,
       items: orderItems,
       orderPrice: totalPrice ?? 0,
+      discountedOrderPrice: totalDiscountedPrice ?? 0,
       paymentProvider: PaymentProviderEnum.PAYPAL,
       paymentId: paypalOrder.id,
+      coupon: userCart.coupon?._id,
     });
     if (unpaidOrder) {
       // if order is created then only proceed with the payment
@@ -504,9 +516,26 @@ const getOrderListAdmin = asyncHandler(async (req, res) => {
       },
     },
     {
+      $lookup: {
+        from: "coupons",
+        foreignField: "_id",
+        localField: "coupon",
+        as: "coupon",
+        pipeline: [
+          {
+            $project: {
+              name: 1,
+              couponCode: 1,
+            },
+          },
+        ],
+      },
+    },
+    {
       $addFields: {
         customer: { $first: "$customer" },
         address: { $first: "$address" },
+        coupon: { $ifNull: [{ $first: "$coupon" }, null] },
         totalOrderItems: { $size: "$items" },
       },
     },

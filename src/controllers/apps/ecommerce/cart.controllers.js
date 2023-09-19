@@ -1,17 +1,15 @@
 import { Cart } from "../../../models/apps/ecommerce/cart.models.js";
+import { Coupon } from "../../../models/apps/ecommerce/coupon.models.js";
 import { Product } from "../../../models/apps/ecommerce/product.models.js";
 import { ApiError } from "../../../utils/ApiError.js";
 import { ApiResponse } from "../../../utils/ApiResponse.js";
 import { asyncHandler } from "../../../utils/asyncHandler.js";
 
-
-// TODO: add coupon service for ecom and incorporate it with the cart model to manage total order cost
-
 /**
  *
  * @param {string} userId
  *  * * @description A utility function, which querys the {@link Cart} model and returns the cart in `Promise<{_id: string, items: {_id: string, product: Product, quantity: number}[], cartTotal: number}>` format
- *  @returns {Promise<{_id: string, items: {_id: string, product: Product, quantity: number}[], cartTotal: number}>}
+ *  @returns {Promise<{_id: string, items: {_id: string, product: Product, quantity: number}[], cartTotal: number, discountedTotal: number, coupon: Coupon}>}
  */
 
 export const getCart = async (userId) => {
@@ -37,6 +35,7 @@ export const getCart = async (userId) => {
         // _id: 0,
         product: { $first: "$product" },
         quantity: "$items.quantity",
+        coupon: 1, // also project coupon field
       },
     },
     {
@@ -45,16 +44,53 @@ export const getCart = async (userId) => {
         items: {
           $push: "$$ROOT",
         },
+        coupon: { $first: "$coupon" }, // get first value of coupon after grouping
         cartTotal: {
           $sum: {
-            $multiply: ["$product.price", "$quantity"],
+            $multiply: ["$product.price", "$quantity"], // calculate the cart total based on product price * total quantity
           },
         },
       },
     },
+    {
+      $lookup: {
+        // lookup for the coupon
+        from: "coupons",
+        localField: "coupon",
+        foreignField: "_id",
+        as: "coupon",
+      },
+    },
+    {
+      $addFields: {
+        // As lookup returns an array we access the first item in the lookup array
+        coupon: { $first: "$coupon" },
+      },
+    },
+    {
+      $addFields: {
+        discountedTotal: {
+          // Final total is the total we get once user applies any coupon
+          // final total is total cart value - coupon's discount value
+          $ifNull: [
+            {
+              $subtract: ["$cartTotal", "$coupon.discountValue"],
+            },
+            "$cartTotal", // if there is no coupon applied we will set cart total as out final total
+            ,
+          ],
+        },
+      },
+    },
   ]);
-
-  return cartAggregation[0] ?? { _id: null, items: [], cartTotal: 0 };
+  return (
+    cartAggregation[0] ?? {
+      _id: null,
+      items: [],
+      cartTotal: 0,
+      discountedTotal: 0,
+    }
+  );
 };
 
 const getUserCart = asyncHandler(async (req, res) => {

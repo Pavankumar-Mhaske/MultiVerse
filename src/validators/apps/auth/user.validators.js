@@ -1,5 +1,5 @@
 import { body, param } from "express-validator";
-import { UserRolesEnum } from "../../constants.js";
+import { UserRolesEnum } from "../../../constants.js";
 /**
  *
  * @param {import("express").Request} req

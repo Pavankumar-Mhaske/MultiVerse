@@ -12,6 +12,8 @@ import {
   verifyEmail,
   resendEmailVerification,
 } from "../../../controllers/apps/auth/user.controllers.js";
+import { verifyJWT } from "../../../middlewares/auth.middlewares.js";
+
 import {
   userAssignRoleValidator,
   userChangeCurrentPasswordValidator,
@@ -20,10 +22,9 @@ import {
   userForgotPasswordValidator,
   userResetForgottenPasswordValidator,
   userPathVariableValidator,
-} from "../../../validators/auth/user.validators.js";
+} from "../../../validators/apps/auth/user.validators.js";
 
 import { validate } from "../../../validators/validate.js";
-import { isAdmin, verifyJWT } from "../../../middlewares/auth.middlewares.js";
 
 const router = Router();
 

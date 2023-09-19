@@ -20,7 +20,6 @@ import {
 import { getCart } from "./cart.controllers.js";
 import mongoose from "mongoose";
 
-// TODO: move order fulfillment login to a common function which will handle order confirmation, product stock management and confirmation mail
 // TODO: refactor the fetch calls from paypal controllers
 // TODO: Include total order cost in the order confirmation mail
 
@@ -42,6 +41,73 @@ const generatePaypalAccessToken = async () => {
   } catch (error) {
     throw new ApiError(500, "Error while generating paypal auth token");
   }
+};
+
+/**
+ *
+ * @param {string} orderPaymentId
+ * @param {import("express").Request} req
+ * @description Utility function which is responsible for:
+ * * Marking order payment done flag to true
+ * * Clearing up the cart
+ * * Calculate product's remaining stock
+ * * Send mail to the user about order confirmation
+ */
+
+const orderFulfillmentHelper = async (orderPaymentId, req) => {
+  const order = await EcomOrder.findOneAndUpdate(
+    {
+      paymentId: orderPaymentId,
+    },
+    {
+      $set: {
+        isPaymentDone: true,
+      },
+    },
+    { new: true }
+  );
+
+  if (!order) {
+    throw new ApiError(404, "Order does not exist");
+  }
+
+  // Get the user's card
+  const cart = await Cart.findOne({
+    owner: req.user._id,
+  });
+
+  const orderItems = await getCart(req.user._id);
+
+  // Logic to handle product's stock change once order is placed
+  let bulkStockUpdates = orderItems.map((item) => {
+    // Reduce the products stock
+    return {
+      updateOne: {
+        filter: { _id: item.product?._id },
+        update: { $inc: { stock: -item.quantity } }, // subtract the item quantity
+      },
+    };
+  });
+
+  // * (bulkWrite()) is faster than sending multiple independent operations (e.g. if you use create())
+  // * because with bulkWrite() there is only one network round trip to the MongoDB server.
+  await Product.bulkWrite(bulkStockUpdates, {
+    skipValidation: true,
+  });
+
+  await sendEmail({
+    email: req.user?.email,
+    subject: "Order confirmed",
+    mailgenContent: orderConfirmationMailgenContent(
+      req.user?.username,
+      orderItems
+    ),
+  });
+
+  cart.items = []; // empty the cart
+
+  await cart.save({ validateBeforeSave: false });
+  return order;
 };
 
 const razorpayInstance = new Razorpay({
@@ -146,61 +212,8 @@ const verifyRazorpayPayment = asyncHandler(async (req, res) => {
     .digest("hex");
 
   if (expectedSignature === razorpay_signature) {
-    // TODO: Move following order fulfillment login in separate function and reuse it in paypal and razorpay
-    // If payment is valid
+    const order = await orderFulfillmentHelper(razorpay_order_id, req);
 
-    // Turn the payment status of the order yo true
-    const order = await EcomOrder.findOneAndUpdate(
-      {
-        paymentId: razorpay_order_id,
-      },
-      {
-        $set: {
-          isPaymentDone: true,
-        },
-      },
-      { new: true }
-    );
-
-    if (!order) {
-      throw new ApiError(404, "Order does not exist");
-    }
-
-    // Get the user's card
-    const cart = await Cart.findOne({
-      owner: req.user._id,
-    });
-
-    const orderItems = await getCart(req.user._id);
-
-    // Logic to handle product's stock change once order is placed
-    let bulkStockUpdates = orderItems.map((item) => {
-      // Reduce the products stock
-      return {
-        updateOne: {
-          filter: { _id: item.product?._id },
-          update: { $inc: { stock: -item.quantity } }, // subtract the item quantity
-        },
-      };
-    });
-
-    // * (bulkWrite()) is faster than sending multiple independent operations (e.g. if you use create())
-    // * because with bulkWrite() there is only one network round trip to the MongoDB server.
-    await Product.bulkWrite(bulkStockUpdates, {
-      skipValidation: true,
-    });
-
-    await sendEmail({
-      email: req.user?.email,
-      subject: "Order confirmed",
-      mailgenContent: orderConfirmationMailgenContent(
-        req.user?.username,
-        orderItems
-      ),
-    });
-
-    cart.items = []; // empty the cart
-    await cart.save({ validateBeforeSave: false });
     return res
       .status(201)
       .json(new ApiResponse(201, order, "Order placed successfully"));
@@ -310,58 +323,7 @@ const verifyPaypalPayment = asyncHandler(async (req, res) => {
   const capturedData = await response.json();
 
   if (capturedData?.status === "COMPLETED") {
-    const order = await EcomOrder.findOneAndUpdate(
-      {
-        paymentId: capturedData.id,
-      },
-      {
-        $set: {
-          isPaymentDone: true,
-        },
-      },
-      { new: true }
-    );
-
-    if (!order) {
-      throw new ApiError(404, "Order does not exist");
-    }
-    const cart = await Cart.findOne({
-      owner: req.user._id,
-    });
-
-    // User's cart and order model has the same structure
-    // First get the items in the cart
-    const orderItems = await getCart(req.user._id);
-
-    // Logic to handle product's stock change once order is placed
-    let bulkStockUpdates = orderItems.map((item) => {
-      // Reduce the products stock
-      return {
-        updateOne: {
-          filter: { _id: item.product?._id },
-          update: { $inc: { stock: -item.quantity } }, // subtract the item quantity
-        },
-      };
-    });
-
-    // * (bulkWrite()) is faster than sending multiple independent operations (e.g. if you use create())
-    // * because with bulkWrite() there is only one network round trip to the MongoDB server.
-    await Product.bulkWrite(bulkStockUpdates, {
-      skipValidation: true,
-    });
-
-    await sendEmail({
-      email: req.user?.email,
-      subject: "Order confirmed",
-      mailgenContent: orderConfirmationMailgenContent(
-        req.user?.username,
-        orderItems
-      ),
-    });
-
-    cart.items = [];
-
-    await cart.save({ validateBeforeSave: false });
+    const order = await orderFulfillmentHelper(capturedData.id, req);
     return res
       .status(200)
       .json(new ApiResponse(200, order, "Order placed successfully"));

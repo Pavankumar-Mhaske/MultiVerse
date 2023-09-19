@@ -3,6 +3,7 @@ import crypto from "crypto";
 import { nanoid } from "nanoid";
 import Razorpay from "razorpay";
 import {
+  AvailableOrderStatuses,
   OrderStatusEnum,
   PaymentProviderEnum,
   paypalBaseUrl,
@@ -500,7 +501,7 @@ const getOrderListAdmin = asyncHandler(async (req, res) => {
   const orders = await EcomOrder.aggregate([
     {
       $match:
-        status && Object.values(OrderStatusEnum).includes(status)
+        status && AvailableOrderStatuses.includes(status)
           ? {
               status: status,
             }

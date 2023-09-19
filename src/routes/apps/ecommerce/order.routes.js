@@ -8,7 +8,12 @@ import {
   verifyPaypalPayment,
   verifyRazorpayPayment,
 } from "../../../controllers/apps/ecommerce/order.controllers.js";
-import { isAdmin, verifyJWT } from "../../../middlewares/auth.middlewares.js";
+
+import {
+  verifyPermission,
+  verifyJWT,
+} from "../../../middlewares/auth.middlewares.js";
+
 import {
   generatePaypalPaymentValidator,
   generateRazorpayPaymentValidator,
@@ -18,6 +23,7 @@ import {
   verifyRazorpayPaymentValidator,
 } from "../../../validators/apps/ecommerce/order.validators.js";
 import { validate } from "../../../validators/validate.js";
+import { UserRolesEnum } from "../../../constants.js";
 
 const router = Router();
 
@@ -44,9 +50,13 @@ router
 router.route("/list/admin").get(isAdmin, getOrderListAdmin);
 
 router
+  .route("/list/admin")
+  .get(verifyPermission([UserRolesEnum.ADMIN]), getOrderListAdmin);
+
+router
   .route("/status/:orderId")
   .patch(
-    isAdmin,
+    verifyPermission([UserRolesEnum.ADMIN]),
     orderPathVariableValidator(),
     orderUpdateStatusValidator(),
     validate,

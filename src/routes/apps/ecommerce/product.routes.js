@@ -12,7 +12,10 @@ import {
 } from "../../../controllers/apps/ecommerce/product.controllers.js";
 
 // middlewares routes
-import { isAdmin, verifyJWT } from "../../../middlewares/auth.middlewares.js";
+import {
+  verifyPermission,
+  verifyJWT,
+} from "../../../middlewares/auth.middlewares.js";
 import { upload } from "../../../middlewares/multer.middlewares.js";
 import { categoryPathVariableValidator } from "../../../validators/apps/ecommerce/category.validators.js";
 
@@ -24,7 +27,7 @@ import {
   updateProductValidator,
 } from "../../../validators/apps/ecommerce/product.validators.js";
 import { validate } from "../../../validators/validate.js";
-import { MAXIMUM_SUB_IMAGE_COUNT } from "../../../constants.js";
+import { MAXIMUM_SUB_IMAGE_COUNT, UserRolesEnum } from "../../../constants.js";
 
 const router = Router();
 
@@ -33,7 +36,7 @@ router
   .get(getAllProducts)
   .post(
     verifyJWT,
-    isAdmin,
+    verifyPermission([UserRolesEnum.ADMIN]),
     // In product form we will received one main image file type
     // And max 4 sub images
     upload.fields([
@@ -57,7 +60,7 @@ router
   .get(productPathVariableValidator(), validate, getProductById)
   .patch(
     verifyJWT,
-    isAdmin,
+    verifyPermission([UserRolesEnum.ADMIN]),
     upload.fields([
       {
         name: "mainImage",
@@ -75,7 +78,7 @@ router
   )
   .delete(
     verifyJWT,
-    isAdmin,
+    verifyPermission([UserRolesEnum.ADMIN]),
     productPathVariableValidator(),
     validate,
     deleteProduct
@@ -89,7 +92,7 @@ router
   .route("/remove/subimage/:productId/:subImageId")
   .patch(
     verifyJWT,
-    isAdmin,
+    verifyPermission([UserRolesEnum.ADMIN]),
     productPathVariableValidator(),
     subImagePathVariableValidator(),
     validate,

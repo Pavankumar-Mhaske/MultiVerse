@@ -305,9 +305,9 @@ const deleteProduct = asyncHandler(async (req, res) => {
 });
 
 export {
-  getAllProducts,
   createProduct,
   deleteProduct,
+  getAllProducts,
   getProductById,
   getProductsByCategory,
   updateProduct,

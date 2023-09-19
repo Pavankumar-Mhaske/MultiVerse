@@ -425,14 +425,14 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 
 export {
   assignRole,
-  forgotPasswordRequest,
-  resetForgottenPassword,
   changeCurrentPassword,
-  registerUser,
+  forgotPasswordRequest,
+  getCurrentUser,
   loginUser,
   logoutUser,
-  getCurrentUser,
   refreshAccessToken,
-  verifyEmail,
+  registerUser,
   resendEmailVerification,
+  resetForgottenPassword,
+  verifyEmail,
 };

@@ -11,6 +11,7 @@ const connectDB = async () => {
     // console.log(connectionInstance.connection.db.dropDatabase({
     //   dbName:"apihub"
     // }));
+    dbInstance = connectionInstance;
     console.log(`MongoDB Connected: ${connectionInstance.connection.host}`);
   } catch (error) {
     console.log(`MongoDB connection error : ${error}`);

@@ -34,27 +34,28 @@ import healthcheckRouter from "./routes/healthcheck.routes.js";
 
 // * Public apis
 // TODO: More functionality specific to the type of api, can be added in the future
-import randomuserRouter from "./routes/public/randomuser.routes.js";
-import randomproductRouter from "./routes/public/randomproduct.routes.js";
-import randomjokeRouter from "./routes/public/randomjoke.routes.js";
 import bookRouter from "./routes/public/book.routes.js";
-import quoteRouter from "./routes/public/quote.routes.js";
-import mealRouter from "./routes/public/meal.routes.js";
 import dogRouter from "./routes/public/dog.routes.js";
 import catRouter from "./routes/public/cat.routes.js";
+import mealRouter from "./routes/public/meal.routes.js";
+import quoteRouter from "./routes/public/quote.routes.js";
+import randomjokeRouter from "./routes/public/randomjoke.routes.js";
+import randomproductRouter from "./routes/public/randomproduct.routes.js";
+import randomuserRouter from "./routes/public/randomuser.routes.js";
 
 // * App routes
 import userRouter from "./routes/apps/auth/user.routes.js";
-import categoryRouter from "./routes/apps/ecommerce/category.routes.js";
 import addressRouter from "./routes/apps/ecommerce/address.routes.js";
-import profileRouter from "./routes/apps/ecommerce/profile.routes.js";
-import productRouter from "./routes/apps/ecommerce/product.routes.js";
 import cartRouter from "./routes/apps/ecommerce/cart.routes.js";
+import categoryRouter from "./routes/apps/ecommerce/category.routes.js";
 import orderRouter from "./routes/apps/ecommerce/order.routes.js";
+import productRouter from "./routes/apps/ecommerce/product.routes.js";
+import profileRouter from "./routes/apps/ecommerce/profile.routes.js";
 
-// * Public apis
 app.use("/api/v1/healthcheck", healthcheckRouter);
 
+// * Public apis
+// TODO: More functionality specific to the type of api, can be added in the future
 app.use("/api/v1/public/randomusers", randomuserRouter);
 
 app.use("/api/v1/public/randomproducts", randomproductRouter);

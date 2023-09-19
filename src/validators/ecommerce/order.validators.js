@@ -23,6 +23,12 @@ const verifyRazorpayPaymentValidator = () => {
   ];
 };
 
+const verifyPaypalPaymentValidator = () => {
+  return [
+    body("orderId").trim().notEmpty().withMessage("Paypal order id is missing"),
+  ];
+};
+
 const orderPathVariableValidator = () => {
   return [
     param("orderId").notEmpty().isMongoId().withMessage("Invalid order id"),
@@ -41,6 +47,7 @@ const orderUpdateStatusValidator = () => {
 
 export {
   verifyRazorpayPaymentValidator,
+  verifyPaypalPaymentValidator,
   orderPathVariableValidator,
   orderUpdateStatusValidator,
 };

@@ -28,7 +28,8 @@ export const MAXIMUM_SUB_IMAGE_COUNT = 4;
 
 export const DB_NAME = "multiverse";
 
+// TODO: can go to the .env files
 export const paypalBaseUrl = {
   sandbox: "https://api-m.sandbox.paypal.com",
-  production: "https://api-m.paypal.com",
+  
 };

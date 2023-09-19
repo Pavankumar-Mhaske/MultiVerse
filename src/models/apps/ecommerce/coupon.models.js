@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { User } from "../auth/user.models.js";
-import { CouponTypeEnum } from "../../../constants.js";
+import { AvailableCouponTypes } from "../../../constants.js";
 
 const couponSchema = new Schema(
   {
@@ -17,7 +17,7 @@ const couponSchema = new Schema(
     },
     type: {
       type: String,
-      enum: Object.values(CouponTypeEnum),
+      enum: AvailableCouponTypes,
       default: CouponTypeEnum.FLAT,
     },
     discountValue: {
@@ -25,9 +25,9 @@ const couponSchema = new Schema(
       required: true,
     },
     isActive: {
-        type: Boolean,
-        default: true,
-      },
+      type: Boolean,
+      default: true,
+    },
     minimumCartValue: {
       type: Number,
       default: 0,

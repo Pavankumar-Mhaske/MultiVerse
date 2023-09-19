@@ -11,6 +11,16 @@ const generateRazorpayPaymentValidator = () => {
   ];
 };
 
+const generatePaypalPaymentValidator = () => {
+  return [
+    body("addressId")
+      .trim()
+      .notEmpty()
+      .isMongoId()
+      .withMessage("Invalid address id"),
+  ];
+};
+
 const verifyRazorpayPaymentValidator = () => {
   return [
     body("razorpay_order_id")
@@ -52,6 +62,7 @@ const orderUpdateStatusValidator = () => {
 
 export {
   generateRazorpayPaymentValidator,
+  generatePaypalPaymentValidator,
   verifyRazorpayPaymentValidator,
   verifyPaypalPaymentValidator,
   orderPathVariableValidator,

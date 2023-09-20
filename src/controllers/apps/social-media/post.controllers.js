@@ -6,7 +6,7 @@ import {
   getLocalPath,
   getMongoosePaginationOptions,
   getStaticFilePath,
-  removeImageFile,
+  removeLocalFile,
 } from "../../../utils/helpers.js";
 import { ApiError } from "../../../utils/ApiError.js";
 import { MAXIMUM_SOCIAL_POST_IMAGE_COUNT } from "../../../constants.js";
@@ -214,7 +214,7 @@ const updatePost = asyncHandler(async (req, res) => {
     // We want to throw an error
     // Before throwing an error we need to do some cleanup
     // remove the  newly uploaded images by multer as there is not updation happening
-    images?.map((img) => removeImageFile(img.localPath));
+    images?.map((img) => removeLocalFile(img.localPath));
     throw new ApiError(
       400,
       "Maximum " +
@@ -281,7 +281,7 @@ const removePostImage = asyncHandler(async (req, res) => {
   });
   if (removedImage) {
     // remove the file from file system as well
-    removeImageFile(removedImage.localPath);
+    removeLocalFile(removedImage.localPath);
   }
   const aggregatedPost = await SocialPost.aggregate([
     {
@@ -416,6 +416,13 @@ const deletePost = asyncHandler(async (req, res) => {
   if (!post) {
     throw new ApiError(404, "Post does not exist");
   }
+
+  const postImages = [...(post.images || [])];
+
+  postImages.map((image) => {
+    // remove images associated with the post that is being deleted
+    removeLocalFile(image.localPath);
+  });
 
   return res
     .status(200)

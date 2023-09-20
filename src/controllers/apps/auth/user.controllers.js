@@ -9,7 +9,7 @@ import { asyncHandler } from "../../../utils/asyncHandler.js";
 import {
   getLocalPath,
   getStaticFilePath,
-  removeImageFile,
+  removeLocalFile,
 } from "../../../utils/helpers.js";
 
 import {
@@ -503,7 +503,7 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
   );
 
   // remove the old avatar
-  removeImageFile(user.avatar.localPath);
+  removeLocalFile(user.avatar.localPath);
 
   return res
     .status(200)

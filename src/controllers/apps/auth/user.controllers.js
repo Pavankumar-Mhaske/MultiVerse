@@ -11,6 +11,11 @@ import {
 } from "../../../utils/mail.js";
 
 import { UserLoginType, UserRolesEnum } from "../../../constants.js";
+import {
+  getLocalPath,
+  getStaticFilePath,
+  removeImageFile,
+} from "../../../utils/helpers.js";
 
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
@@ -443,6 +448,63 @@ const getCurrentUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, req.user, "Current user fetched successfully"));
 });
 
+const handleSocialLogin = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user?._id);
+  if (!user) {
+    throw new ApiError(404, "User does not exist");
+  }
+  const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
+    user._id
+  );
+  const options = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+  };
+  return res
+    .status(301)
+    .cookie("accessToken", accessToken, options) // set the access token in the cookie
+    .cookie("refreshToken", refreshToken, options) // set the refresh token in the cookie
+    .redirect(
+      // redirect user to the frontend with access and refresh token in case user is not using cookies
+      `${process.env.CLIENT_SSO_REDIRECT_URL}?accessToken=${accessToken}&refreshToken=${refreshToken}`
+    );
+});
+
+const updateUserAvatar = asyncHandler(async (req, res) => {
+  // Check if user has uploaded an avatar
+  if (!req.file?.filename) {
+    throw new ApiError(400, "Avatar image is required");
+  }
+
+  // get avatar file system url and local path
+  const avatarUrl = getStaticFilePath(req, req.file?.filename);
+  const avatarLocalPath = getLocalPath(req.file?.filename);
+
+  const user = await User.findById(req.user._id);
+
+  let updatedUser = await User.findByIdAndUpdate(
+    req.user._id,
+
+    {
+      $set: {
+        // set the newly uploaded avatar
+        avatar: {
+          url: avatarUrl,
+          localPath: avatarLocalPath,
+        },
+      },
+    },
+    { new: true }
+  );
+
+  // remove the old avatar
+  removeImageFile(user.avatar.localPath);
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, updatedUser, "Avatar updated successfully"));
+});
+
 export {
   assignRole,
   changeCurrentPassword,
@@ -455,4 +517,6 @@ export {
   resendEmailVerification,
   resetForgottenPassword,
   verifyEmail,
+  handleSocialLogin,
+  updateUserAvatar,
 };

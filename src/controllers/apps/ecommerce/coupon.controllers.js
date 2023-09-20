@@ -170,7 +170,17 @@ const updateCouponActiveStatus = asyncHandler(async (req, res) => {
 });
 
 const getAllCoupons = asyncHandler(async (req, res) => {
-  const coupons = await Coupon.find({});
+  const { page = 1, limit = 10 } = req.query;
+  const couponAggregate = Coupon.aggregate([{ $match: {} }]);
+
+  const coupons = await Coupon.aggregatePaginate(couponAggregate, {
+    page,
+    limit,
+    customLabels: {
+      totalDocs: "totalCoupons",
+      docs: "coupons",
+    },
+  });
   return res
     .status(200)
     .json(new ApiResponse(200, coupons, "Coupons fetched successfully"));
@@ -179,7 +189,7 @@ const getAllCoupons = asyncHandler(async (req, res) => {
 const getValidCouponsForCustomer = asyncHandler(async (req, res) => {
   const userCart = await getCart(req.user._id);
   const cartTotal = userCart.cartTotal;
-  const coupons = await Coupon.aggregate([
+  const couponAggregate = Coupon.aggregate([
     {
       $match: {
         // coupon is valid if start date is less than current date
@@ -200,6 +210,15 @@ const getValidCouponsForCustomer = asyncHandler(async (req, res) => {
       },
     },
   ]);
+
+  const coupons = await Coupon.aggregatePaginate(couponAggregate, {
+    page,
+    limit,
+    customLabels: {
+      totalDocs: "totalCoupons",
+      docs: "coupons",
+    },
+  });
 
   return res
     .status(200)

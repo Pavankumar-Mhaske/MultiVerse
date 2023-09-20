@@ -30,8 +30,8 @@ const router = Router();
 // * CUSTOMER ROUTES
 router.use(verifyJWT);
 
-router.route("/apply").post(applyCouponCodeValidator(), validate, applyCoupon);
-router.route("/remove").post(removeCouponFromCart);
+router.route("/c/apply").post(applyCouponCodeValidator(), validate, applyCoupon);
+router.route("/c/remove").post(removeCouponFromCart);
 // get coupons that customer can apply based on coupons active status and customer's cart value
 router.route("/customer/available").get(getValidCouponsForCustomer);
 

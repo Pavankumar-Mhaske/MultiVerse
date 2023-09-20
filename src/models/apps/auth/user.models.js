@@ -10,6 +10,10 @@ import {
   UserRolesEnum,
 } from "../../../constants.js";
 
+import { Cart } from "../ecommerce/cart.models.js";
+import { EcomProfile } from "../ecommerce/profile.models.js";
+import { SocialProfile } from "../social-media/profile.models.js";
+
 const userSchema = new Schema(
   {
     avatar: {
@@ -82,9 +86,38 @@ userSchema.pre("save", async function (next) {
   next();
 });
 
+userSchema.post("save", async function (user, next) {
+  const ecomProfile = await EcomProfile.findOne({ owner: user._id });
+  const socialProfile = await SocialProfile.findOne({ owner: user._id });
+  const cart = await Cart.findOne({ owner: user._id });
+
+  // Setup necessary ecommerce models for the user
+  if (!ecomProfile) {
+    await EcomProfile.create({
+      owner: user._id,
+    });
+  }
+  if (!cart) {
+    await Cart.create({
+      owner: user._id,
+      items: [],
+    });
+  }
+
+  // Setup necessary social media models for the user
+  if (!socialProfile) {
+    await SocialProfile.create({
+      owner: user._id,
+    });
+  }
+  next();
+});
+
 userSchema.methods.isPasswordCorrect = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
+
+
 
 userSchema.methods.generateAccessToken = function () {
   return jwt.sign(

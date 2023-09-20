@@ -1,10 +1,13 @@
 import { Router } from "express";
+import passport from "passport";
+import { UserRolesEnum } from "../../../constants.js";
 import {
   assignRole,
   forgotPasswordRequest,
   resetForgottenPassword,
   changeCurrentPassword,
   getCurrentUser,
+  handleSocialLogin,
   loginUser,
   logoutUser,
   refreshAccessToken,
@@ -12,8 +15,11 @@ import {
   verifyEmail,
   resendEmailVerification,
 } from "../../../controllers/apps/auth/user.controllers.js";
-import { verifyJWT } from "../../../middlewares/auth.middlewares.js";
-
+import {
+  verifyJWT,
+  verifyPermission,
+} from "../../../middlewares/auth.middlewares.js";
+// import the passport config
 import {
   userAssignRoleValidator,
   userChangeCurrentPasswordValidator,
@@ -63,10 +69,38 @@ router
   .route("/assign-role/:userId")
   .post(
     verifyJWT,
+    verifyPermission([UserRolesEnum.ADMIN]),
     userPathVariableValidator(),
     userAssignRoleValidator(),
     validate,
     assignRole
   );
+
+// SSO routes
+router.route("/google").get(
+  passport.authenticate("google", {
+    scope: ["profile", "email"],
+  }),
+  (req, res) => {
+    res.send("redirecting to google...");
+  }
+);
+
+router.route("/github").get(
+  passport.authenticate("github", {
+    scope: ["profile", "email"],
+  }),
+  (req, res) => {
+    res.send("redirecting to github...");
+  }
+);
+
+router
+  .route("/google/callback")
+  .get(passport.authenticate("google"), handleSocialLogin);
+
+router
+  .route("/github/callback")
+  .get(passport.authenticate("github"), handleSocialLogin);
 
 export default router;

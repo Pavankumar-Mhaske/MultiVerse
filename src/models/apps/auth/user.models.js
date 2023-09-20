@@ -3,10 +3,19 @@ import crypto from "crypto";
 import bcrypt from "bcrypt";
 
 import mongoose, { Schema } from "mongoose";
-import { AvailableUserRoles, UserRolesEnum } from "../../../constants.js";
+import {
+  AvailableSocialLogins,
+  UserLoginType,
+  AvailableUserRoles,
+  UserRolesEnum,
+} from "../../../constants.js";
 
 const userSchema = new Schema(
   {
+    avatar: {
+      type: String,
+      default: `https://via.placeholder.com/200x200.png`,
+    },
     username: {
       type: String,
       required: true,
@@ -32,6 +41,12 @@ const userSchema = new Schema(
       type: String,
       required: [true, "Password is required"],
     },
+    loginType: {
+      type: String,
+      enum: AvailableSocialLogins,
+      default: UserLoginType.EMAIL_PASSWORD,
+    },
+
     isEmailVerified: {
       type: Boolean,
       default: false,

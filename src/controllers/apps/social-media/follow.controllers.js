@@ -67,6 +67,8 @@ const getFollowersListByUserName = asyncHandler(async (req, res) => {
   }
   const userId = user._id;
 
+  // TODO: avoid grouping follower list for user profile. Instead aggregate the social follow regularly and paginate them. Merge user's profile while sending response only
+
   const followersList = await SocialFollow.aggregate([
     {
       $match: {
@@ -219,6 +221,8 @@ const getFollowingListByUserName = asyncHandler(async (req, res) => {
     throw new ApiError(404, "User does not exist");
   }
   const userId = user._id;
+
+  // TODO: avoid grouping follower list for user profile. Instead aggregate the social follow regularly and paginate them. Merge user's profile while sending response only
 
   const followingList = await SocialFollow.aggregate([
     {

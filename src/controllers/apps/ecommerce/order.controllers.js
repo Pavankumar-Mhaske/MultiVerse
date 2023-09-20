@@ -20,6 +20,7 @@ import {
   sendEmail,
 } from "../../../utils/mail.js";
 import { getCart } from "./cart.controllers.js";
+import { getMongoosePaginationOptions } from "../../../utils/helpers.js";
 
 // * UTILITY FUNCTIONS
 const generatePaypalAccessToken = async () => {
@@ -510,14 +511,14 @@ const getOrderById = asyncHandler(async (req, res) => {
 });
 
 const getOrderListAdmin = asyncHandler(async (req, res) => {
-  const { status } = req.query;
+  const { status, page = 1, limit = 10 } = req.query;
 
-  const orders = await EcomOrder.aggregate([
+  const orderAggregate = EcomOrder.aggregate([
     {
       $match:
-        status && AvailableOrderStatuses.includes(status)
+        status && AvailableOrderStatuses.includes(status.toUpperCase())
           ? {
-              status: status,
+              status: status.toUpperCase(),
             }
           : {},
     },
@@ -577,6 +578,18 @@ const getOrderListAdmin = asyncHandler(async (req, res) => {
       },
     },
   ]);
+
+  const orders = await EcomOrder.aggregatePaginate(
+    orderAggregate,
+    getMongoosePaginationOptions({
+      page,
+      limit,
+      customLabels: {
+        totalDocs: "totalOrders",
+        docs: "orders",
+      },
+    })
+  );
 
   return res
     .status(200)

@@ -5,7 +5,7 @@ import { asyncHandler } from "../../../utils/asyncHandler.js";
 import { getMongoosePaginationOptions } from "../../../utils/helpers.js";
 import { ApiError } from "../../../utils/ApiError.js";
 
-// TODO: Add pagination in ecommerce models
+
 
 const addComment = asyncHandler(async (req, res) => {
   const { postId } = req.params;

@@ -59,6 +59,7 @@ import orderRouter from "./routes/apps/ecommerce/order.routes.js";
 import productRouter from "./routes/apps/ecommerce/product.routes.js";
 import ecomProfileRouter from "./routes/apps/ecommerce/profile.routes.js";
 import socialProfileRouter from "./routes/apps/social-media/profile.routes.js";
+import socialFollowRouter from "./routes/apps/social-media/follow.routes.js";
 import todoRouter from "./routes/apps/todo/todo.routes.js";
 
 // * Kitchen sink routes
@@ -100,6 +101,7 @@ app.use("/api/v1/ecommerce/cart", cartRouter);
 app.use("/api/v1/ecommerce/orders", orderRouter);
 app.use("/api/v1/ecommerce/coupons", couponRouter);
 app.use("/api/v1/social-media/profile", socialProfileRouter);
+app.use("/api/v1/social-media/follow", socialFollowRouter);
 app.use("/api/v1/todos", todoRouter);
 
 // * Kitchen sink apis

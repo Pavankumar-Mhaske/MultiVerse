@@ -26,6 +26,15 @@ const postCommonAggregation = (req) => {
   return [
     {
       $lookup: {
+        from: "socialcomments",
+        localField: "_id",
+        foreignField: "postId",
+        as: "comments",
+      },
+    },
+
+    {
+      $lookup: {
         from: "sociallikes",
         localField: "_id",
         foreignField: "postId",
@@ -94,6 +103,7 @@ const postCommonAggregation = (req) => {
       $addFields: {
         author: { $first: "$author" },
         likes: { $size: "$likes" },
+        comments: { $size: "$comments" },
         isLiked: {
           $cond: {
             if: {

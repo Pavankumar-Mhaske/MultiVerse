@@ -2,8 +2,18 @@ import mongoose from "mongoose";
 import { SocialPost } from "../../../models/apps/social-media/post.models.js";
 import { ApiResponse } from "../../../utils/ApiResponse.js";
 import { asyncHandler } from "../../../utils/asyncHandler.js";
-import { getLocalPath, getStaticFilePath } from "../../../utils/helpers.js";
+import {
+  getLocalPath,
+  getStaticFilePath,
+  removeImageFile,
+} from "../../../utils/helpers.js";
 import { ApiError } from "../../../utils/ApiError.js";
+import { MAXIMUM_SOCIAL_POST_IMAGE_COUNT } from "../../../constants.js";
+
+// TODO: implement like and unlike functionality in different controller and test the calculation implemented in postCommonAggregation utility func
+// TODO: Add bookmark model and CRUD for the same
+// TODO: include bookmark aggregation pipelines in postCommonAggregation function same as likes
+// TODO: implement comments and add aggregation pipelines for the same in postCommonAggregation
 
 /**
  * @description Utility function which returns the pipeline stages to structure the social post schema with calculations like, likes count, comments count, isLiked, isBookmarked etc

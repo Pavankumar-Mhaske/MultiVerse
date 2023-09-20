@@ -127,6 +127,21 @@ const getAllPosts = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, posts, "Posts fetched successfully"));
 });
 
+const getMyPosts = asyncHandler(async (req, res) => {
+  const posts = await SocialPost.aggregate([
+    {
+      $match: {
+        author: new mongoose.Types.ObjectId(req.user?._id),
+      },
+    },
+    ...postCommonAggregation(),
+  ]);
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, posts, "My posts fetched successfully"));
+});
+
 const getPostById = asyncHandler(async (req, res) => {
   const { postId } = req.params;
   const post = await SocialPost.aggregate([
@@ -164,4 +179,4 @@ const deletePost = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "Post deleted successfully"));
 });
 
-export { createPost, getAllPosts, getPostById, deletePost };
+export { createPost, getAllPosts, getMyPosts, getPostById, deletePost };

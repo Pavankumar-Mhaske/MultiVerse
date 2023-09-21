@@ -25,13 +25,13 @@ const participantIdPathVariableValidator = () => {
     param("participantId")
       .notEmpty()
       .isMongoId()
-      .withMessage("Invalid user id"),
+      .withMessage("Invalid participant id"),
   ];
 };
 
 const chatIdPathVariableValidator = () => {
   return [
-    param("chatId").notEmpty().isMongoId().withMessage("Invalid user id"),
+    param("chatId").notEmpty().isMongoId().withMessage("Invalid chat id"),
   ];
 };
 

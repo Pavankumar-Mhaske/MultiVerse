@@ -1,5 +1,10 @@
+import dotenv from "dotenv";
 import { app } from "./app.js";
 import connectDB from "./db/index.js";
+
+dotenv.config({
+  path:"./.env",
+});
 
 /**
  * Starting from Node.js v14 top-level await is available and it is only available in ES modules.

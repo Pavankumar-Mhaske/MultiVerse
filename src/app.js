@@ -1,5 +1,4 @@
 import cookieParser from "cookie-parser";
-import dotenv from "dotenv";
 import cors from "cors";
 import express from "express";
 import { rateLimit } from "express-rate-limit";
@@ -20,10 +19,6 @@ const __dirname = path.dirname(__filename);
 
 const file = fs.readFileSync(path.resolve(__dirname, "./swagger.yaml"), "utf8");
 const swaggerDocument = YAML.parse(file);
-
-dotenv.config({
-  path: "./.env",
-});
 
 const app = express();
 
@@ -174,7 +169,6 @@ app.get("/api/v1/seed/generated-credentials", getGeneratedCredentials);
 app.post("/api/v1/seed/todos", seedTodos);
 app.post("/api/v1/seed/ecommerce", seedUsers, seedEcommerce);
 app.post("/api/v1/seed/social-media", seedUsers, seedSocialMedia);
-
 
 // ❗❕ 🚫 Danger Zone❗ 🚫 ❕❗
 app.delete("/api/v1/reset-db", async (req, res) => {

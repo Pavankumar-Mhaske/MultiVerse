@@ -7,7 +7,6 @@
   "scripts": {
     "start": "nodemon -r dotenv/config --experimental-json-modules src/index.js",
     "pre-commit": "lint-staged",
-    
     "prepare": "node prepare.js"
   },
   "keywords": [
@@ -38,6 +37,7 @@
     "passport-github2": "^0.1.12",
     "passport-google-oauth20": "^2.0.0",
     "razorpay": "^2.9.2",
+    "socket.io": "^4.7.2",
     "stripe": "^13.6.0",
     "swagger-ui-express": "^5.0.0",
     "yaml": "^2.3.2"

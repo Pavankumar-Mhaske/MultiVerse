@@ -90,6 +90,9 @@ import socialFollowRouter from "./routes/apps/social-media/follow.routes.js";
 import socialLikeRouter from "./routes/apps/social-media/like.routes.js";
 import socialPostRouter from "./routes/apps/social-media/post.routes.js";
 import socialProfileRouter from "./routes/apps/social-media/profile.routes.js";
+
+import chatRouter from "./routes/apps/chat-app/chat.routes.js";
+
 import todoRouter from "./routes/apps/todo/todo.routes.js";
 
 // * Kitchen sink routes
@@ -145,6 +148,9 @@ app.use("/api/v1/social-media/posts", socialPostRouter);
 app.use("/api/v1/social-media/like", socialLikeRouter);
 app.use("/api/v1/social-media/bookmarks", socialBookmarkRouter);
 app.use("/api/v1/social-media/comments", socialCommentRouter);
+
+app.use("/api/v1/chat-app/chats", chatRouter);
+
 app.use("/api/v1/todos", todoRouter);
 
 // * Kitchen sink apis

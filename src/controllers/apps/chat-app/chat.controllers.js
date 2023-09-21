@@ -3,6 +3,7 @@ import { ChatEventEnum } from "../../../constants.js";
 import { User } from "../../../models/apps/auth/user.models.js";
 import { Chat } from "../../../models/apps/chat-app/chat.models.js";
 import { ChatMessage } from "../../../models/apps/chat-app/message.models.js";
+import { emitSocketEvent } from "../../../socket/index.js";
 import { ApiError } from "../../../utils/ApiError.js";
 import { ApiResponse } from "../../../utils/ApiResponse.js";
 import { asyncHandler } from "../../../utils/asyncHandler.js";
@@ -211,10 +212,12 @@ const createOrGetAOneOnOneChat = asyncHandler(async (req, res) => {
     if (participant._id.toString() === req.user._id.toString()) return; // don't emit the event for the logged in use as he is the one who is initiating the chat
 
     // emit event to other participants with new chat as a payload
-    req.app
-      .get("io")
-      .in(participant._id.toString())
-      .emit(ChatEventEnum.NEW_CHAT_EVENT, payload);
+    emitSocketEvent(
+      req,
+      participant._id?.toString(),
+      ChatEventEnum.NEW_CHAT_EVENT,
+      payload
+    );
   });
 
   return res
@@ -272,10 +275,12 @@ const createAGroupChat = asyncHandler(async (req, res) => {
   payload?.participants?.forEach((participant) => {
     if (participant._id.toString() === req.user._id.toString()) return; // don't emit the event for the logged in use as he is the one who is initiating the chat
     // emit event to other participants with new chat as a payload
-    req.app
-      .get("io")
-      .in(participant._id.toString())
-      .emit(ChatEventEnum.NEW_CHAT_EVENT, payload);
+    emitSocketEvent(
+      req,
+      participant._id?.toString(),
+      ChatEventEnum.NEW_CHAT_EVENT,
+      payload
+    );
   });
 
   return res
@@ -353,10 +358,12 @@ const renameGroupChat = asyncHandler(async (req, res) => {
   // logic to emit socket event about the updated chat name to the participants
   payload?.participants?.forEach((participant) => {
     // emit event to all the participants with updated chat as a payload
-    req.app
-      .get("io")
-      .in(participant._id.toString())
-      .emit(ChatEventEnum.UPDATE_GROUP_NAME_EVENT, payload);
+    emitSocketEvent(
+      req,
+      participant._id?.toString(),
+      ChatEventEnum.UPDATE_GROUP_NAME_EVENT,
+      payload
+    );
   });
 
   return res
@@ -399,10 +406,12 @@ const deleteGroupChat = asyncHandler(async (req, res) => {
   chat?.participants?.forEach((participant) => {
     if (participant._id.toString() === req.user._id.toString()) return; // don't emit the event for the logged in use as he is the one who is deleting
     // emit event to other participants with left chat as a payload
-    req.app
-      .get("io")
-      .in(participant._id.toString())
-      .emit(ChatEventEnum.LEAVE_CHAT_EVENT, chat);
+    emitSocketEvent(
+      req,
+      participant._id?.toString(),
+      ChatEventEnum.LEAVE_CHAT_EVENT,
+      chat
+    );
   });
 
   return res
@@ -435,10 +444,13 @@ const deleteOneOnOneChat = asyncHandler(async (req, res) => {
     (participant) => participant?._id.toString() !== req.user._id.toString() // get the other participant in chat for socket
   );
   // emit event to other participant with left chat as a payload
-  req.app
-    .get("io")
-    .in(otherParticipant?._id.toString())
-    .emit(ChatEventEnum.LEAVE_CHAT_EVENT, payload);
+  emitSocketEvent(
+    req,
+    otherParticipant._id?.toString(),
+    ChatEventEnum.LEAVE_CHAT_EVENT,
+    payload
+  );
+
   return res
     .status(200)
     .json(new ApiResponse(200, {}, "Chat deleted successfully"));
@@ -495,10 +507,7 @@ const addNewParticipantInGroupChat = asyncHandler(async (req, res) => {
   }
 
   // emit new chat event to the added participant
-  req.app
-    .get("io")
-    .in(participantId)
-    .emit(ChatEventEnum.NEW_CHAT_EVENT, payload);
+  emitSocketEvent(req, participantId, ChatEventEnum.NEW_CHAT_EVENT, payload);
 
   return res
     .status(200)
@@ -556,10 +565,7 @@ const removeParticipantFromGroupChat = asyncHandler(async (req, res) => {
   }
 
   // emit leave chat event to the removed participant
-  req.app
-    .get("io")
-    .in(participantId)
-    .emit(ChatEventEnum.LEAVE_CHAT_EVENT, payload);
+  emitSocketEvent(req, participantId, ChatEventEnum.LEAVE_CHAT_EVENT, payload);
 
   return res
     .status(200)

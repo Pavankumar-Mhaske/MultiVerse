@@ -12,11 +12,6 @@ import { ApiError } from "../../../utils/ApiError.js";
 import { MAXIMUM_SOCIAL_POST_IMAGE_COUNT } from "../../../constants.js";
 import { SocialBookmark } from "../../../models/apps/social-media/bookmark.models.js";
 
-// TODO: implement like and unlike functionality in different controller and test the calculation implemented in postCommonAggregation utility func
-// TODO: Add bookmark model and CRUD for the same
-// TODO: include bookmark aggregation pipelines in postCommonAggregation function same as likes
-// TODO: implement comments and add aggregation pipelines for the same in postCommonAggregation
-
 /**
  * @description Utility function which returns the pipeline stages to structure the social post schema with calculations like, likes count, comments count, isLiked, isBookmarked etc
  *  @param {import("express").Request} req
@@ -429,6 +424,44 @@ const deletePost = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "Post deleted successfully"));
 });
 
+const getPostsByTag = asyncHandler(async (req, res) => {
+  const { page = 1, limit = 10 } = req.query;
+  const { tag } = req.params;
+
+  const postAggregation = SocialPost.aggregate([
+    {
+      $redact: {
+        $cond: {
+          if: {
+            $in: [tag, "$tags"],
+          },
+          then: "$$KEEP",
+          else: "$$PRUNE",
+        },
+      },
+    },
+    ...postCommonAggregation(req),
+  ]);
+
+  const posts = await SocialPost.aggregatePaginate(
+    postAggregation,
+    getMongoosePaginationOptions({
+      page,
+      limit,
+      customLabels: {
+        totalDocs: "totalPosts",
+        docs: "posts",
+      },
+    })
+  );
+
+  return res
+    .status(200)
+    .json(
+      new ApiResponse(200, posts, `Posts with tag #${tag} fetched successfully`)
+    );
+});
+
 export {
   createPost,
   getAllPosts,
@@ -438,4 +471,5 @@ export {
   removePostImage,
   deletePost,
   getBookMarkedPosts,
+  getPostsByTag,
 };

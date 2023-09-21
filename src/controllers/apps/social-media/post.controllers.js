@@ -1,5 +1,9 @@
 import mongoose from "mongoose";
+import { MAXIMUM_SOCIAL_POST_IMAGE_COUNT } from "../../../constants.js";
+import { User } from "../../../models/apps/auth/user.models.js";
+import { SocialBookmark } from "../../../models/apps/social-media/bookmark.models.js";
 import { SocialPost } from "../../../models/apps/social-media/post.models.js";
+import { ApiError } from "../../../utils/ApiError.js";
 import { ApiResponse } from "../../../utils/ApiResponse.js";
 import { asyncHandler } from "../../../utils/asyncHandler.js";
 import {
@@ -8,9 +12,6 @@ import {
   getStaticFilePath,
   removeLocalFile,
 } from "../../../utils/helpers.js";
-import { ApiError } from "../../../utils/ApiError.js";
-import { MAXIMUM_SOCIAL_POST_IMAGE_COUNT } from "../../../constants.js";
-import { SocialBookmark } from "../../../models/apps/social-media/bookmark.models.js";
 
 /**
  * @description Utility function which returns the pipeline stages to structure the social post schema with calculations like, likes count, comments count, isLiked, isBookmarked etc
@@ -316,6 +317,50 @@ const getAllPosts = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, posts, "Posts fetched successfully"));
 });
 
+const getPostsByUsername = asyncHandler(async (req, res) => {
+  const { page = 1, limit = 10 } = req.query;
+  const { username } = req.params;
+
+  const user = await User.findOne({
+    username: username.toLowerCase(),
+  });
+
+  if (!user) {
+    throw new ApiError(
+      404,
+      "User with username '" + username + "' does not exist"
+    );
+  }
+
+  const userId = user._id;
+
+  const postAggregation = SocialPost.aggregate([
+    {
+      $match: {
+        author: new mongoose.Types.ObjectId(userId),
+      },
+    },
+    ...postCommonAggregation(req),
+  ]);
+
+  const posts = await SocialPost.aggregatePaginate(
+    postAggregation,
+    getMongoosePaginationOptions({
+      page,
+      limit,
+      customLabels: {
+        totalDocs: "totalPosts",
+        docs: "posts",
+      },
+    })
+  );
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, posts, "User's posts fetched successfully"));
+});
+
+
 const getMyPosts = asyncHandler(async (req, res) => {
   const posts = SocialPost.aggregate([
     {
@@ -469,6 +514,7 @@ const getPostsByTag = asyncHandler(async (req, res) => {
 export {
   createPost,
   getAllPosts,
+  getPostsByUsername,
   getMyPosts,
   getPostById,
   updatePost,

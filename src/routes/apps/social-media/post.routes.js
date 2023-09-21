@@ -47,6 +47,15 @@ router.route("/get/my").get(verifyJWT, getMyPosts);
 router.route("/get/bookmarked").get(verifyJWT, getBookMarkedPosts);
 
 router
+  .route("/get/u/:username")
+  .get(
+    getLoggedInUserOrIgnore,
+    usernamePathVariableValidator(),
+    validate,
+    getPostsByUsername
+  );
+  
+router
   .route("/get/t/:tag")
   .get(
     getLoggedInUserOrIgnore,

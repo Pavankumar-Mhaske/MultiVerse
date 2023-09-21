@@ -1,4 +1,4 @@
-import { body, param } from "express-validator";
+import { body } from "express-validator";
 
 const createAGroupChatValidator = () => {
   return [
@@ -14,35 +14,13 @@ const createAGroupChatValidator = () => {
   ];
 };
 
-const receiverPathVariableValidator = () => {
-  return [
-    param("receiverId").notEmpty().isMongoId().withMessage("Invalid user id"),
-  ];
-};
 
-const participantIdPathVariableValidator = () => {
-  return [
-    param("participantId")
-      .notEmpty()
-      .isMongoId()
-      .withMessage("Invalid participant id"),
-  ];
-};
-
-const chatIdPathVariableValidator = () => {
-  return [
-    param("chatId").notEmpty().isMongoId().withMessage("Invalid chat id"),
-  ];
-};
 
 const updateGroupChatNameValidator = () => {
   return [body("name").trim().notEmpty().withMessage("Group name is required")];
 };
 
 export {
-  chatIdPathVariableValidator,
   createAGroupChatValidator,
-  participantIdPathVariableValidator,
-  receiverPathVariableValidator,
   updateGroupChatNameValidator,
 };

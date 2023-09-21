@@ -7,6 +7,7 @@
   "scripts": {
     "start": "nodemon -r dotenv/config src/index.js",
     "pre-commit": "lint-staged",
+    
     "prepare": "node prepare.js"
   },
   "keywords": [

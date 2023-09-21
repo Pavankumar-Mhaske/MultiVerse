@@ -7,7 +7,7 @@
   "scripts": {
     "start": "nodemon -r dotenv/config src/index.js",
     "pre-commit": "lint-staged",
-    "prepare": "husky install"
+    "prepare": "node prepare.js"
   },
   "keywords": [
     "apihub"
@@ -42,10 +42,10 @@
     "yaml": "^2.3.2"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.6",
-    "@commitlint/config-conventional": "^17.6.5",
-    "husky": "^8.0.0",
-    "lint-staged": "^13.2.2",
+    "@commitlint/cli": "^17.7.1",
+    "@commitlint/config-conventional": "^17.7.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
     "nodemon": "^3.0.1",
     "prettier": "^3.0.3"
   }

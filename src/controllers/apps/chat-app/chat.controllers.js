@@ -5,7 +5,6 @@ import { Chat } from "../../../models/apps/chat-app/chat.models.js";
 import { ApiError } from "../../../utils/ApiError.js";
 import { ApiResponse } from "../../../utils/ApiResponse.js";
 import { asyncHandler } from "../../../utils/asyncHandler.js";
-import { getMongoosePaginationOptions } from "../../../utils/helpers.js";
 
 /**
  * @description Utility function which returns the pipeline stages to structure the chat schema with common lookups
@@ -96,7 +95,7 @@ const searchAvailableUsers = asyncHandler(async (req, res) => {
       },
     },
     {
-      $limit: 10,
+      $limit: 50,
     },
   ]);
 
@@ -155,8 +154,8 @@ const createOrGetAOneOnOneChat = asyncHandler(async (req, res) => {
     admin: req.user._id,
   });
 
-   // structure the chat as per the common aggregation to keep the consistency
-   const createdChat = await Chat.aggregate([
+  // structure the chat as per the common aggregation to keep the consistency
+  const createdChat = await Chat.aggregate([
     {
       $match: {
         _id: newChatInstance._id,
@@ -209,7 +208,7 @@ const createAGroupChat = asyncHandler(async (req, res) => {
     );
   }
 
-   // Create a group chat with provided members
+  // Create a group chat with provided members
   const groupChat = await Chat.create({
     name,
     isGroupChat: true,
@@ -407,8 +406,7 @@ const removeParticipantFromGroupChat = asyncHandler(async (req, res) => {
 });
 
 const getAllChats = asyncHandler(async (req, res) => {
-  const { page = 1, limit = 10 } = req.query;
-  const chatsAggregate = Chat.aggregate([
+  const chats = await Chat.aggregate([
     {
       $match: {
         participants: { $elemMatch: { $eq: req.user._id } },
@@ -421,18 +419,6 @@ const getAllChats = asyncHandler(async (req, res) => {
     },
     ...chatCommonAggregation(),
   ]);
-
-  const chats = await Chat.aggregatePaginate(
-    chatsAggregate,
-    getMongoosePaginationOptions({
-      page,
-      limit,
-      customLabels: {
-        totalDocs: "totalChats",
-        docs: "chats",
-      },
-    })
-  );
 
   return res
     .status(200)

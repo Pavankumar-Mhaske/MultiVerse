@@ -89,7 +89,6 @@ import productRouter from "./routes/apps/ecommerce/product.routes.js";
 import ecomProfileRouter from "./routes/apps/ecommerce/profile.routes.js";
 import socialBookmarkRouter from "./routes/apps/social-media/bookmark.routes.js";
 import socialCommentRouter from "./routes/apps/social-media/comment.routes.js";
-
 import socialFollowRouter from "./routes/apps/social-media/follow.routes.js";
 import socialLikeRouter from "./routes/apps/social-media/like.routes.js";
 import socialPostRouter from "./routes/apps/social-media/post.routes.js";
@@ -161,7 +160,6 @@ app.use("/api/v1/kitchen-sink/image", imageRouter);
 
 // * Seeding
 app.get("/api/v1/seed/generated-credentials", getGeneratedCredentials);
-
 app.post("/api/v1/seed/todos", seedTodos);
 app.post("/api/v1/seed/ecommerce", seedUsers, seedEcommerce);
 app.post("/api/v1/seed/social-media", seedUsers, seedSocialMedia);

@@ -28,11 +28,12 @@ import {
   userRegisterValidator,
   userForgotPasswordValidator,
   userResetForgottenPasswordValidator,
-  userPathVariableValidator,
 } from "../../../validators/apps/auth/user.validators.js";
 
 import { validate } from "../../../validators/validate.js";
 import { upload } from "../../../middlewares/multer.middlewares.js";
+
+import { mongoIdPathVariableValidator } from "../../../validators/common/mongodb.validators.js";
 
 const router = Router();
 
@@ -76,7 +77,7 @@ router
   .post(
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),
-    userPathVariableValidator(),
+    mongoIdPathVariableValidator("userId"),
     userAssignRoleValidator(),
     validate,
     assignRole

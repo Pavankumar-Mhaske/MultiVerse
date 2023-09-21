@@ -44,14 +44,4 @@ const updateAddressValidator = () => {
   ];
 };
 
-const addressPathVariableValidator = () => {
-  return [
-    param("addressId").notEmpty().isMongoId().withMessage("Invalid address id"),
-  ];
-};
-
-export {
-  addressPathVariableValidator,
-  createAddressValidator,
-  updateAddressValidator,
-};
+export { createAddressValidator, updateAddressValidator };

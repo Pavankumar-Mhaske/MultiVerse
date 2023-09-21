@@ -18,19 +18,22 @@ import {
 import {
   applyCouponCodeValidator,
   couponActivityStatusValidator,
-  couponPathVariableValidator,
   createCouponValidator,
   updateCouponValidator,
 } from "../../../validators/apps/ecommerce/coupon.validators.js";
 import { validate } from "../../../validators/validate.js";
 import { UserRolesEnum } from "../../../constants.js";
 
+import { mongoIdPathVariableValidator } from "../../../validators/common/mongodb.validators.js";
+
 const router = Router();
 
 // * CUSTOMER ROUTES
 router.use(verifyJWT);
 
-router.route("/c/apply").post(applyCouponCodeValidator(), validate, applyCoupon);
+router
+  .route("/c/apply")
+  .post(applyCouponCodeValidator(), validate, applyCoupon);
 router.route("/c/remove").post(removeCouponFromCart);
 // get coupons that customer can apply based on coupons active status and customer's cart value
 router.route("/customer/available").get(getValidCouponsForCustomer);
@@ -45,19 +48,19 @@ router
 
 router
   .route("/:couponId")
-  .get(couponPathVariableValidator(), validate, getCouponById)
+  .get(mongoIdPathVariableValidator("couponId"), validate, getCouponById)
   .patch(
-    couponPathVariableValidator(),
+    mongoIdPathVariableValidator("couponId"),
     updateCouponValidator(),
     validate,
     updateCoupon
   )
-  .delete(couponPathVariableValidator(), validate, deleteCoupon);
+  .delete((mongoIdPathVariableValidator("couponId"), validate, deleteCoupon));
 
 router
   .route("/status/:couponId")
   .patch(
-    couponPathVariableValidator(),
+    mongoIdPathVariableValidator("couponId"),
     couponActivityStatusValidator(),
     validate,
     updateCouponActiveStatus

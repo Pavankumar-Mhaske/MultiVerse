@@ -7,16 +7,15 @@ import {
   getCategoryById,
 } from "../../../controllers/apps/ecommerce/category.controllers.js";
 
-import {
-  categoryRequestBodyValidator,
-  categoryPathVariableValidator,
-} from "../../../validators/apps/ecommerce/category.validators.js";
+import { categoryRequestBodyValidator } from "../../../validators/apps/ecommerce/category.validators.js";
 import { validate } from "../../../validators/validate.js";
 import {
   verifyPermission,
   verifyJWT,
 } from "../../../middlewares/auth.middlewares.js";
 import { UserRolesEnum } from "../../../constants.js";
+
+import { mongoIdPathVariableValidator } from "../../../validators/common/mongodb.validators.js";
 
 const router = Router();
 
@@ -33,11 +32,11 @@ router
 
 router
   .route("/:categoryId")
-  .get(categoryPathVariableValidator(), validate, getCategoryById)
+  .get(mongoIdPathVariableValidator("categoryId"), validate, getCategoryById)
   .delete(
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),
-    categoryPathVariableValidator(),
+    mongoIdPathVariableValidator("categoryId"),
     validate,
     deleteCategory
   )
@@ -45,7 +44,7 @@ router
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),
     categoryRequestBodyValidator(),
-    categoryPathVariableValidator(),
+    mongoIdPathVariableValidator("categoryId"),
     validate,
     updateCategory
   );

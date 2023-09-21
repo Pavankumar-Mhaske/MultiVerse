@@ -17,17 +17,16 @@ import {
   verifyJWT,
 } from "../../../middlewares/auth.middlewares.js";
 import { upload } from "../../../middlewares/multer.middlewares.js";
-import { categoryPathVariableValidator } from "../../../validators/apps/ecommerce/category.validators.js";
 
 // validators routes
 import {
   createProductValidator,
-  productPathVariableValidator,
-  subImagePathVariableValidator,
   updateProductValidator,
 } from "../../../validators/apps/ecommerce/product.validators.js";
 import { validate } from "../../../validators/validate.js";
 import { MAXIMUM_SUB_IMAGE_COUNT, UserRolesEnum } from "../../../constants.js";
+
+import { mongoIdPathVariableValidator } from "../../../validators/common/mongodb.validators.js";
 
 const router = Router();
 
@@ -57,7 +56,7 @@ router
 
 router
   .route("/:productId")
-  .get(productPathVariableValidator(), validate, getProductById)
+  .get((mongoIdPathVariableValidator("productId"), validate, getProductById)
   .patch(
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),
@@ -71,7 +70,7 @@ router
         maxCount: MAXIMUM_SUB_IMAGE_COUNT, // maximum number of subImages is 4
       },
     ]),
-    productPathVariableValidator(),
+    (mongoIdPathVariableValidator("productId"),
     updateProductValidator(),
     validate,
     updateProduct
@@ -79,22 +78,22 @@ router
   .delete(
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),
-    productPathVariableValidator(),
+    (mongoIdPathVariableValidator("productId"),
     validate,
     deleteProduct
   );
 
 router
   .route("/category/:categoryId")
-  .get(categoryPathVariableValidator(), validate, getProductsByCategory);
+  .get((mongoIdPathVariableValidator("productId"), validate, getProductsByCategory);
 
 router
   .route("/remove/subimage/:productId/:subImageId")
   .patch(
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),
-    productPathVariableValidator(),
-    subImagePathVariableValidator(),
+    mongoIdPathVariableValidator("productId"),
+    mongoIdPathVariableValidator("subImageId"),
     validate,
     removeProductSubImage
   );

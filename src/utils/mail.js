@@ -12,8 +12,8 @@ const sendEmail = async (options) => {
   const mailGenerator = new Mailgen({
     theme: "default",
     product: {
-      name: "ApiHub",
-      link: "https://apihub.com",
+      name: "FreeAPI",
+      link: "https://freeapi.app",
     },
   });
 

@@ -106,7 +106,6 @@ import { seedSocialMedia } from "./seeds/social-media.seeds.js";
 import { seedTodos } from "./seeds/todo.seeds.js";
 import { getGeneratedCredentials, seedUsers } from "./seeds/user.seeds.js";
 
-
 // * healthcheck
 app.use("/api/v1/healthcheck", healthcheckRouter);
 
@@ -183,6 +182,12 @@ app.delete("/api/v1/reset-db", async (req, res) => {
           });
         }
       }
+    });
+
+    // remove the seeded users if exist
+    fs.unlink("./public/temp/seed-credentials.json", (err) => {
+      // fail silently
+      if (err) console.log("Seed credentials are missing.");
     });
 
     return res

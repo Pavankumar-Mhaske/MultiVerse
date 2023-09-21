@@ -7,11 +7,6 @@
   "scripts": {
     "start": "nodemon -r dotenv/config src/index.js"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
-  },
   "keywords": [
     "apihub"
   ],

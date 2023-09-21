@@ -1,6 +1,7 @@
 // prepare throught the pepare.js file
 import { spawnSync } from "child_process";
 import os from "os";
+
 import fs from "fs";
 
 // Function to run commands depending on the OS

@@ -37,7 +37,6 @@ const io = new Server(httpServer, {
 
 app.set("io", io); // using set method to mount the `io` instance on the app to avoid usage of `global`
 
-
 // global middleware
 app.use(
   cors({
@@ -121,6 +120,7 @@ import responseinspectionRouter from "./routes/kitchen-sink/responseinspection.r
 import statuscodeRouter from "./routes/kitchen-sink/statuscode.routes.js";
 
 // Seeding handlers
+import { seedChatApp } from "./seeds/chat-app.seeds.js";
 import { seedEcommerce } from "./seeds/ecommerce.seeds.js";
 import { seedSocialMedia } from "./seeds/social-media.seeds.js";
 import { seedTodos } from "./seeds/todo.seeds.js";
@@ -183,6 +183,7 @@ app.get("/api/v1/seed/generated-credentials", getGeneratedCredentials);
 app.post("/api/v1/seed/todos", seedTodos);
 app.post("/api/v1/seed/ecommerce", seedUsers, seedEcommerce);
 app.post("/api/v1/seed/social-media", seedUsers, seedSocialMedia);
+app.post("/api/v1/seed/chat-app", seedUsers, seedChatApp);
 
 initializeSocketIO(io);
 

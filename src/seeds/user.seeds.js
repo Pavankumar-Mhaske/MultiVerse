@@ -11,7 +11,6 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { getRandomNumber, removeLocalFile } from "../utils/helpers.js";
 import { USERS_COUNT } from "./_constants.js";
 
-
 // Array of fake users
 const users = new Array(USERS_COUNT).fill("_").map(() => ({
   avatar: {
@@ -89,7 +88,10 @@ const getGeneratedCredentials = asyncHandler(async (req, res) => {
         )
       );
   } catch (error) {
-    throw new ApiError(404, "No credentials generated yet");
+    throw new ApiError(
+      404,
+      "No credentials generated yet. Make sure you have seeded social media or ecommerce api data first which generates users as dependencies."
+    );
   }
 });
 

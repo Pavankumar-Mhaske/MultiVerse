@@ -106,17 +106,6 @@ import { seedSocialMedia } from "./seeds/social-media.seeds.js";
 import { seedTodos } from "./seeds/todo.seeds.js";
 import { getGeneratedCredentials, seedUsers } from "./seeds/user.seeds.js";
 
-// * API DOCS
-app.use(
-  "/",
-  swaggerUi.serve,
-  swaggerUi.setup(swaggerDocument, {
-    swaggerOptions: {
-      docExpansion: "none", // keep all the sections collapsed by default
-    },
-    customSiteTitle: "FreeAPI docs",
-  })
-);
 
 // * healthcheck
 app.use("/api/v1/healthcheck", healthcheckRouter);
@@ -202,6 +191,18 @@ app.delete("/api/v1/reset-db", async (req, res) => {
   }
   throw new ApiError(500, "Something went wrong while dropping the database");
 });
+
+// * 📃 API DOCS 📄
+app.use(
+  "/",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument, {
+    swaggerOptions: {
+      docExpansion: "none", // keep all the sections collapsed by default
+    },
+    customSiteTitle: "FreeAPI docs",
+  })
+);
 
 // common error handling middleware
 app.use(errorHandler);

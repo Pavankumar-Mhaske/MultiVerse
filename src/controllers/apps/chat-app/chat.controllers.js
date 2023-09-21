@@ -390,4 +390,5 @@ export {
   getAllChats,
   removeParticipantFromGroupChat,
   renameGroupChat,
+  searchAvailableUsers,
 };

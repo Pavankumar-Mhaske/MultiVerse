@@ -1,7 +1,9 @@
-// prepare throught the pepare.js file
+// TODO: test this code with the chatgpt for any bugs and repair options if needed
+// The child_process module in Node.js provides methods for spawning child processes, and spawnSync is one of those methods. It allows you to execute shell commands synchronously, capturing the output and exit status of the command.
 import { spawnSync } from "child_process";
+// Importing 'os' Module (Operating System Module):
 import os from "os";
-
+// Importing 'fs' Module (File System Module):
 import fs from "fs";
 
 // Function to run commands depending on the OS
@@ -16,6 +18,10 @@ const runCommand = (command, args) => {
   });
 
   return result.status;
+  /**
+   * result.status ===0  : The command executed successfully
+   * result.status !==0  : The command failed to execute
+   */
 };
 
 // Function to prepare Husky
@@ -52,3 +58,12 @@ const prepareHusky = () => {
 };
 
 prepareHusky();
+
+/**
+ *  In a typical setup, the prepare.js file is included in the prepare script in the package.json file. This means that the script will be run automatically when you run npm install or npm ci.
+ * {
+ *   "scripts": {
+ *     "prepare": "node prepare.js"
+ *   }
+ * }
+ */

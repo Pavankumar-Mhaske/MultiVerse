@@ -13,9 +13,10 @@ import {
   getAllTodosQueryValidators,
   updateTodoValidator,
 } from "../../../validators/apps/todo/todo.validators.js";
-import { validate } from "../../../validators/validate.js";
 
 import { mongoIdPathVariableValidator } from "../../../validators/common/mongodb.validators.js";
+
+import { validate } from "../../../validators/validate.js";
 
 const router = Router();
 

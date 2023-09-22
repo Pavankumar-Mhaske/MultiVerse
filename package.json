@@ -9,11 +9,48 @@
     "pre-commit": "lint-staged",
     "prepare": "node prepare.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pavankumar-Mhaske/MultiVerse.git"
+  },
   "keywords": [
-    "apihub"
+    "MultiVerse",
+    "social media",
+    "chat app",
+    "e-commerce",
+    "to-do app",
+    "productivity",
+    "all-in-one",
+    "centralized",
+    "personal assistant",
+    "lifestyle",
+    "convenience",
+    "time management",
+    "organization",
+    "task management",
+    "project management",
+    "unified platform",
+    "all-in-one platform",
+    "social media integration",
+    "chat app integration",
+    "e-commerce integration",
+    "to-do list integration",
+    "productivity tools",
+    "personal assistant app",
+    "lifestyle management",
+    "convenience app",
+    "time management tools",
+    "organization tools",
+    "task management tools",
+    "project management tools",
+    "unified app"
   ],
   "author": "Pavankumar Mhaske",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Pavankumar-Mhaske/MultiVerse/issues"
+  },
+  "homepage": "https://github.com/Pavankumar-Mhaske/MultiVerse#readme",
   "dependencies": {
     "@faker-js/faker": "^8.1.0",
     "bcrypt": "^5.1.1",

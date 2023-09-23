@@ -38,4 +38,4 @@ if (majorNodeVersion >= 14) {
       console.log("Mongo db connect error: ", err);
     });
 }
-console.log("Node version: ", majorNodeVersion);
+// console.log("Node version: ", majorNodeVersion);

@@ -17,14 +17,60 @@ import { initializeSocketIO } from "./socket/index.js";
 import { ApiError } from "./utils/ApiError.js";
 import { ApiResponse } from "./utils/ApiResponse.js";
 
+/** The double underscore prefix (__) is used to indicate that these variables are provided by the runtime environment,
+ *  and should not be modified by the application code.
+ */
 const __filename = fileURLToPath(import.meta.url);
+/** ex: __filename = /home/user/projects/myapp/server.js  (absolute file path of the current module, including the file name.)   */
 const __dirname = path.dirname(__filename);
+/** ex: __dirname = /home/user/projects/myapp ( absolute directory path of the current module, excluding the file name.)   */
 
+/**
+ *  The parse() function is used to parse a YAML string into a JavaScript object, 
+ *  and the stringify() function is used to serialize a JavaScript object into a YAML string.
+ * 
+ *  const data = `
+    name: John Smith
+    age: 42
+    address:
+      street: 123 Main St
+      city: Anytown
+      state: CA
+      zip: 12345
+    `;
+
+    const obj = YAML.parse(data);
+    console.log(obj);
+
+    const yaml = YAML.stringify(obj);
+    console.log(yaml);
+
+    // Output:
+                { name: 'John Smith',
+              age: 42,
+              address:
+               { street: '123 Main St',
+                 city: 'Anytown',
+                 state: 'CA',
+                 zip: 12345 } }
+
+            name: John Smith
+            age: 42
+            address:
+              street: '123 Main St'
+              city: Anytown
+              state: CA
+              zip: 12345
+ */
 const file = fs.readFileSync(path.resolve(__dirname, "./swagger.yaml"), "utf8");
 const swaggerDocument = YAML.parse(file);
 
+/**
+ * In that case, it's likely that you will need to use httpServer.listen() instead of app.listen() in your complex project.
+ *  reasons -  If you need real-time communication, custom server behavior, or high performance, you should use httpServer.listen().
+ *
+ */
 const app = express();
-
 const httpServer = createServer(app);
 
 const io = new Server(httpServer, {
@@ -119,6 +165,10 @@ import messageRouter from "./routes/apps/chat-app/message.routes.js"; /**TODO: c
 
 import todoRouter from "./routes/apps/todo/todo.routes.js";
 
+/**
+ * "Kitchen sink routes" refer to a set of routes that are used for testing and debugging purposes.
+ * These routes are often included in a Node.js application as a way to quickly test various features and functionality of the application.
+ */
 // * Kitchen sink routes
 import cookieRouter from "./routes/kitchen-sink/cookie.routes.js";
 import httpmethodRouter from "./routes/kitchen-sink/httpmethod.routes.js";
@@ -128,6 +178,10 @@ import requestinspectionRouter from "./routes/kitchen-sink/requestinspection.rou
 import responseinspectionRouter from "./routes/kitchen-sink/responseinspection.routes.js";
 import statuscodeRouter from "./routes/kitchen-sink/statuscode.routes.js";
 
+/**
+ * Seeding handlers allow for easy population of the database with initial data, saving time and effort,
+ * and ensuring that the database is properly initialized with the required data.
+ */
 // Seeding handlers
 import { seedChatApp } from "./seeds/chat-app.seeds.js";
 import { seedEcommerce } from "./seeds/ecommerce.seeds.js";
@@ -135,6 +189,9 @@ import { seedSocialMedia } from "./seeds/social-media.seeds.js";
 import { seedTodos } from "./seeds/todo.seeds.js";
 import { getGeneratedCredentials, seedUsers } from "./seeds/user.seeds.js";
 
+/**
+ * The healthcheck routes provide a simple endpoint to monitor the status of the application and ensure that it is application is up and running properly.
+ */
 // * healthcheck
 app.use("/api/v1/healthcheck", healthcheckRouter);
 

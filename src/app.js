@@ -70,7 +70,13 @@ app.use(express.static("public")); // configure static file to save images local
 app.use(cookieParser());
 
 // required for passport
-app.use(session({ secret: process.env.EXPRESS_SESSION_SECRET })); // session secret
+app.use(
+  session({
+    secret: process.env.EXPRESS_SESSION_SECRET,
+    resave: true,
+    saveUninitialized: true,
+  })
+); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
@@ -81,8 +87,8 @@ import healthcheckRouter from "./routes/healthcheck.routes.js";
 // * Public apis
 // TODO: More functionality specific to the type of api, can be added in the future
 import bookRouter from "./routes/public/book.routes.js";
-import dogRouter from "./routes/public/dog.routes.js";
 import catRouter from "./routes/public/cat.routes.js";
+import dogRouter from "./routes/public/dog.routes.js";
 import mealRouter from "./routes/public/meal.routes.js";
 import quoteRouter from "./routes/public/quote.routes.js";
 import randomjokeRouter from "./routes/public/randomjoke.routes.js";
@@ -92,6 +98,7 @@ import youtubeRouter from "./routes/public/youtube.routes.js";
 
 // * App routes
 import userRouter from "./routes/apps/auth/user.routes.js";
+
 import addressRouter from "./routes/apps/ecommerce/address.routes.js";
 import cartRouter from "./routes/apps/ecommerce/cart.routes.js";
 import categoryRouter from "./routes/apps/ecommerce/category.routes.js";
@@ -99,6 +106,7 @@ import couponRouter from "./routes/apps/ecommerce/coupon.routes.js";
 import orderRouter from "./routes/apps/ecommerce/order.routes.js";
 import productRouter from "./routes/apps/ecommerce/product.routes.js";
 import ecomProfileRouter from "./routes/apps/ecommerce/profile.routes.js";
+
 import socialBookmarkRouter from "./routes/apps/social-media/bookmark.routes.js";
 import socialCommentRouter from "./routes/apps/social-media/comment.routes.js";
 import socialFollowRouter from "./routes/apps/social-media/follow.routes.js";
@@ -106,7 +114,8 @@ import socialLikeRouter from "./routes/apps/social-media/like.routes.js";
 import socialPostRouter from "./routes/apps/social-media/post.routes.js";
 import socialProfileRouter from "./routes/apps/social-media/profile.routes.js";
 
-import chatRouter from "./routes/apps/chat-app/chat.routes.js";
+import chatRouter from "./routes/apps/chat-app/chat.routes.js"; /**TODO: chatApp */
+import messageRouter from "./routes/apps/chat-app/message.routes.js"; /**TODO: chatApp */
 
 import todoRouter from "./routes/apps/todo/todo.routes.js";
 
@@ -132,25 +141,18 @@ app.use("/api/v1/healthcheck", healthcheckRouter);
 // * Public apis
 // TODO: More functionality specific to the type of api, can be added in the future
 app.use("/api/v1/public/randomusers", randomuserRouter);
-
 app.use("/api/v1/public/randomproducts", randomproductRouter);
-
 app.use("/api/v1/public/randomjokes", randomjokeRouter);
-
 app.use("/api/v1/public/books", bookRouter);
-
 app.use("/api/v1/public/quotes", quoteRouter);
-
 app.use("/api/v1/public/meals", mealRouter);
-
 app.use("/api/v1/public/dogs", dogRouter);
-
 app.use("/api/v1/public/cats", catRouter);
-// done with all the required changed of the youtube-api
 app.use("/api/v1/public/youtube", youtubeRouter);
 
 // * App apis
 app.use("/api/v1/users", userRouter);
+
 app.use("/api/v1/ecommerce/categories", categoryRouter);
 app.use("/api/v1/ecommerce/addresses", addressRouter);
 app.use("/api/v1/ecommerce/products", productRouter);
@@ -158,6 +160,7 @@ app.use("/api/v1/ecommerce/profile", ecomProfileRouter);
 app.use("/api/v1/ecommerce/cart", cartRouter);
 app.use("/api/v1/ecommerce/orders", orderRouter);
 app.use("/api/v1/ecommerce/coupons", couponRouter);
+
 app.use("/api/v1/social-media/profile", socialProfileRouter);
 app.use("/api/v1/social-media/follow", socialFollowRouter);
 app.use("/api/v1/social-media/posts", socialPostRouter);
@@ -165,7 +168,8 @@ app.use("/api/v1/social-media/like", socialLikeRouter);
 app.use("/api/v1/social-media/bookmarks", socialBookmarkRouter);
 app.use("/api/v1/social-media/comments", socialCommentRouter);
 
-app.use("/api/v1/chat-app/chats", chatRouter);
+app.use("/api/v1/chat-app/chats", chatRouter); /**TODO: chatApp */
+app.use("/api/v1/chat-app/messages", messageRouter); /**TODO: chatApp */
 
 app.use("/api/v1/todos", todoRouter);
 
@@ -217,7 +221,6 @@ app.delete("/api/v1/reset-db", async (req, res) => {
       // fail silently
       if (err) console.log("Seed credentials are missing.");
     });
-
     return res
       .status(200)
       .json(new ApiResponse(200, null, "Database dropped successfully"));
@@ -226,6 +229,7 @@ app.delete("/api/v1/reset-db", async (req, res) => {
 });
 
 // * 📃 API DOCS 📄
+// ? Keeping swagger code at the end so that we can load swagger on "/" route
 app.use(
   "/",
   swaggerUi.serve,

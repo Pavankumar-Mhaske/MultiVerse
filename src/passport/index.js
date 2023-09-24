@@ -5,7 +5,6 @@ import { UserLoginType, UserRolesEnum } from "../constants.js";
 import { ApiError } from "../utils/ApiError.js";
 import { Strategy as GitHubStrategy } from "passport-github2";
 
-// TODO: redirect user to the error page when passport SSO login fails
 try {
   passport.serializeUser((user, next) => {
     next(null, user._id);
@@ -26,6 +25,7 @@ try {
       );
     }
   });
+  
   passport.use(
     new GoogleStrategy(
       {

@@ -44,6 +44,7 @@ import mongoose from "mongoose";
  */
 
 export const filterObjectKeys = (fieldsArray, objectArray) => {
+  /** Create the deep copy of the objectArray */
   const filteredArray = structuredClone(objectArray).map((originalObj) => {
     let obj = {};
     structuredClone(fieldsArray)?.forEach((field) => {

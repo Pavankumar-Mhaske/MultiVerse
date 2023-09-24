@@ -1,10 +1,5 @@
 import randomJokesJson from "../../json/randomjoke.json" assert { type: "json" };
-
-import {
-  
-  filterObjectKeys,
-  getPaginatedPayload,
-} from "../../utils/helpers.js";
+import { filterObjectKeys, getPaginatedPayload } from "../../utils/helpers.js";
 import { ApiError } from "../../utils/ApiError.js";
 import { ApiResponse } from "../../utils/ApiResponse.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
@@ -12,7 +7,6 @@ import { asyncHandler } from "../../utils/asyncHandler.js";
 const getRandomJokes = asyncHandler(async (req, res) => {
   const page = +(req.query.page || 1);
   const limit = +(req.query.limit || 10);
-
   const query = req.query.query?.toLowerCase(); // search query
   const inc = req.query.inc?.split(","); // only include fields mentioned in this query
 
@@ -31,11 +25,7 @@ const getRandomJokes = asyncHandler(async (req, res) => {
     .json(
       new ApiResponse(
         200,
-        getPaginatedPayload(
-          randomJokesArray,
-          page,
-          limit
-        ),
+        getPaginatedPayload(randomJokesArray, page, limit),
         "Random jokes fetched successfully"
       )
     );

@@ -5,9 +5,9 @@ import bcrypt from "bcrypt";
 import mongoose, { Schema } from "mongoose";
 import {
   AvailableSocialLogins,
-  UserLoginType,
   AvailableUserRoles,
   USER_TEMPORARY_TOKEN_EXPIRY,
+  UserLoginType,
   UserRolesEnum,
 } from "../../../constants.js";
 
@@ -129,7 +129,7 @@ userSchema.methods.generateAccessToken = function () {
       role: this.role,
     },
     process.env.ACCESS_TOKEN_SECRET,
-    { expiresIn: process.env.ACCESS_TOKEN_SECRET }
+    { expiresIn: process.env.ACCESS_TOKEN_EXPIRY }
   );
 };
 

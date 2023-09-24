@@ -3,16 +3,16 @@ import passport from "passport";
 import { UserRolesEnum } from "../../../constants.js";
 import {
   assignRole,
-  forgotPasswordRequest,
-  resetForgottenPassword,
   changeCurrentPassword,
+  forgotPasswordRequest,
   getCurrentUser,
   handleSocialLogin,
   loginUser,
   logoutUser,
-  registerUser,
   refreshAccessToken,
+  registerUser,
   resendEmailVerification,
+  resetForgottenPassword,
   updateUserAvatar,
   verifyEmail,
 } from "../../../controllers/apps/auth/user.controllers.js";
@@ -24,15 +24,13 @@ import {
 import {
   userAssignRoleValidator,
   userChangeCurrentPasswordValidator,
+  userForgotPasswordValidator,
   userLoginValidator,
   userRegisterValidator,
-  userForgotPasswordValidator,
   userResetForgottenPasswordValidator,
 } from "../../../validators/apps/auth/user.validators.js";
-
 import { validate } from "../../../validators/validate.js";
 import { upload } from "../../../middlewares/multer.middlewares.js";
-
 import { mongoIdPathVariableValidator } from "../../../validators/common/mongodb.validators.js";
 
 const router = Router();

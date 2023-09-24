@@ -1,3 +1,4 @@
+import { YouTubeFilterEnum, AvailableYouTubeFilters } from "../../constants.js";
 import channelJson from "../../json/youtube/channel.json" assert { type: "json" };
 import commentsJson from "../../json/youtube/comments.json" assert { type: "json" };
 import playlistItemsJson from "../../json/youtube/playlistitems.json" assert { type: "json" };
@@ -39,6 +40,10 @@ const getPlaylists = asyncHandler(async (req, res) => {
 });
 
 const getPlaylistById = asyncHandler(async (req, res) => {
+  /**
+   * Client-Side URL: http://example.com/api/resource/123.
+   * Server-Side URL : http://example.com/api/resource/:id.
+   */
   const { playlistId } = req.params;
 
   // filter out the playlist by id from json array
@@ -78,10 +83,10 @@ const getPlaylistById = asyncHandler(async (req, res) => {
 const getVideos = asyncHandler(async (req, res) => {
   const page = +(req.query.page || 1);
   const limit = +(req.query.limit || 10);
-   /**
+  /**
    * @type {AvailableYouTubeFilters[0]}
    */
-   const sortBy = req.query.sortBy;
+  const sortBy = req.query.sortBy;
 
   const query = req.query.query?.toLowerCase(); // search query
   const inc = req.query.inc?.split(","); // only include fields mentioned in this query

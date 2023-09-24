@@ -6,9 +6,9 @@ import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 const productSchema = new Schema(
   {
     category: {
+      type: Schema.Types.ObjectId,
       ref: "Category",
       required: true,
-      type: Schema.Types.ObjectId,
     },
     description: {
       required: true,

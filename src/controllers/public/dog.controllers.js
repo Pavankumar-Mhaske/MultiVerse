@@ -1,21 +1,19 @@
 import dogsJson from "../../json/dogs.json" assert { type: "json" };
-import {
-  
-  filterObjectKeys,
-  getPaginatedPayload,
-} from "../../utils/helpers.js";
+import { filterObjectKeys, getPaginatedPayload } from "../../utils/helpers.js";
 import { ApiError } from "../../utils/ApiError.js";
 import { ApiResponse } from "../../utils/ApiResponse.js";
 import { asyncHandler } from "../../utils/asyncHandler.js";
 
 const getDogs = asyncHandler(async (req, res) => {
+  /** http://example.com/api/dogs?page=1&limit=10. */
   const page = +(req.query.page || 1);
   const limit = +(req.query.limit || 10);
 
+  /** http://example.com/api/dogs?query=golden%20retriever. */
   const query = req.query.query?.toLowerCase(); // search query
-  const inc = req.query.inc?.split(","); // only include fields mentioned in this query
 
- 
+  /** http://example.com/api/dogs?inc=breed,age. */
+  const inc = req.query.inc?.split(","); // only include fields mentioned in this query
 
   let dogsArray = query
     ? structuredClone(dogsJson).filter((dog) => {

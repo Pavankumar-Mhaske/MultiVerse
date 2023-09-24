@@ -5,13 +5,11 @@ import { User } from "../../../models/apps/auth/user.models.js";
 import { ApiError } from "../../../utils/ApiError.js";
 import { ApiResponse } from "../../../utils/ApiResponse.js";
 import { asyncHandler } from "../../../utils/asyncHandler.js";
-
 import {
   getLocalPath,
   getStaticFilePath,
   removeLocalFile,
 } from "../../../utils/helpers.js";
-
 import {
   emailVerificationMailgenContent,
   forgotPasswordMailgenContent,
@@ -39,8 +37,6 @@ const generateAccessAndRefreshTokens = async (userId) => {
 };
 
 const registerUser = asyncHandler(async (req, res) => {
-  // TODO: setup validator middleware or logic to handle data validation
-
   const { email, username, password, role } = req.body;
 
   const existedUser = await User.findOne({
@@ -50,24 +46,19 @@ const registerUser = asyncHandler(async (req, res) => {
   if (existedUser) {
     throw new ApiError(409, "User with email or username already exists", []);
   }
-
   const user = await User.create({
     email,
     password,
     username,
     isEmailVerified: false,
-
     role: role || UserRolesEnum.USER,
   });
-
-  // TODO: Add method in userSchema to generate email verification token and verify the email based on that token with expiry
 
   /**
    * unHashedToken: unHashed token is something we will send to the user's mail
    * hashedToken: we will keep record of hashedToken to validate the unHashedToken in verify email controller
    * tokenExpiry: Expiry to be checked before validating the incoming token
    */
-
   const { unHashedToken, hashedToken, tokenExpiry } =
     user.generateTemporaryToken();
 
@@ -125,6 +116,19 @@ const loginUser = asyncHandler(async (req, res) => {
     throw new ApiError(404, "User does not exist");
   }
 
+  if (user.loginType !== UserLoginType.EMAIL_PASSWORD) {
+    // If user is registered with some other method, we will ask him/her to use the same method as registered.
+    // This shows that if user is registered with methods other than email password, he/she will not be able to login with password. Which makes password field redundant for the SSO
+    throw new ApiError(
+      400,
+      "You have previously registered using " +
+        user.loginType?.toLowerCase() +
+        ". Please use the " +
+        user.loginType?.toLowerCase() +
+        " login option to access your account."
+    );
+  }
+
   // Compare the incoming password with hashed password
   const isPasswordValid = await user.isPasswordCorrect(password);
 
@@ -132,15 +136,9 @@ const loginUser = asyncHandler(async (req, res) => {
     throw new ApiError(401, "Invalid user credentials");
   }
 
-  const accessToken = user.generateAccessToken();
-  const refreshToken = user.generateRefreshToken();
-
-  // TODO: Save the refresh token with the user model to only allow refresh token which is not used
-  // attach refresh token to the user document to avoid refreshing the access token with multiple refresh tokens
-  user.refreshToken = refreshToken;
-  user.password = undefined;
-
-  await user.save({ validateBeforeSave: false });
+  const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
+    user._id
+  );
 
   // get the user document ignoring the password and refreshToken field
   const loggedInUser = await User.findById(user._id).select(
@@ -226,9 +224,7 @@ const verifyEmail = asyncHandler(async (req, res) => {
 
   return res
     .status(200)
-    .json(
-      new ApiResponse(200, { isEmailVerified: true }, "your email is verified")
-    );
+    .json(new ApiResponse(200, { isEmailVerified: true }, "Email is verified"));
 });
 
 // This controller is called when user is logged in and he has snackbar that your email is not verified
@@ -281,9 +277,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
       incomingRefreshToken,
       process.env.REFRESH_TOKEN_SECRET
     );
-
     const user = await User.findById(decodedToken?._id);
-    // TODO: Once refresh token save in user model done add check to see if incoming refresh token is associated with the user
     if (!user) {
       // 498: expired or otherwise invalid token.
       throw new ApiError(498, "Invalid refresh token");
@@ -292,24 +286,17 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     // check if incoming refresh token is same as the refresh token attached in the user document
     // This shows that the refresh token is used or not
     // Once it is used, we are replacing it with new refresh token below
-
     if (incomingRefreshToken !== user?.refreshToken) {
       // If token is valid but is used already
-      // 498: expired or otherwise invalid token.
       throw new ApiError(498, "Refresh token is expired or used");
     }
-
     const options = {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
     };
-    const accessToken = user.generateAccessToken();
-    const newRefreshToken = user.generateRefreshToken(); // generate new refresh token as well
-    // TODO: Save the refresh token with the user model to only allow refresh token which is not used
-    // TODO: Once used remove/replace the token with the new token in user model
 
-    user.refreshToken = newRefreshToken; // assign new refresh token to the user document
-    await user.save({ validateBeforeSave: false });
+    const { accessToken, refreshToken: newRefreshToken } =
+      await generateAccessAndRefreshTokens(user._id);
 
     return res
       .status(200)
@@ -323,8 +310,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
         )
       );
   } catch (error) {
-    // 498: expired or otherwise invalid token.
-    throw new ApiError(498, error?.message || "Invalid refresh token");
+    throw new ApiError(401, error?.message || "Invalid refresh token");
   }
 });
 
@@ -455,12 +441,14 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 
 const handleSocialLogin = asyncHandler(async (req, res) => {
   const user = await User.findById(req.user?._id);
+
   if (!user) {
     throw new ApiError(404, "User does not exist");
   }
   const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
     user._id
   );
+
   const options = {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",

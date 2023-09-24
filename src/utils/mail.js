@@ -6,7 +6,6 @@ import { Product } from "../models/apps/ecommerce/product.models.js";
  *
  * @param {{email: string; subject: string; mailgenContent: Mailgen.Content; }} options
  */
-
 const sendEmail = async (options) => {
   // Initialize mailgen instance with default theme and brand configuration
   const mailGenerator = new Mailgen({
@@ -19,7 +18,6 @@ const sendEmail = async (options) => {
 
   // For more info on how mailgen content work visit https://github.com/eladnava/mailgen#readme
   // Generate the plaintext version of the e-mail (for clients that do not support HTML)
-
   const emailTextual = mailGenerator.generatePlaintext(options.mailgenContent);
 
   // Generate an HTML email with the provided contents
@@ -119,7 +117,6 @@ const forgotPasswordMailgenContent = (username, passwordResetUrl) => {
  * @returns {Mailgen.Content}
  * @description It designs the order creation invoice mail
  */
-
 const orderConfirmationMailgenContent = (username, items, totalCost) => {
   return {
     body: {

@@ -6,10 +6,12 @@ import { ApiError } from "../utils/ApiError.js";
 import { Strategy as GitHubStrategy } from "passport-github2";
 
 try {
+  /*** Serialization is the process of converting a complex data structure, like a user object in this case, into a format that can be easily stored or transmitted */
   passport.serializeUser((user, next) => {
     next(null, user._id);
   });
 
+  /** Deserialization is the process of taking the serialized data and reconstructing the original complex data structure, like a user object, from it. It's the reverse process of serialization. */
   passport.deserializeUser(async (id, next) => {
     try {
       const user = await User.findById(id);
@@ -25,14 +27,29 @@ try {
       );
     }
   });
-  
+
   passport.use(
     new GoogleStrategy(
+      /**
+       * These values are typically obtained by registering your application with the Google Developer Console.
+       * @param {*} clientID : The client ID of the application you created in the Google Developer Console.
+       * @param {*} clientSecret : The client secret of the application you created in the Google Developer Console.
+       * @param {*} callbackURL : The URL to which Google will redirect the user after they grant/deny permission to the application.
+       */
       {
         clientID: process.env.GOOGLE_CLIENT_ID,
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: process.env.GOOGLE_CALLBACK_URL,
       },
+
+      /**
+       *
+       * @param {*} _ : The first parameter is not used in the function (hence, it's named _), as it typically represents the request object, and you're not using it here.
+       * @param {*} __ : The second parameter is also not used and represents the response object.
+       * @param {*} profile : This parameter contains the user's profile information received from Google after a successful authentication.
+       * @param {*} next : This is a callback function that you'll use to either pass the user information if authentication is successful or handle errors if authentication fails.
+       */
+
       async (_, __, profile, next) => {
         // Check if the user with email already exist
         const user = await User.findOne({ email: profile._json.email });
@@ -82,12 +99,27 @@ try {
   );
 
   passport.use(
+    /**
+     * These values are typically obtained by registering your application with the Google Developer Console.
+     * @param {*} clientID : The client ID of the application you created in the Google Developer Console.
+     * @param {*} clientSecret : The client secret of the application you created in the Google Developer Console.
+     * @param {*} callbackURL : The URL to which Google will redirect the user after they grant/deny permission to the application.
+     */
     new GitHubStrategy(
       {
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
         callbackURL: process.env.GITHUB_CALLBACK_URL,
       },
+
+      /**
+       *
+       * @param {*} _ : The first parameter is not used in the function (hence, it's named _), as it typically represents the request object, and you're not using it here.
+       * @param {*} __ : The second parameter is also not used and represents the response object.
+       * @param {*} profile : This parameter contains the user's profile information received from Google after a successful authentication.
+       * @param {*} next : This is a callback function that you'll use to either pass the user information if authentication is successful or handle errors if authentication fails.
+       */
+
       async (_, __, profile, next) => {
         const user = await User.findOne({ email: profile._json.email });
         if (user) {

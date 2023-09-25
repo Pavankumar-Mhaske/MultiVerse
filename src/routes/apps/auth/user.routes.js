@@ -20,7 +20,7 @@ import {
   verifyJWT,
   verifyPermission,
 } from "../../../middlewares/auth.middlewares.js";
-// import the passport config
+import "../../../passport/index.js"; // import the passport config
 import {
   userAssignRoleValidator,
   userChangeCurrentPasswordValidator,

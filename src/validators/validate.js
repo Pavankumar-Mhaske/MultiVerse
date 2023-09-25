@@ -1,7 +1,6 @@
 import { validationResult } from "express-validator";
 import { errorHandler } from "../middlewares/error.middlewares.js";
 import { ApiError } from "../utils/ApiError.js";
-
 /**
  *
  * @param {import("express").Request} req
@@ -13,8 +12,13 @@ import { ApiError } from "../utils/ApiError.js";
  * If yes then it structures them and throws an {@link ApiError} which forwards the error to the {@link errorHandler} middleware which throws a uniform response at a single place
  *
  */
-
 export const validate = (req, res, next) => {
+  /**
+   * validationResult(req); is used to check and collect validation errors from the previous validation middleware or validation checks in your application.
+   * It returns an object which contains the errors if any.
+   *  the req (request) object contains information about the HTTP request made by the client. It is passed to your route handlers and middleware functions as a parameter and provides access to various properties and methods to work with the incoming request data.
+   * Some of the commonly used properties and methods available in the req object include: req.body, req.params, req.query, req.method, req.cookies, etc
+   */
   const errors = validationResult(req);
   if (errors.isEmpty()) {
     return next();

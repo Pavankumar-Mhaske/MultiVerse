@@ -24,7 +24,6 @@ const verifyPaypalPaymentValidator = () => {
   ];
 };
 
-
 const orderUpdateStatusValidator = () => {
   return [
     body("status")

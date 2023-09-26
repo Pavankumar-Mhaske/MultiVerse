@@ -23,6 +23,7 @@ import { getCart } from "./cart.controllers.js";
 import { getMongoosePaginationOptions } from "../../../utils/helpers.js";
 
 // * UTILITY FUNCTIONS
+
 const generatePaypalAccessToken = async () => {
   try {
     const auth = Buffer.from(
@@ -106,7 +107,6 @@ const orderFulfillmentHelper = async (orderPaymentId, req) => {
   });
 
   cart.items = []; // empty the cart
-
   cart.coupon = null; // remove the associated coupon
 
   await cart.save({ validateBeforeSave: false });
@@ -143,6 +143,7 @@ try {
 }
 
 // * CONTROLLERS
+
 const generateRazorpayOrder = asyncHandler(async (req, res) => {
   const { addressId } = req.body;
 
@@ -168,7 +169,6 @@ const generateRazorpayOrder = asyncHandler(async (req, res) => {
   if (!cart || !cart.items?.length) {
     throw new ApiError(400, "User cart is empty");
   }
-
   const orderItems = cart.items;
   const userCart = await getCart(req.user._id);
 
@@ -280,7 +280,6 @@ const generatePaypalOrder = asyncHandler(async (req, res) => {
   }
 
   const orderItems = cart.items; // these items are used further to set product stock
-
   const userCart = await getCart(req.user._id);
 
   // note down th total cart value and cart value after the discount
@@ -512,7 +511,6 @@ const getOrderById = asyncHandler(async (req, res) => {
 
 const getOrderListAdmin = asyncHandler(async (req, res) => {
   const { status, page = 1, limit = 10 } = req.query;
-
   const orderAggregate = EcomOrder.aggregate([
     {
       $match:

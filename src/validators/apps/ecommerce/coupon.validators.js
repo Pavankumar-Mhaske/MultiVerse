@@ -1,5 +1,5 @@
 import { body, param } from "express-validator";
-import { AvailableCouponTypes } from "../../..constants.js";
+import { AvailableCouponTypes } from "../../../constants.js";
 
 const createCouponValidator = () => {
   return [

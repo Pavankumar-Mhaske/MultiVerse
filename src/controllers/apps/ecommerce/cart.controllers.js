@@ -11,7 +11,6 @@ import { asyncHandler } from "../../../utils/asyncHandler.js";
  *  * * @description A utility function, which querys the {@link Cart} model and returns the cart in `Promise<{_id: string, items: {_id: string, product: Product, quantity: number}[], cartTotal: number}>` format
  *  @returns {Promise<{_id: string, items: {_id: string, product: Product, quantity: number}[], cartTotal: number, discountedTotal: number, coupon: Coupon}>}
  */
-
 export const getCart = async (userId) => {
   const cartAggregation = await Cart.aggregate([
     {
@@ -19,9 +18,65 @@ export const getCart = async (userId) => {
         owner: userId,
       },
     },
+    /**
+     * $unwind is a MongoDB aggregation pipeline stage that is used to deconstruct an array field in a document into multiple documents, one for each element of the array.
+     * 
+     * example - 
+     * Suppose you have a Cart document that looks like this:
+      {
+          _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a1"),
+          owner: ObjectId("60f9c3d2d9c8f4a5c8c8f5a0"),
+          items: [
+            { productId: ObjectId("60f9c3d2d9c8f4a5c8c8f5a2"), quantity: 2 },
+            { productId: ObjectId("60f9c3d2d9c8f4a5c8c8f5a3"), quantity: 1 }
+            ]
+      }
+
+      If you apply the $unwind stage to the items field, the resulting documents would look like this:
+
+      {
+          _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a1"),
+          owner: ObjectId("60f9c3d2d9c8f4a5c8c8f5a0"),
+          items: { productId: ObjectId("60f9c3d2d9c8f4a5c8c8f5a2"), quantity: 2 }
+      },
+      {
+          _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a1"),
+          owner: ObjectId("60f9c3d2d9c8f4a5c8c8f5a0"),
+          items: { productId: ObjectId("60f9c3d2d9c8f4a5c8c8f5a3"), quantity: 1 }
+      }
+     */
     {
       $unwind: "$items",
     },
+
+    /**
+     * The $lookup stage uses the localField and foreignField options to specify the fields that should be used to perform the join between the two collections.
+     * example - 
+     * Suppose you have a Cart document that looks like this:
+        {
+          _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a1"),
+          owner: ObjectId("60f9c3d2d9c8f4a5c8c8f5a0"),
+          items: { productId: ObjectId("60f9c3d2d9c8f4a5c8c8f5a2"), quantity: 2 }
+        }
+
+        If you apply the $lookup stage to the Cart collection, the resulting document would look like this:
+
+        {
+          _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a1"),
+          owner: ObjectId("60f9c3d2d9c8f4a5c8c8f5a0"),
+          items: { productId: ObjectId("60f9c3d2d9c8f4a5c8c8f5a2"), quantity: 2 },
+          product: {
+            _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a2"),
+            name: "Product A",
+            price: 10.99,
+            description: "This is product A",
+            category: "Category A"
+          }
+        }
+
+        As you can see, the $lookup stage has joined the Cart collection with the products collection based on the items.productId field in the Cart collection and the _id field in the products collection.
+         This has allowed the product details to be added to the Cart document, which can be used for further operations in the pipeline.
+     */
     {
       $lookup: {
         from: "products",

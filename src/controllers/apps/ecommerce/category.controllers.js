@@ -16,6 +16,7 @@ const createCategory = asyncHandler(async (req, res) => {
 
 const getAllCategories = asyncHandler(async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
+  // $match operation is using an empty object {} as the condition, which means that it will match all documents in the Category collection.
   const categoryAggregate = Category.aggregate([{ $match: {} }]);
 
   const categories = await Category.aggregatePaginate(
@@ -29,7 +30,6 @@ const getAllCategories = asyncHandler(async (req, res) => {
       },
     })
   );
-
   return res
     .status(200)
     .json(new ApiResponse(200, categories, "Categories fetched successfully"));

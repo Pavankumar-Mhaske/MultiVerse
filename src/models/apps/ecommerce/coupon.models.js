@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import { User } from "../auth/user.models.js";
-import { AvailableCouponTypes } from "../../../constants.js";
+import { AvailableCouponTypes, CouponTypeEnum } from "../../../constants.js";
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
 const couponSchema = new Schema(

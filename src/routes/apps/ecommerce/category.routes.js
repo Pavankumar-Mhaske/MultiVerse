@@ -6,7 +6,6 @@ import {
   updateCategory,
   getCategoryById,
 } from "../../../controllers/apps/ecommerce/category.controllers.js";
-
 import { categoryRequestBodyValidator } from "../../../validators/apps/ecommerce/category.validators.js";
 import { validate } from "../../../validators/validate.js";
 import {
@@ -14,7 +13,6 @@ import {
   verifyJWT,
 } from "../../../middlewares/auth.middlewares.js";
 import { UserRolesEnum } from "../../../constants.js";
-
 import { mongoIdPathVariableValidator } from "../../../validators/common/mongodb.validators.js";
 
 const router = Router();

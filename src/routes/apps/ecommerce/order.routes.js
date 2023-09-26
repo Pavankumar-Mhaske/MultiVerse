@@ -8,12 +8,10 @@ import {
   verifyPaypalPayment,
   verifyRazorpayPayment,
 } from "../../../controllers/apps/ecommerce/order.controllers.js";
-
 import {
   verifyPermission,
   verifyJWT,
 } from "../../../middlewares/auth.middlewares.js";
-
 import {
   orderUpdateStatusValidator,
   verifyPaypalPaymentValidator,
@@ -21,7 +19,6 @@ import {
 } from "../../../validators/apps/ecommerce/order.validators.js";
 import { validate } from "../../../validators/validate.js";
 import { UserRolesEnum } from "../../../constants.js";
-
 import {
   mongoIdPathVariableValidator,
   mongoIdRequestBodyValidator,
@@ -49,6 +46,7 @@ router
 router
   .route("/provider/razorpay/verify-payment")
   .post(verifyRazorpayPaymentValidator(), validate, verifyRazorpayPayment);
+
 router
   .route("/provider/paypal/verify-payment")
   .post(verifyPaypalPaymentValidator(), validate, verifyPaypalPayment);
@@ -57,12 +55,9 @@ router
   .route("/:orderId")
   .get(mongoIdPathVariableValidator("orderId"), validate, getOrderById);
 
-router.route("/list/admin").get(isAdmin, getOrderListAdmin);
-
 router
   .route("/list/admin")
   .get(verifyPermission([UserRolesEnum.ADMIN]), getOrderListAdmin);
-
 router
   .route("/status/:orderId")
   .patch(

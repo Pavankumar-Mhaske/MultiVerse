@@ -4,17 +4,13 @@ import {
   getMyOrders,
   updateEcomProfile,
 } from "../../../controllers/apps/ecommerce/profile.controllers.js";
-
 import { verifyJWT } from "../../../middlewares/auth.middlewares.js";
-
 import { updateEcomProfileValidator } from "../../../validators/apps/ecommerce/profile.validators.js";
 import { validate } from "../../../validators/validate.js";
 
 const router = Router();
 
 router.use(verifyJWT);
-
-
 
 router
   .route("/")

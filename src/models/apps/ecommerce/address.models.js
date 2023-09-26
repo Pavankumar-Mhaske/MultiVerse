@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import { User } from "../auth/user.models.js";
 import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
-
+// var aggregatePaginate = require("mongoose-aggregate-paginate-v2");
 const addressSchema = new Schema(
   {
     addressLine1: {
@@ -36,5 +36,5 @@ const addressSchema = new Schema(
 );
 
 addressSchema.plugin(mongooseAggregatePaginate);
-
+// addressSchema.plugin(aggregatePaginate);
 export const Address = mongoose.model("Address", addressSchema);

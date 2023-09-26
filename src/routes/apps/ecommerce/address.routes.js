@@ -12,12 +12,15 @@ import {
   updateAddressValidator,
 } from "../../../validators/apps/ecommerce/address.validators.js";
 import { validate } from "../../../validators/validate.js";
-
 import { mongoIdPathVariableValidator } from "../../../validators/common/mongodb.validators.js";
 
 const router = Router();
 
-// All routes require authentication
+/**
+ * All routes require authentication
+ * - The verifyJWT middleware is called for all routes in this router regardless of the HTTP method (e.g., GET, POST, PATCH) or the specific route path.
+        to authenticate incoming requests using JSON Web Tokens (JWT).
+ */
 router.use(verifyJWT);
 
 router

@@ -85,6 +85,48 @@ export const getCart = async (userId) => {
         as: "product",
       },
     },
+
+    /**
+     * In the code here, the $project stage is being used to reshape the documents in the pipeline to include only the fields that are needed for the subsequent stages.
+     * example - 
+        Suppose you have a Cart document that looks like this:
+          {
+            _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a1"),
+            owner: ObjectId("60f9c3d2d9c8f4a5c8c8f5a0"),
+            items: [
+              { productId: ObjectId("60f9c3d2d9c8f4a5c8c8f5a2"), quantity: 2 },
+              { productId: ObjectId("60f9c3d2d9c8f4a5c8c8f5a3"), quantity: 1 }
+            ],
+            coupon: "SUMMER2021"
+          }
+
+        If you apply the $project stage to the Cart collection, the resulting document would look like this:
+
+          {
+            _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a1"),
+            product: {
+              _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a2"),
+              name: "Product A",
+              price: 10.99,
+              description: "This is product A",
+              category: "Category A"
+            },
+            quantity: 2,
+            coupon: "SUMMER2021"
+          }
+          {
+            _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a1"),
+            product: {
+              _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a3"),
+              name: "Product B",
+              price: 5.99,
+              description: "This is product B",
+              category: "Category B"
+            },
+            quantity: 1,
+            coupon: "SUMMER2021"
+          }
+     */
     {
       $project: {
         // _id: 0,
@@ -93,6 +135,71 @@ export const getCart = async (userId) => {
         coupon: 1, // also project coupon field
       },
     },
+    /**
+     * Specifically, the $group stage is used to group the documents by the _id field and calculate the total price of the cart based on the product price and quantity for each product in the cart.
+     * example - 
+        suppose you have a Cart document that looks like this:
+        {
+          _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a1"),
+          items: [
+            {
+              product: {
+                _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a2"),
+                name: "Product A",
+                price: 10.99,
+                description: "This is product A",
+                category: "Category A"
+              },
+              quantity: 2,
+              coupon: "SUMMER2021"
+            },
+            {
+              product: {
+                _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a3"),
+                name: "Product B",
+                price: 5.99,
+                description: "This is product B",
+                category: "Category B"
+              },
+              quantity: 1,
+              coupon: "SUMMER2021"
+            }
+          ]
+        }
+
+        If you apply the $group stage to the Cart collection, the resulting document would look like this:
+
+        {
+          _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a1"),
+          items: [
+            {
+              product: {
+                _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a2"),
+                name: "Product A",
+                price: 10.99,
+                description: "This is product A",
+                category: "Category A"
+              },
+              quantity: 2,
+              coupon: "SUMMER2021"
+            },
+            {
+              product: {
+                _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a3"),
+                name: "Product B",
+                price: 5.99,
+                description: "This is product B",
+                category: "Category B"
+              },
+              quantity: 1,
+              coupon: "SUMMER2021"
+            }
+          ],
+          coupon: "SUMMER2021",
+          cartTotal: 28.97
+        }
+
+     */
     {
       $group: {
         _id: "$_id",
@@ -107,6 +214,128 @@ export const getCart = async (userId) => {
         },
       },
     },
+    /**
+        * Suppose you have a Cart collection that contains the following documents:
+        example -
+        [
+          {
+            _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a1"),
+            product: {
+              _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a2"),
+              name: "Product A",
+              price: 10.99,
+              description: "This is product A",
+              category: "Category A"
+            },
+            quantity: 2,
+            coupon: ObjectId("60f9c3d2d9c8f4a5c8c8f5a5")
+          },
+          {
+            _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a3"),
+            product: {
+              _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a4"),
+              name: "Product B",
+              price: 5.99,
+              description: "This is product B",
+              category: "Category B"
+            },
+            quantity: 1,
+            coupon: ObjectId("60f9c3d2d9c8f4a5c8c8f5a6")
+          }
+        ]
+
+        After you apply the $group stage to the Cart collection
+        {
+          _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a1"),
+          items: [
+            {
+              _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a1"),
+              product: {
+                _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a2"),
+                name: "Product A",
+                price: 10.99,
+                description: "This is product A",
+                category: "Category A"
+              },
+              quantity: 2,
+              coupon: ObjectId("60f9c3d2d9c8f4a5c8c8f5a5")
+            }
+          ],
+          coupon: ObjectId("60f9c3d2d9c8f4a5c8c8f5a5"),
+          cartTotal: 21.98
+        },
+        {
+          _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a3"),
+          items: [
+            {
+              _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a3"),
+              product: {
+                _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a4"),
+                name: "Product B",
+                price: 5.99,
+                description: "This is product B",
+                category: "Category B"
+              },
+              quantity: 1,
+              coupon: ObjectId("60f9c3d2d9c8f4a5c8c8f5a6")
+            }
+          ],
+          coupon: ObjectId("60f9c3d2d9c8f4a5c8c8f5a6"),
+          cartTotal: 5.99
+        }
+
+        After the $group stage, the $lookup stage is used to perform a left outer join between the Cart collection and the Coupons collection.
+        {
+          _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a1"),
+          items: [
+            {
+              _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a1"),
+              product: {
+                _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a2"),
+                name: "Product A",
+                price: 10.99,
+                description: "This is product A",
+                category: "Category A"
+              },
+              quantity: 2,
+              coupon: ObjectId("60f9c3d2d9c8f4a5c8c8f5a5")
+            }
+          ],
+          coupon: {
+            _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a5"),
+            code: "SUMMER2021",
+            discountType: "percentage",
+            discountValue: 10
+          },
+          cartTotal: 21.98
+        },
+        {
+          _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a3"),
+          items: [
+            {
+              _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a3"),
+              product: {
+                _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a4"),
+                name: "Product B",
+                price: 5.99,
+                description: "This is product B",
+                category: "Category B"
+              },
+              quantity: 1,
+              coupon: ObjectId("60f9c3d2d9c8f4a5c8c8f5a6")
+            }
+          ],
+          coupon: [
+            {
+            _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a6"),
+            code: "FALL2021",
+            discountType: "fixed",
+            discountValue: 2.5
+          }
+        ],
+          cartTotal: 5.99
+        }
+     */
     {
       $lookup: {
         // lookup for the coupon
@@ -116,6 +345,60 @@ export const getCart = async (userId) => {
         as: "coupon",
       },
     },
+
+    /**
+        After the lookup stage...
+        {
+          _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a1"),
+          items: [
+            {
+              product: {
+                _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a2"),
+                name: "Product A",
+                price: 10.99,
+                description: "This is product A",
+                category: "Category A"
+              },
+              quantity: 2,
+              coupon: ObjectId("60f9c3d2d9c8f4a5c8c8f5a5")
+            }
+          ],
+          coupon: [
+            {
+              _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a5"),
+              code: "SUMMER2021",
+              discountType: "percentage",
+              discountValue: 10
+            }
+          ],
+          cartTotal: 21.98
+        }
+
+        After the $lookup stage, the first $addFields stage is used to extract the coupon document from the items array and set it as the value of the coupon field in the output documents.
+
+        {
+          _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a1"),
+          items: [
+            {
+              product: {
+                _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a2"),
+                name: "Product A",
+                price: 10.99,
+                description: "This is product A",
+                category: "Category A"
+              },
+              quantity: 2,
+              coupon: ObjectId("60f9c3d2d9c8f4a5c8c8f5a5")
+            }
+          ],
+          coupon: {
+            _id: ObjectId("60f9c3d2d9c8f4a5c8c8f5a5"),
+            code: "SUMMER2021",
+            discountType: "percentage",
+            discountValue: 10
+          },
+          cartTotal: 21.98
+     */
     {
       $addFields: {
         // As lookup returns an array we access the first item in the lookup array
@@ -138,6 +421,11 @@ export const getCart = async (userId) => {
       },
     },
   ]);
+
+  /**
+   * This code returns the first document in an array of cart documents after applying an aggregation pipeline. 
+      If the array is empty or the first document is null or undefined, it returns a default object with default values for _id, items, cartTotal, and discountedTotal.
+   */
   return (
     cartAggregation[0] ?? {
       _id: null,
@@ -158,6 +446,7 @@ const getUserCart = asyncHandler(async (req, res) => {
 
 const addItemOrUpdateItemQuantity = asyncHandler(async (req, res) => {
   const { productId } = req.params;
+  // default value to the quantity is 1
   const { quantity = 1 } = req.body;
 
   // fetch user cart

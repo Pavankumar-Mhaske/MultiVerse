@@ -8,7 +8,6 @@ import {
 import { verifyJWT } from "../../../middlewares/auth.middlewares.js";
 import { addItemOrUpdateItemQuantityValidator } from "../../../validators/apps/ecommerce/cart.validators.js";
 import { validate } from "../../../validators/validate.js";
-
 import { mongoIdPathVariableValidator } from "../../../validators/common/mongodb.validators.js";
 
 const router = Router();

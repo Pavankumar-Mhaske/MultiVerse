@@ -44,7 +44,6 @@ const getMyOrders = asyncHandler(async (req, res) => {
         customer: req.user._id,
       },
     },
-
     {
       $lookup: {
         from: "addresses",
@@ -117,7 +116,7 @@ const getMyOrders = asyncHandler(async (req, res) => {
 
   return res
     .status(200)
-    .json(new ApiResponse(200,  orders , "Orders fetched successfully"));
+    .json(new ApiResponse(200, orders, "Orders fetched successfully"));
 });
 
 export { getMyEcomProfile, updateEcomProfile, getMyOrders };

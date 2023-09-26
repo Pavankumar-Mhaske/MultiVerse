@@ -69,7 +69,7 @@ const applyCoupon = asyncHandler(async (req, res) => {
         startDate: {
           $lt: new Date(),
         },
-        // coupon is valid if expiry date is less than current date
+        // coupon is valid if expiry date is greater than current date
         expiryDate: {
           $gt: new Date(),
         },
@@ -192,6 +192,8 @@ const getAllCoupons = asyncHandler(async (req, res) => {
 });
 
 const getValidCouponsForCustomer = asyncHandler(async (req, res) => {
+  const { page = 1, limit = 10 } = req.query;
+
   const userCart = await getCart(req.user._id);
   const cartTotal = userCart.cartTotal;
   const couponAggregate = Coupon.aggregate([
@@ -289,7 +291,9 @@ const updateCoupon = asyncHandler(async (req, res) => {
   const _minimumCartValue =
     minimumCartValue || couponToBeUpdated.minimumCartValue;
   const _discountValue = discountValue || couponToBeUpdated.discountValue;
-
+  /**
+   * using _ before the vairable or property is a convention that is widely used in many JavaScript libraries and frameworks to indicate that a variable or property is intended to be private or internal to a module or class.
+   */
   if (_minimumCartValue && +_minimumCartValue < +_discountValue) {
     throw new ApiError(
       400,
@@ -300,6 +304,9 @@ const updateCoupon = asyncHandler(async (req, res) => {
   const coupon = await Coupon.findByIdAndUpdate(
     couponId,
     {
+      /**
+       * So, in summary, the $set operator is used to set the values of one or more fields in a document in the MongoDB collection.
+       */
       $set: {
         name,
         couponCode,

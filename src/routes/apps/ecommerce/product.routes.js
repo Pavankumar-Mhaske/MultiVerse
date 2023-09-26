@@ -1,6 +1,4 @@
 import { Router } from "express";
-
-// controllers routes
 import {
   createProduct,
   deleteProduct,
@@ -10,22 +8,17 @@ import {
   removeProductSubImage,
   updateProduct,
 } from "../../../controllers/apps/ecommerce/product.controllers.js";
-
-// middlewares routes
 import {
   verifyPermission,
   verifyJWT,
 } from "../../../middlewares/auth.middlewares.js";
 import { upload } from "../../../middlewares/multer.middlewares.js";
-
-// validators routes
 import {
   createProductValidator,
   updateProductValidator,
 } from "../../../validators/apps/ecommerce/product.validators.js";
 import { validate } from "../../../validators/validate.js";
 import { MAXIMUM_SUB_IMAGE_COUNT, UserRolesEnum } from "../../../constants.js";
-
 import { mongoIdPathVariableValidator } from "../../../validators/common/mongodb.validators.js";
 
 const router = Router();
@@ -56,7 +49,7 @@ router
 
 router
   .route("/:productId")
-  .get((mongoIdPathVariableValidator("productId"), validate, getProductById)
+  .get(mongoIdPathVariableValidator("productId"), validate, getProductById)
   .patch(
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),
@@ -70,7 +63,7 @@ router
         maxCount: MAXIMUM_SUB_IMAGE_COUNT, // maximum number of subImages is 4
       },
     ]),
-    (mongoIdPathVariableValidator("productId"),
+    mongoIdPathVariableValidator("productId"),
     updateProductValidator(),
     validate,
     updateProduct
@@ -78,14 +71,18 @@ router
   .delete(
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),
-    (mongoIdPathVariableValidator("productId"),
+    mongoIdPathVariableValidator("productId"),
     validate,
     deleteProduct
   );
 
 router
   .route("/category/:categoryId")
-  .get((mongoIdPathVariableValidator("productId"), validate, getProductsByCategory);
+  .get(
+    mongoIdPathVariableValidator("productId"),
+    validate,
+    getProductsByCategory
+  );
 
 router
   .route("/remove/subimage/:productId/:subImageId")

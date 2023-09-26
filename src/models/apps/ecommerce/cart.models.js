@@ -32,6 +32,7 @@ const cartSchema = new Schema(
       default: null,
     },
   },
+
   { timestamps: true }
 );
 

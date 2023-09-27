@@ -34,7 +34,7 @@ router
     validate,
     updateTodo
   )
-  .delete(deleteTodo);
+  .delete(mongoIdPathVariableValidator("todoId"), validate, deleteTodo);
 
 router
   .route("/toggle/status/:todoId")

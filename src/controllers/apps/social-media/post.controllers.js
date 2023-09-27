@@ -186,9 +186,11 @@ const updatePost = asyncHandler(async (req, res) => {
     _id: new mongoose.Types.ObjectId(postId),
     author: req.user?._id,
   });
+
   if (!post) {
     throw new ApiError(404, "Post does not exist");
   }
+
   /**
    * @type {{ url: string; localPath: string; }[]}
    */
@@ -201,9 +203,11 @@ const updatePost = asyncHandler(async (req, res) => {
           return { url: imageUrl, localPath: imageLocalPath };
         })
       : []; // if there are no new images uploaded we want to keep an empty array
+
   const existedImages = post.images.length; // total images already present in the post
   const newImages = images.length; // Newly uploaded images
   const totalImages = existedImages + newImages;
+
   if (totalImages > MAXIMUM_SOCIAL_POST_IMAGE_COUNT) {
     // We want user to only add at max 6 images
     // If the existing images + new images count exceeds 6
@@ -251,14 +255,17 @@ const updatePost = asyncHandler(async (req, res) => {
 
 const removePostImage = asyncHandler(async (req, res) => {
   const { postId, imageId } = req.params;
+
   const post = await SocialPost.findOne({
     _id: new mongoose.Types.ObjectId(postId),
     author: req.user?._id,
   });
+
   // check for post existence
   if (!post) {
     throw new ApiError(404, "Post does not exist");
   }
+
   const updatedPost = await SocialPost.findByIdAndUpdate(
     postId,
     {
@@ -271,10 +278,12 @@ const removePostImage = asyncHandler(async (req, res) => {
     },
     { new: true }
   );
+
   // retrieve the file object which is being removed
   const removedImage = post.images?.find((image) => {
     return image._id.toString() === imageId;
   });
+
   if (removedImage) {
     // remove the file from file system as well
     removeLocalFile(removedImage.localPath);
@@ -360,9 +369,10 @@ const getPostsByUsername = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, posts, "User's posts fetched successfully"));
 });
 
-
 const getMyPosts = asyncHandler(async (req, res) => {
-  const posts = SocialPost.aggregate([
+  const { page = 1, limit = 10 } = req.query;
+
+  const postAggregation = SocialPost.aggregate([
     {
       $match: {
         author: new mongoose.Types.ObjectId(req.user?._id),
@@ -370,6 +380,18 @@ const getMyPosts = asyncHandler(async (req, res) => {
     },
     ...postCommonAggregation(req),
   ]);
+
+  const posts = await SocialPost.aggregatePaginate(
+    postAggregation,
+    getMongoosePaginationOptions({
+      page,
+      limit,
+      customLabels: {
+        totalDocs: "totalPosts",
+        docs: "posts",
+      },
+    })
+  );
 
   return res
     .status(200)
@@ -513,13 +535,13 @@ const getPostsByTag = asyncHandler(async (req, res) => {
 
 export {
   createPost,
+  deletePost,
   getAllPosts,
-  getPostsByUsername,
+  getBookMarkedPosts,
   getMyPosts,
   getPostById,
-  updatePost,
+  getPostsByUsername,
   removePostImage,
-  deletePost,
-  getBookMarkedPosts,
+  updatePost,
   getPostsByTag,
 };

@@ -1,7 +1,6 @@
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
-
 import mongoose, { Schema } from "mongoose";
 import {
   AvailableSocialLogins,
@@ -10,7 +9,6 @@ import {
   UserLoginType,
   UserRolesEnum,
 } from "../../../constants.js";
-
 import { Cart } from "../ecommerce/cart.models.js";
 import { EcomProfile } from "../ecommerce/profile.models.js";
 import { SocialProfile } from "../social-media/profile.models.js";

@@ -110,20 +110,7 @@ const deleteCascadeChatMessages = async (chatId) => {
 };
 
 const searchAvailableUsers = asyncHandler(async (req, res) => {
-  const { query } = req.query;
   const users = await User.aggregate([
-    {
-      $match:
-        query?.length > 0
-          ? // return docs if either of the following keys match
-            {
-              $or: [
-                { username: { $regex: query.toLowerCase(), $options: "i" } },
-                { email: { $regex: query.toLowerCase(), $options: "i" } },
-              ],
-            }
-          : {},
-    },
     {
       $match: {
         _id: {
@@ -428,7 +415,9 @@ const deleteOneOnOneChat = asyncHandler(async (req, res) => {
     },
     ...chatCommonAggregation(),
   ]);
+
   const payload = chat[0];
+
   if (!payload) {
     throw new ApiError(404, "Chat does not exist");
   }
@@ -440,6 +429,7 @@ const deleteOneOnOneChat = asyncHandler(async (req, res) => {
   const otherParticipant = payload?.participants?.find(
     (participant) => participant?._id.toString() !== req.user._id.toString() // get the other participant in chat for socket
   );
+
   // emit event to other participant with left chat as a payload
   emitSocketEvent(
     req,

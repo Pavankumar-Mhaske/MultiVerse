@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { MAXIMUM_SOCIAL_POST_IMAGE_COUNT } from "../../../constants.js";
 import {
   createPost,
   deletePost,
@@ -10,26 +11,19 @@ import {
   getPostsByUsername,
   updatePost,
 } from "../../../controllers/apps/social-media/post.controllers.js";
-
 import {
   getLoggedInUserOrIgnore,
   verifyJWT,
 } from "../../../middlewares/auth.middlewares.js";
-
 import { upload } from "../../../middlewares/multer.middlewares.js";
-
 import {
   createPostValidator,
   tagPathVariableValidator,
   updatePostValidator,
   usernamePathVariableValidator,
 } from "../../../validators/apps/social-media/post.validators.js";
-
 import { validate } from "../../../validators/validate.js";
-
 import { mongoIdPathVariableValidator } from "../../../validators/common/mongodb.validators.js";
-
-import { MAXIMUM_SOCIAL_POST_IMAGE_COUNT } from "../../../constants.js";
 
 const router = Router();
 
@@ -84,7 +78,12 @@ router
     validate,
     updatePost
   )
-  .delete(verifyJWT, mongoIdPathVariableValidator("postId"), validate, deletePost);
+  .delete(
+    verifyJWT,
+    mongoIdPathVariableValidator("postId"),
+    validate,
+    deletePost
+  );
 
 router
   .route("/remove/image/:postId/:imageId")

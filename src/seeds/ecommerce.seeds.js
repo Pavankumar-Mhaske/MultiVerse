@@ -15,7 +15,6 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { getRandomNumber } from "../utils/helpers.js";
-
 import {
   ADDRESSES_COUNT,
   CATEGORIES_COUNT,
@@ -31,6 +30,7 @@ const categories = new Array(CATEGORIES_COUNT).fill("_").map(() => ({
   name: faker.commerce.productAdjective().toLowerCase(),
 }));
 
+// Generate fake addresses
 const addresses = new Array(ADDRESSES_COUNT).fill("_").map(() => ({
   addressLine1: faker.location.streetAddress(),
   addressLine2: faker.location.street(),
@@ -40,6 +40,7 @@ const addresses = new Array(ADDRESSES_COUNT).fill("_").map(() => ({
   state: faker.location.state(),
 }));
 
+// Generate fake coupons
 const coupons = new Array(COUPONS_COUNT).fill("_").map(() => {
   const discountValue = faker.number.int({
     max: 1000,
@@ -70,8 +71,10 @@ const coupons = new Array(COUPONS_COUNT).fill("_").map(() => {
   };
 });
 
+// Generate fake products
 const products = new Array(PRODUCTS_COUNT).fill("_").map(() => {
   return {
+    // Add other fields which are connected to other models later
     name: faker.commerce.productName(),
     description: faker.commerce.productDescription(),
     mainImage: {
@@ -139,6 +142,10 @@ const seedEcomAddresses = async () => {
       return {
         ...add,
         owner: users[i] ?? users[getRandomNumber(users.length)], // set address to every user and then set random user as a owner
+        /**
+         * The ?? is the nullish coalescing operator in JavaScript. It is used to provide a default value for a variable or expression when the value is null or undefined.
+         - If users[i] is null or undefined, the expression will evaluate to the value of users[getRandomNumber(users.length)].
+         */
       };
     })
   );

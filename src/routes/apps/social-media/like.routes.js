@@ -3,11 +3,8 @@ import {
   likeDislikeComment,
   likeDislikePost,
 } from "../../../controllers/apps/social-media/like.controllers.js";
-
 import { verifyJWT } from "../../../middlewares/auth.middlewares.js";
-
 import { validate } from "../../../validators/validate.js";
-
 import { mongoIdPathVariableValidator } from "../../../validators/common/mongodb.validators.js";
 
 const router = Router();

@@ -1,6 +1,6 @@
-import jwt from "jsonwebtoken";
-import crypto from "crypto";
 import bcrypt from "bcrypt";
+import crypto from "crypto";
+import jwt from "jsonwebtoken";
 import mongoose, { Schema } from "mongoose";
 import {
   AvailableSocialLogins,
@@ -55,7 +55,6 @@ const userSchema = new Schema(
       enum: AvailableSocialLogins,
       default: UserLoginType.EMAIL_PASSWORD,
     },
-
     isEmailVerified: {
       type: Boolean,
       default: false,

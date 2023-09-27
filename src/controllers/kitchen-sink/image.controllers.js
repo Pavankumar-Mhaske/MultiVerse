@@ -25,9 +25,11 @@ const sendSvgImage = asyncHandler(async (req, res) => {
 });
 
 const sendWebpImage = asyncHandler(async (req, res) => {
-  return res.status(200).sendFile("/public/assets/images/guido_van_rossum.webp", {
-    root: "./",
-  });
+  return res
+    .status(200)
+    .sendFile("/public/assets/images/guido_van_rossum.webp", {
+      root: "./",
+    });
 });
 
 export {

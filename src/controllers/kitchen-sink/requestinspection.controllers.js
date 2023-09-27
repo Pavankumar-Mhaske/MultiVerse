@@ -21,6 +21,7 @@ const getClientIP = asyncHandler(async (req, res) => {
     )
   );
 });
+
 const getUserAgent = asyncHandler(async (req, res) => {
   return res
     .status(200)

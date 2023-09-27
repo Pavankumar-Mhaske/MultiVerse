@@ -94,7 +94,6 @@ const sendBrotliResponse = asyncHandler(async (req, res) => {
   );
 });
 
-
 export {
   getResponseHeaders,
   setCacheControlHeader,

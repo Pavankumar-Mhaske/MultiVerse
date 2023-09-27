@@ -40,10 +40,8 @@ const getUserSocialProfile = async (userId, req) => {
           {
             $project: {
               avatar: 1,
-
               username: 1,
               email: 1,
-
               isEmailVerified: 1,
             },
           },

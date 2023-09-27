@@ -5,12 +5,10 @@ import {
   updateCoverImage,
   updateSocialProfile,
 } from "../../../controllers/apps/social-media/profile.controllers.js";
-
 import {
   getLoggedInUserOrIgnore,
   verifyJWT,
 } from "../../../middlewares/auth.middlewares.js";
-
 import { upload } from "../../../middlewares/multer.middlewares.js";
 import {
   getProfileByUserNameValidator,

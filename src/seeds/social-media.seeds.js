@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { User } from "../models/apps/auth/user.models.js";
 import { SocialBookmark } from "../models/apps/social-media/bookmark.models.js";
-import { SocialComment } from "../models/apps/social-media/comment.models.js";
+import { SocialComment } from "../models/apps/social-media/comment.model.js";
 import { SocialFollow } from "../models/apps/social-media/follow.models.js";
 import { SocialLike } from "../models/apps/social-media/like.models.js";
 import { SocialPost } from "../models/apps/social-media/post.models.js";

@@ -13,9 +13,11 @@ import {
 
 const seedOneOnOneChats = async () => {
   const users = await User.find();
-
   const chatsArray = new Array(ONE_ON_ONE_CHATS_COUNT)
+    /**The fill() method is a built-in method in JavaScript that is used to fill an array with a specified value. */
     .fill("_")
+    /**Using async (_) => { ... } is a valid way to indicate an asynchronous function that can accept a parameter,
+     * but the parameter isn't used inside the function. This is often done for clarity and documentation to signify the function's asynchronous nature. */
     .map(async (_) => {
       let index1 = getRandomNumber(users.length);
       let index2 = getRandomNumber(users.length);
@@ -35,7 +37,6 @@ const seedOneOnOneChats = async () => {
                 $elemMatch: { $eq: participants[0] },
               },
             },
-
             {
               participants: {
                 $elemMatch: { $eq: participants[1] },
@@ -51,11 +52,16 @@ const seedOneOnOneChats = async () => {
             admin: participants[getRandomNumber(participants.length)],
           },
         },
-
         { upsert: true } // We don't want duplicate entries of the chat. So if found then update else insert
       );
     });
   await Promise.all([...chatsArray]);
+  /**
+   * promises in the chatsArray array to resolve before continuing with the execution of the code.
+   1. The Promise.all() method takes an array of promises and returns a new promise that resolves when all the promises in the array have resolved.
+   2. The spread operator ... is used to spread the elements of the chatsArray array into a new array. This is done to ensure that the Promise.all() method receives an array of promises as its argument.
+   3. The await keyword is used to wait for the promise returned by the Promise.all() method to resolve. This means that the code execution will pause at this line until all the promises in the chatsArray array have resolved.
+   */
 };
 
 const seedGroupChats = async () => {
@@ -67,6 +73,12 @@ const seedGroupChats = async () => {
       GROUP_CHAT_MAX_PARTICIPANTS_COUNT
     );
 
+    /** 
+     * priority resolution of the below code
+     * 1. first check if participantsCount < 3
+     * 2. if true then return 3 else return participantsCount
+     * ( participantsCount < 3 ) ? 3 : participantsCount
+     */
     new Array(participantsCount < 3 ? 3 : participantsCount)
       .fill("_")
       .forEach((_) =>

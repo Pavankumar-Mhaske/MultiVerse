@@ -32,5 +32,4 @@ router
     })
   )
   .get("/brotli", sendBrotliResponse);
-
 export default router;

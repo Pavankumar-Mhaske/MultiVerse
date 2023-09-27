@@ -112,7 +112,6 @@ const getFollowersListByUserName = asyncHandler(async (req, res) => {
     throw new ApiError(404, "User does not exist");
   }
   const userId = user._id;
-
   const followersAggregate = await SocialFollow.aggregate([
     {
       $match: {
@@ -284,11 +283,11 @@ const getFollowingListByUserName = asyncHandler(async (req, res) => {
   ]);
 
   const user = userAggregation[0];
+
   if (!user) {
     throw new ApiError(404, "User does not exist");
   }
   const userId = user._id;
-
   const followingAggregate = SocialFollow.aggregate([
     {
       $match: {

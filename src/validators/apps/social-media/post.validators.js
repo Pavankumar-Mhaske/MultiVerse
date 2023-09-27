@@ -24,7 +24,6 @@ const updatePostValidator = () => {
   ];
 };
 
-
 const usernamePathVariableValidator = () => {
   return [
     param("username").toLowerCase().notEmpty().withMessage("Invalid username"),

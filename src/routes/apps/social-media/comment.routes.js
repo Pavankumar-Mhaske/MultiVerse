@@ -10,9 +10,7 @@ import {
   verifyJWT,
 } from "../../../middlewares/auth.middlewares.js";
 import { commentContentValidator } from "../../../validators/apps/social-media/comment.validators.js";
-
 import { validate } from "../../../validators/validate.js";
-
 import { mongoIdPathVariableValidator } from "../../../validators/common/mongodb.validators.js";
 
 const router = Router();

@@ -1,4 +1,4 @@
-import { SocialComment } from "../../../models/apps/social-media/comment.models.js";
+import { SocialComment } from "../../../models/apps/social-media/comment.model.js";
 import { SocialLike } from "../../../models/apps/social-media/like.models.js";
 import { SocialPost } from "../../../models/apps/social-media/post.models.js";
 import { ApiError } from "../../../utils/ApiError.js";

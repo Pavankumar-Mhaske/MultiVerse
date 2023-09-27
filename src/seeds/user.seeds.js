@@ -34,7 +34,6 @@ const seedUsers = asyncHandler(async (req, res, next) => {
     next();
     return;
   }
-
   await User.deleteMany({}); // delete all the existing users from previous seedings
   await SocialProfile.deleteMany({}); // delete dependent model documents as well
   await EcomProfile.deleteMany({}); // delete dependent model documents as well
@@ -57,6 +56,7 @@ const seedUsers = asyncHandler(async (req, res, next) => {
   // pass promises array to the Promise.all method
   await Promise.all(userCreationPromise);
 
+  // Once users are created dump the credentials to the json file
   const json = JSON.stringify(credentials);
 
   fs.writeFileSync(

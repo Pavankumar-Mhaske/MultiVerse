@@ -5,8 +5,6 @@ import { asyncHandler } from "../../../utils/asyncHandler.js";
 import { getMongoosePaginationOptions } from "../../../utils/helpers.js";
 import { ApiError } from "../../../utils/ApiError.js";
 
-
-
 const addComment = asyncHandler(async (req, res) => {
   const { postId } = req.params;
   const { content } = req.body;

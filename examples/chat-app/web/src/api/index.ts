@@ -33,6 +33,7 @@ const registerUser = (data: {
   password: string;
   username: string;
 }) => {
+  console.log(data);
   return apiClient.post("/users/register", data);
 };
 

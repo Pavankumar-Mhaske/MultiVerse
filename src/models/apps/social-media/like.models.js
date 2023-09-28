@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import { User } from "../auth/user.models.js";
 import { SocialPost } from "./post.models.js";
-import { SocialComment } from "./comment.models.js";
+import { SocialComment } from "./comment.model.js";
 
 const likeSchema = new Schema(
   {

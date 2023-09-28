@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { SocialComment } from "../../../models/apps/social-media/comment.models.js";
+import { SocialComment } from "../../../models/apps/social-media/comment.model.js";
 import { ApiResponse } from "../../../utils/ApiResponse.js";
 import { asyncHandler } from "../../../utils/asyncHandler.js";
 import { getMongoosePaginationOptions } from "../../../utils/helpers.js";

@@ -3,7 +3,7 @@ import {
   getRandomJokes,
   getARandomJoke,
   getJokeById,
-} from "../../controllers/public/randomjoke.controllers";
+} from "../../controllers/public/randomjoke.controllers.js";
 
 const router = Router();
 

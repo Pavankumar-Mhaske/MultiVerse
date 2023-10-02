@@ -208,9 +208,6 @@ I'm a full stack developer...
 
 MERN, Node.js, Express, MongoDB, Mongoose,React.js, Javascript, HTML, TailwindCSS, CSS, Context API, Third Party APIs, Angular, VueJS, Vue Cli, Next.js ...
 
-## Authors
-
-- [@Pavankumar-Mhaske](https://github.com/Pavankumar-Mhaske)
 
 ## Badges
 

@@ -188,11 +188,6 @@ To self-host the MultiVerse application, you can take advantage of a pre-built t
 
 [Swagger Docs](http://localhost:8080): http://localhost:8080
 
-# Hi, I'm Pavankumar Mhaske! 👋
-
-## 🚀 About Me
-
-I'm a full stack developer...
 
 ## 🔗 Links
 
@@ -554,3 +549,10 @@ If you have any feedback, please reach out to us at mhaskepavankumar@gmial.com
 #### add(num1, num2)
 
 Takes two numbers and returns the sum.
+
+
+# Hi, I'm Pavankumar Mhaske! 👋
+
+## 🚀 About Me
+
+I'm a full stack developer...

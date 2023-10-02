@@ -1,3 +1,7 @@
+## Authors
+
+- [@Pavankumar-Mhaske](https://github.com/Pavankumar-Mhaske)
+
 # 🌐 Multiverse - Your All-in-One Digital Universe 🚀
 
 ### Discover, Connect, Shop, and Organize in One Place 📱💬🛒✅

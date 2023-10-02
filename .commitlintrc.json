@@ -15,7 +15,8 @@
         "revert",
         "style",
         "assets",
-        "test"
+        "test",
+        "section"
       ]
     ]
   }

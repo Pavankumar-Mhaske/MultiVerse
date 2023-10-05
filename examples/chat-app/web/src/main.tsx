@@ -18,9 +18,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   </React.StrictMode>
 );
 
-
 /**
  * : BrowserRouter-
  * So, the BrowserRouter component is a key component in client-side routing for React applications. It allows the application to have multiple pages or views without requiring a full page refresh.
- * 
+ *
  */

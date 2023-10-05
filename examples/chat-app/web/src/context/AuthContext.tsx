@@ -7,6 +7,9 @@ import { LocalStorage, requestHandler } from "../utils";
 
 // Create a context to manage authentication-related data and functions
 const AuthContext = createContext<{
+  /** -> | symbol is used to define a union type in TypeScript.
+   * A union type is a type that can have multiple types. In this case, the user property can have a value that is either a UserInterface object or null.
+   * */
   user: UserInterface | null;
   token: string | null;
   login: (data: { username: string; password: string }) => Promise<void>;

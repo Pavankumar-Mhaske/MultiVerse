@@ -16,7 +16,8 @@
         "style",
         "assets",
         "test",
-        "section"
+        "section",
+        "comment"
       ]
     ]
   }

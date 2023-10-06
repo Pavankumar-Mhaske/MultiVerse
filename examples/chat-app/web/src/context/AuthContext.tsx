@@ -51,7 +51,7 @@ const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         setToken(data.accessToken);
         LocalStorage.set("user", data.user);
         LocalStorage.set("token", data.accessToken);
-        navigate("/chat"); // Redirect to the chat page after successful login
+        navigate("/welcome"); // Redirect to the chat page after successful login
       },
       alert // Display error alerts on request failure
     );

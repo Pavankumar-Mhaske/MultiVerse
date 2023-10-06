@@ -3,6 +3,8 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import ChatPage from "./pages/chat";
+import Welcome from "./pages/welcomePage";
+import Todo from "./pages/todo";
 import { useAuth } from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
@@ -18,15 +20,37 @@ const App = () => {
       <Route
         path="/"
         element={
-          token && user?._id ? (
-            <Navigate to="/chat" />
+          token !== undefined || user?._id !== undefined ? (
+            token && user?._id ? (
+              <Navigate to="/welcome" />
+            ) : (
+              <Navigate to="/login" />
+            )
           ) : (
-            <Navigate to="/login" />
+            <p>Loading...</p>
           )
         }
       ></Route>
 
       {/* Private chat route: Can only be accessed by authenticated users */}
+      <Route
+        path="/welcome"
+        element={
+          <PrivateRoute>
+            <Welcome />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/todo"
+        element={
+          <PrivateRoute>
+            <Todo />
+          </PrivateRoute>
+        }
+      />
+
       <Route
         path="/chat"
         element={

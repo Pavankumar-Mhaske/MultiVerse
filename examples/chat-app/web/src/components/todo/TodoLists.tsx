@@ -1,10 +1,10 @@
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 // axios
 import axios from "axios";
 
 // context
-import userContext from "../context/userContext";
+import { useAuth } from "../../context/AuthContext";
 
 // images
 import searchIcon from "../assets/icons/search.png";
@@ -18,27 +18,37 @@ import "./styles/TodoLists.css";
  * @param setMakeRequest - To make DB call and populate todos in todoList. When we delete, update todo.
  * @returns Collection of todos received from server request.
  */
+interface TodoListProps {
+  makeRequest: boolean;
+  setMakeRequest: (value: boolean) => void;
+}
+interface Todo {
+  _id: string;
+  title: string;
+  isImportant: boolean;
+  createdAt: string; // Replace with the actual type of createdAt
+  // Add other properties as needed
+}
 
-const TodoList = ({ makeRequest, setMakeRequest }) => {
+const TodoList: React.FC<TodoListProps> = ({ makeRequest, setMakeRequest }) => {
   /**
    * It is used to pass appwrite Id in DB request parmas
    */
-  const { user } = useContext(userContext);
-
+  const user = useAuth();
   /**
    * To store the todos received from a server request.
    */
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
 
   /**
    * To store the search string.
    */
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState<string>("");
 
   /**
    * To display cancel button after searching todo.
    */
-  const [closeSearch, setCloseSearch] = useState(false);
+  const [closeSearch, setCloseSearch] = useState<boolean>(false);
 
   /**
    * To display cancel button after searching todo.
@@ -54,7 +64,7 @@ const TodoList = ({ makeRequest, setMakeRequest }) => {
       console.log(
         "************************************************************************************************"
       );
-      const response = await axios.get(`/user/todos?userId=${user.$id}`);
+      const response = await axios.get(`/user/todos?userId=${user?._id}`);
       // const response = await axios.get("/user/todos", {
       //   params: { userId: user.$id },
       // });
@@ -66,7 +76,9 @@ const TodoList = ({ makeRequest, setMakeRequest }) => {
         const todos = data.user;
         console.log(todos);
         if (todos.length > 0) {
-          const response = todos.sort((a, b) => b.isImportant - a.isImportant);
+          const response = todos.sort(
+            (a: Todo, b: Todo) => Number(b.isImportant) - Number(a.isImportant)
+          );
 
           console.log(response);
           setTodos([...response]);
@@ -82,7 +94,7 @@ const TodoList = ({ makeRequest, setMakeRequest }) => {
       console.log("Error while fetching todos in getTodos method");
       console.log("Error: ", error);
     }
-  }, [user.$id]);
+  }, [user?._id]);
 
   /**
    * handleSearch() - Asynchronous Function
@@ -103,7 +115,7 @@ const TodoList = ({ makeRequest, setMakeRequest }) => {
 
       if (!search) return;
       const response = await axios.get("/todo/search", {
-        params: { userId: user.$id, search },
+        params: { userId: user?._id, search },
       });
 
       const { data } = response.data;
@@ -116,7 +128,7 @@ const TodoList = ({ makeRequest, setMakeRequest }) => {
       console.log("Error while fetching search todos in getTodos method");
       console.log("Error: ", error);
     }
-  }, [search, user.$id]);
+  }, [search, user?._id]);
 
   useEffect(() => {
     // Fetch filtered todos only if there's a search query
@@ -139,7 +151,7 @@ const TodoList = ({ makeRequest, setMakeRequest }) => {
    *            - Sets the todos state with sortTodos values.
    */
 
-  const handleSort = (sort) => {
+  const handleSort = (sort: string) => {
     const sortTodos = todos;
     console.log(
       "************************************************************************************************"
@@ -154,14 +166,14 @@ const TodoList = ({ makeRequest, setMakeRequest }) => {
       sort !== "isCompleted"
     ) {
       sortTodos.sort((a, b) => {
-        if (a[sort] < b[sort]) return -1;
-        if (a[sort] > b[sort]) return 1;
+        if (a[sort as keyof Todo] < b[sort as keyof Todo]) return -1;
+        if (a[sort as keyof Todo] > b[sort as keyof Todo]) return 1;
         return 0;
       });
     } else {
       sortTodos.sort((a, b) => {
-        if (a[sort] < b[sort]) return 1;
-        if (a[sort] > b[sort]) return -1;
+        if (a[sort as keyof Todo] < b[sort as keyof Todo]) return 1;
+        if (a[sort as keyof Todo] > b[sort as keyof Todo]) return -1;
         return 0;
       });
     }
@@ -180,7 +192,7 @@ const TodoList = ({ makeRequest, setMakeRequest }) => {
           <button
             className="border border-red-700 rounded p-2 ml-6 sm:ml-3 md:p-3 my-4 lg:my-0"
             type="button"
-            onClick={(e) => {
+            onClick={() => {
               setCloseSearch(false);
               setSearch("");
               getTodos();

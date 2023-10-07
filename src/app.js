@@ -232,7 +232,7 @@ app.use("/api/v1/chat-app/chats", chatRouter); /**TODO: chatApp */
 app.use("/api/v1/chat-app/messages", messageRouter); /**TODO: chatApp */
 
 app.use("/api/v1/todos", todoRouter);
-app.use("./api/v1/events", eventRouter);
+app.use("/api/v1/events", eventRouter);
 
 // * Kitchen sink apis
 app.use("/api/v1/kitchen-sink/http-methods", httpmethodRouter);

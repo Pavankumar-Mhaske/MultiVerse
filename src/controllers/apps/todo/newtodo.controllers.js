@@ -368,7 +368,7 @@ const deleteTodo = async (req, res) => {
       throw new Error("Todo not found in DB");
     }
 
-    if (!user[0]) {
+    if (!user) {
       throw new Error("User not found in DB");
     }
 
@@ -382,11 +382,11 @@ const deleteTodo = async (req, res) => {
     The 'filter' function retains to-do items where the comparison of each item's 'equals' method with 'todoId' is false.
     The updated 'todos' array is assigned back to the 'todos' property of the first user object.
 */
-    user.todos = user.todos.filter(
-      (todoObj) => todoObj.equals(todoId) === false
-    );
+    // user.todos = user.todos.filter(
+    //   (todoObj) => todoObj.equals(todoId) === false
+    // );
 
-    await user.save();
+    // await user.save();
 
     res.status(200).json({
       success: true,

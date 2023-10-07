@@ -59,7 +59,12 @@ router
     validate,
     updateTodo
   )
-  .delete(mongoIdPathVariableValidator("todoId"), validate, deleteTodo);
+  .delete(
+    mongoIdPathVariableValidator("todoId"),
+    mongoIdPathVariableValidator("userId"),
+    validate,
+    deleteTodo
+  );
 
 router
   .route("/search/:userId")

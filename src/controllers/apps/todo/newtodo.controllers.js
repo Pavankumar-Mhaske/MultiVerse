@@ -420,8 +420,8 @@ const deleteTodo = async (req, res) => {
 
 const searchTodos = async (req, res) => {
   try {
-    const { userId } = req.params;
-    const { search } = req.query;
+    // const { userId } = req.params;
+    const { userId, search } = req.query;
 
     if (!userId) {
       throw new Error("userId required, Please pass userId to search a todo");

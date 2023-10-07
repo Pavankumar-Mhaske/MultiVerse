@@ -1,8 +1,10 @@
 /**
  * Importing mongoose
  */
-const mongoose = require("mongoose");
-const { User } = require("../auth/user.models.js");
+// const mongoose = require("mongoose");
+import mongoose from "mongoose";
+// const { User } = require("../auth/user.models.js");
+import { User } from "../auth/user.models.js";
 /**
  * Destructuring from mongoose
  *      - Schema Constructor
@@ -69,4 +71,6 @@ const TodoSchema = new Schema(
  * Exporting model
  *      - Creating a model from the Schema defined and export
  */
-module.exports = model("Todo", TodoSchema);
+// exports const  = model("Todo", TodoSchema);
+
+export const Todo = mongoose.model("Todo", TodoSchema);

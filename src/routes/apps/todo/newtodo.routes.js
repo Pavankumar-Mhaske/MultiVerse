@@ -67,7 +67,12 @@ router
   );
 
 router
-  .route("/search/:userId")
-  .get(mongoIdPathVariableValidator("userId"), validate, searchTodos);
+  //   .route("/search/:userId")
+  .route("/search")
+  .get(
+    // mongoIdPathVariableValidator("userId"),
+    validate,
+    searchTodos
+  );
 
 export default router;

@@ -1,7 +1,7 @@
 // importing the Schemas
 
-import Event from "../../../models/apps/todo/event.models.js";
-import User from "../../../models/apps/auth/user.models.js";
+import { Event } from "../../../models/apps/todo/event.models.js";
+import { User } from "../../../models/apps/auth/user.models.js";
 
 /**
  * createEvent() - Asynchronous Function

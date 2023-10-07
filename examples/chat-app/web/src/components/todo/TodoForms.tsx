@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import React, { useState, useContext } from "react";
 // import {
 //   showToastLoading,
 //   showToastSuccess,
@@ -35,7 +35,14 @@ import toast from "react-hot-toast";
  * @returns - Form element - Which can be used to update or create a todo.
  */
 
-const TodoForm = ({
+const TodoForm: React.FC<{
+  task: string;
+  buttonName: string;
+  todo?: any; // You might want to replace 'any' with a more specific type.
+  makeRequest: () => void;
+  setMakeRequest: (value: boolean) => void;
+  setEditTodo: (value: boolean) => void;
+}> = ({
   task,
   buttonName,
   todo = "",
@@ -66,7 +73,7 @@ const TodoForm = ({
    *                - Finally resets the values of all the inputfield and updates makeRequest state
    */
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     try {
       event.preventDefault();
 
@@ -117,7 +124,7 @@ const TodoForm = ({
         // setEditTodo(false);
         // document.body.style.overflow = "auto";
       }
-    } catch (error) {
+    } catch (error:any) {
       if (task === "create") {
         showToastError(error.message);
         // add alert

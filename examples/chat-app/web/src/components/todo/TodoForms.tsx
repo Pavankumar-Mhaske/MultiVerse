@@ -28,7 +28,7 @@ import TaskInput from "./TaskInputs";
 import TodoButton from "./TodoButton";
 // import TodoButton from "./TodoButtons";
 import "./styles/TodoForms.css";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
 /**
  * @param  task - Denotes the purpose of the form (create Todo / update Todo).
  * @param  buttonName - Denotes the name of submitting button (Create Todo / Update Todo).

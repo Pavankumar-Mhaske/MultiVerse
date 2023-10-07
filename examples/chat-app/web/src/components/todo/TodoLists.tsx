@@ -34,7 +34,7 @@ const TodoList: React.FC<TodoListProps> = ({ makeRequest, setMakeRequest }) => {
   /**
    * It is used to pass appwrite Id in DB request parmas
    */
-  const user = useAuth();
+  const { user } = useAuth();
   /**
    * To store the todos received from a server request.
    */

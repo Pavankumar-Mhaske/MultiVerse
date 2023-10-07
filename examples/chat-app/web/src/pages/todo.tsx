@@ -9,9 +9,9 @@ import { useState } from "react";
 // import TodoForm from "../components/TodoForms";
 // import TodoList from "../components/TodoLists";
 // import EventList from "../components/Events";
-import TodoForm from "../components/todo/TodoForms.js";
-import TodoList from "../components/todo/TodoLists.js";
-import EventList from "../components/todo/Events.js";
+import TodoForm from "../components/todo/TodoForms";
+import TodoList from "../components/todo/TodoLists";
+import EventList from "../components/todo/Events";
 import "./styles/HomePages.css";
 
 const Homepage = () => {

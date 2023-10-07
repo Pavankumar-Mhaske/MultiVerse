@@ -1,7 +1,7 @@
 // importing the Schemas
 
-const Event = require("../../../models/apps/todo/event.models.js");
-const User = require("../../../models/apps/auth/user.models.js");
+import Event from "../../../models/apps/todo/event.models.js";
+import User from "../../../models/apps/auth/user.models.js";
 
 /**
  * createEvent() - Asynchronous Function
@@ -25,7 +25,7 @@ const User = require("../../../models/apps/auth/user.models.js");
  * - Update user events using the event._id and save.
  */
 
-exports.createEvent = async (req, res) => {
+const createEvent = async (req, res) => {
   try {
     const { reminderMsg, remindAt, userId } = req.body;
     const eventObj = {};
@@ -73,9 +73,9 @@ exports.createEvent = async (req, res) => {
       throw new Error("User not found in DB");
     }
 
-    const author = req.user._id;
+    const author = userId;
     Object.defineProperty(eventObj, "author", {
-      value: user._id,
+      value: author,
       enumerable: true,
     });
 
@@ -120,7 +120,7 @@ exports.createEvent = async (req, res) => {
  *
  */
 
-exports.getEvents = async (req, res) => {
+const getAllEvents = async (req, res) => {
   try {
     const events = await Event.find({});
 
@@ -175,7 +175,7 @@ exports.getEvents = async (req, res) => {
  * - If user is the owner of event, returns the event.
  */
 
-exports.getEvent = async (req, res) => {
+const getEventById = async (req, res) => {
   try {
     const { userId, eventId } = req.params;
     if (!eventId) {
@@ -260,7 +260,7 @@ exports.getEvent = async (req, res) => {
  * - If event not deleted successfully, throws an error.
  */
 
-exports.deleteEvent = async (req, res) => {
+const deleteEvent = async (req, res) => {
   console.log("inside the delete event controller");
   try {
     const { eventId, userId } = req.params;
@@ -344,3 +344,5 @@ exports.deleteEvent = async (req, res) => {
   }
      */
 };
+
+export { createEvent, getAllEvents, getEventById, deleteEvent };

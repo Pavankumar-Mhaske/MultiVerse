@@ -7,6 +7,8 @@ export interface UserInterface {
   };
   username: string;
   email: string;
+  contactNumber: string;
+  isVerified: boolean;
   createdAt: string;
   updatedAt: string;
 }

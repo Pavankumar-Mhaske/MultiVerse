@@ -166,6 +166,7 @@ import messageRouter from "./routes/apps/chat-app/message.routes.js"; /**TODO: c
 
 // import todoRouter from "./routes/apps/todo/todo.routes.js";
 import todoRouter from "./routes/apps/todo/newtodo.routes.js";
+import eventRouter from "./routes/apps/todo/event.routes.js";
 
 /**
  * "Kitchen sink routes" refer to a set of routes that are used for testing and debugging purposes.
@@ -231,6 +232,7 @@ app.use("/api/v1/chat-app/chats", chatRouter); /**TODO: chatApp */
 app.use("/api/v1/chat-app/messages", messageRouter); /**TODO: chatApp */
 
 app.use("/api/v1/todos", todoRouter);
+app.use("./api/v1/events", eventRouter);
 
 // * Kitchen sink apis
 app.use("/api/v1/kitchen-sink/http-methods", httpmethodRouter);

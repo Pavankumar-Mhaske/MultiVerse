@@ -69,7 +69,7 @@ const createEvent = async (req, res) => {
     });
 
     const user = await User.findById(userId);
-    if (user) {
+    if (!user) {
       throw new Error("User not found in DB");
     }
 

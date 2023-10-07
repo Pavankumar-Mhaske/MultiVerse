@@ -1,8 +1,8 @@
 /**
  * Importing the todo model to perform CRUD operations
  */
-const Todo = require("../../../models/apps/todo/newtodo.models.js");
-const User = require("../../../models/apps/auth/user.models.js");
+import { Todo } from "../../../models/apps/todo/newtodo.models.js";
+import { User } from "../../../models/apps/auth/user.models.js";
 
 /**
  * createTodo() - Asynchronous Function
@@ -25,7 +25,7 @@ const User = require("../../../models/apps/auth/user.models.js");
  *      - Update user todos using the todo._id and save.
  */
 
-exports.createTodo = async (req, res) => {
+const createTodo = async (req, res) => {
   try {
     const { title, tasks, isImportant } = req.body;
     const todoObj = {};
@@ -115,7 +115,7 @@ exports.createTodo = async (req, res) => {
  *      - Fetches all the todos from database (Asynchronous operation - find())
  */
 
-exports.getAllTodos = async (req, res) => {
+const getAllTodos = async (req, res) => {
   try {
     const todos = await Todo.find({});
 
@@ -150,7 +150,7 @@ exports.getAllTodos = async (req, res) => {
  *
  * some changes in the code are still expected
  */
-exports.getTodoById = async (req, res) => {
+const getTodoById = async (req, res) => {
   try {
     const { todoId, userId } = req.params;
 
@@ -230,7 +230,7 @@ exports.getTodoById = async (req, res) => {
  *      - Save the changes made to todo - (Asynchronous operation - save())
  */
 
-exports.updateTodo = async (req, res) => {
+const updateTodo = async (req, res) => {
   try {
     const { todoId, userId } = req.params;
 
@@ -342,7 +342,7 @@ exports.updateTodo = async (req, res) => {
  *      - Save the user (Asynchronous operation - save())
  */
 
-exports.deleteTodo = async (req, res) => {
+const deleteTodo = async (req, res) => {
   try {
     const { todoId, userId } = req.params;
 
@@ -419,7 +419,7 @@ exports.deleteTodo = async (req, res) => {
  *      - Only filter the todos whose user reference matches with the user we fetched
  */
 
-exports.searchTodos = async (req, res) => {
+const searchTodos = async (req, res) => {
   try {
     const { userId } = req.params;
     const { search } = req.query;
@@ -490,4 +490,13 @@ exports.searchTodos = async (req, res) => {
       message: error.message,
     });
   }
+};
+
+export {
+  createTodo,
+  getAllTodos,
+  getTodoById,
+  updateTodo,
+  deleteTodo,
+  searchTodos,
 };

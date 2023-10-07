@@ -59,6 +59,16 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    contactNumber: {
+      type: String,
+      trim: true,
+      maxlength: [20, "Contact number can not be more than 20 digits"],
+      default: "",
+    },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
     refreshToken: {
       type: String,
     },

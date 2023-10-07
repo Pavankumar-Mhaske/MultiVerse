@@ -1,8 +1,8 @@
 /**
  * Importing mongoose
  */
-const mongoose = require("mongoose");
-const { User } = require("../auth/user.models.js");
+import mongoose from "mongoose";
+import { User } from "../auth/user.models.js";
 /**
  * Destructuring from mongoose
  *      - Schema Constructor
@@ -37,4 +37,5 @@ const EventSchema = new Schema(
   }
 );
 
-module.exports = model("Event", EventSchema);
+// module.exports = model("Event", EventSchema);
+export const Event = model("Event", EventSchema);

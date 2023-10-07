@@ -177,7 +177,7 @@ const getAllEvents = async (req, res) => {
 
 const getEventById = async (req, res) => {
   try {
-    const { userId, eventId } = req.params;
+    const { eventId, userId } = req.params;
     if (!eventId) {
       throw new Error("eventId is required");
     }

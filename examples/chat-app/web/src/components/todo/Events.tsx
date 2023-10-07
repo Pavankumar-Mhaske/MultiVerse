@@ -1,9 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import Calender from "./Calender";
 import "./styles/Events.css";
 import axios from "axios";
 
-import userContext from "../context/userContext";
+// context
+import { useAuth } from "../../context/AuthContext";
 
 import "react-phone-number-input/style.css";
 import PhoneInput from "react-phone-number-input";
@@ -25,22 +26,25 @@ import { useNavigate } from "react-router-dom";
 // const otpGenerator = require("otp-generator");
 
 function EventList() {
-  const { user } = useContext(userContext);
-  const [reminderMsg, setReminderMsg] = useState("");
-  const [remindeAt, setRemindeAt] = useState(new Date());
-  const [reminderList, setReminderList] = useState([]);
-  const [contactNumber, setContactNumber] = useState("");
-  const [otp, setOtp] = useState("");
-  const [responseOtp, SetResponseOtp] = useState("");
-  const [isVerified, setIsVerified] = useState(user.isVerified);
-  const [allowSendOtp, setAllowSendOtp] = useState(false);
-  const [seconds, setSeconds] = useState(0);
+  const { user } = useAuth();
+
+  const [reminderMsg, setReminderMsg] = useState<string>("");
+  const [remindeAt, setRemindeAt] = useState<Date>(new Date());
+  const [reminderList, setReminderList] = useState<any[]>([]);
+  const [contactNumber, setContactNumber] = useState<string>("");
+  const [otp, setOtp] = useState<string>("");
+  const [responseOtp, SetResponseOtp] = useState<string>("");
+  const [isVerified, setIsVerified] = useState<boolean>(
+    user && user?.isVerified !== undefined ? user.isVerified : false
+  );
+  const [allowSendOtp, setAllowSendOtp] = useState<boolean>(false);
+  const [seconds, setSeconds] = useState<number>(0);
 
   console.log("In EventsList user is  : ", user);
 
   const fetchData = async () => {
     await axios
-      .get(`/user/getUser?userId=${user.$id}`)
+      .get(`/user/getUser?userId=${user?._id}`)
       .then((response) => {
         console.log("response in getUser: ", response);
         console.log("isVeried", response.data.data[0].isVerified);
@@ -52,7 +56,7 @@ function EventList() {
 
     await axios
       // .get("/event/getAll")
-      .get(`/user/events?userId=${user.$id}`)
+      .get(`/user/events?userId=${user?._id}`)
       .then((response) => {
         console.log("response in 1st getReminder : ", response);
         // setReminderList(response.data);
@@ -121,7 +125,7 @@ function EventList() {
       .post("/event/create", {
         reminderMsg: reminderMsg,
         remindAt: remindeAtISO,
-        userId: user.$id,
+        userId: user?._id,
       })
       .then(async (res) => {
         console.log("response in addReminder : ", res);
@@ -130,7 +134,7 @@ function EventList() {
 
         await axios
           // .get("/event/getAll")
-          .get(`/user/events?userId=${user.$id}`)
+          .get(`/user/events?userId=${user?._id}`)
           .then((response) => {
             console.log(
               "response in getReminder  inside the addReminder : ",
@@ -155,23 +159,23 @@ function EventList() {
 
     setReminderMsg("");
     setRemindeAt(new Date());
-  }, [reminderList, reminderMsg, remindeAt, user.$id]);
+  }, [reminderList, reminderMsg, remindeAt, user?._id]);
 
   const deleteReminder = useCallback(
-    async (id) => {
+    async (id: string) => {
       console.log("id in deleteReminder : ", id);
-      console.log("userId in deleteReminder : ", user.$id);
+      console.log("userId in deleteReminder : ", user?._id);
 
       // {params: { userId: user.$id, eventId: id },}
       const toastId = showToastLoading("Deleting an Event..."); // show loading toast
       await axios
-        .delete(`/event/${user.$id}/${id}`)
+        .delete(`/event/${user?._id}/${id}`)
         .then(async (res) => {
           console.log("response in deleteReminder : ", res);
           // get all reminders from db and set reminderList on every addReminder call
           await axios
             // .get("/event/getAll")
-            .get(`/user/events?userId=${user.$id}`)
+            .get(`/user/events?userId=${user?._id}`)
             .then((response) => {
               console.log(
                 "response in getReminder  inside the deleteReminder : ",
@@ -193,7 +197,7 @@ function EventList() {
           showToastError(error.message);
         });
     },
-    [user.$id]
+    [user?._id]
   );
 
   useEffect(() => {
@@ -245,9 +249,15 @@ function EventList() {
     if (otp === responseOtp) {
       console.log("otp is verified successfully");
       setIsVerified(true);
-      user.isVerified = true;
+      if (user !== null) {
+        user.isVerified = true;
+      } else {
+        console.log(`user is null
+        Not able to set isVerified to true`);
+      }
+      // user? user.isVerified = true : null;
       await axios.post("/event/updateIsVerified", {
-        userId: user.$id,
+        userId: user?._id,
         isVerified: true,
         contactNumber: contactNumber,
       });
@@ -263,16 +273,23 @@ function EventList() {
 
   return (
     <div className="eventPage">
-      {console.log("user in eventList *********** : ", user.isVerified)}
+      {/* {console.log("user in eventList *********** : ", user.isVerified)} */}
       {/* functionality of Verifying the users contact number and enabling him/her to use evets scheduling funtioanlity */}
       {!isVerified ? (
         <div className="verification_box w-[95%] sm:w-5/6 md:w-full m-auto">
-          <button className="Guide_button mt-2 md:mt-0 sm:ml-2  px-5  py-2 text-md  lg:text-lg   text-white  font-medium  rounded  active:bg-violet-400  active:text-gray-500" onClick={navigateToGuide}>
-            
+          <button
+            className="Guide_button mt-2 md:mt-0 sm:ml-2  px-5  py-2 text-md  lg:text-lg   text-white  font-medium  rounded  active:bg-violet-400  active:text-gray-500"
+            onClick={navigateToGuide}
+          >
             Guide
           </button>
-          <p className="mt-2 md:mt-0 sm:ml-2  px-5  py-2 text-md  lg:text-lg   text-white  font-medium  rounded  active:bg-violet-400  active:text-gray-500">👆🏻</p>
-          <p className="mt-2 md:mt-0 sm:ml-2  px-5  py-2 text-md  lg:text-lg   text-white  font-medium  rounded  active:bg-violet-400  active:text-gray-500"> Please go throught the guide before proceed</p>
+          <p className="mt-2 md:mt-0 sm:ml-2  px-5  py-2 text-md  lg:text-lg   text-white  font-medium  rounded  active:bg-violet-400  active:text-gray-500">
+            👆🏻
+          </p>
+          <p className="mt-2 md:mt-0 sm:ml-2  px-5  py-2 text-md  lg:text-lg   text-white  font-medium  rounded  active:bg-violet-400  active:text-gray-500">
+            {" "}
+            Please go throught the guide before proceed
+          </p>
           <h1 className="header_gradient_text mt-12 mb-6 text-2xl md:text-4xl font-medium text-center">
             Events Reminder
           </h1>
@@ -367,9 +384,9 @@ function EventList() {
 
           <div className="eventsBox_body">
             {/* <Toast /> */}
-            {console.log("inside the reminder List: ", reminderList)}
-            {reminderList.data ? (
-              reminderList.data.map((reminder) => (
+            {/* {console.log("inside the reminder List: ", reminderList)} */}
+            {reminderList ? (
+              reminderList.map((reminder) => (
                 <div className="reminder_card" key={reminder._id}>
                   <h2>{reminder.reminderMsg}</h2>
                   <div className={`flex-container`}>

@@ -16,7 +16,7 @@ import {
   updateTodo,
   deleteTodo,
   searchTodos,
-} from "../../../controllers/apps/todo/newtodo.controllers";
+} from "../../../controllers/apps/todo/newtodo.controllers.js";
 
 // const {
 //     createTodo,

@@ -115,7 +115,7 @@ exports.createTodo = async (req, res) => {
  *      - Fetches all the todos from database (Asynchronous operation - find())
  */
 
-exports.getTodos = async (req, res) => {
+exports.getAllTodos = async (req, res) => {
   try {
     const todos = await Todo.find({});
 
@@ -150,7 +150,7 @@ exports.getTodos = async (req, res) => {
  *
  * some changes in the code are still expected
  */
-exports.getTodo = async (req, res) => {
+exports.getTodoById = async (req, res) => {
   try {
     const { todoId, userId } = req.params;
 
@@ -230,9 +230,9 @@ exports.getTodo = async (req, res) => {
  *      - Save the changes made to todo - (Asynchronous operation - save())
  */
 
-exports.editTodo = async (req, res) => {
+exports.updateTodo = async (req, res) => {
   try {
-    const { userId, todoId } = req.params;
+    const { todoId, userId } = req.params;
 
     if (!todoId) {
       throw new Error("todoId required, Please pass todoId to edit a todo");
@@ -421,7 +421,8 @@ exports.deleteTodo = async (req, res) => {
 
 exports.searchTodos = async (req, res) => {
   try {
-    const { userId, search } = req.query;
+    const { userId } = req.params;
+    const { search } = req.query;
 
     if (!userId) {
       throw new Error("userId required, Please pass userId to search a todo");

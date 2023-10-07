@@ -27,7 +27,7 @@ import { User } from "../../../models/apps/auth/user.models.js";
 
 const createTodo = async (req, res) => {
   try {
-    const { title, tasks, isImportant } = req.body;
+    const { title, tasks, isImportant, userId } = req.body;
     const todoObj = {};
 
     if (!title) {
@@ -70,8 +70,6 @@ const createTodo = async (req, res) => {
     //   throw new Error("userId should be of type string");
     // }
 
-    const author = req.user._id;
-
     // const user = await User.find({
     //   _id: new mongoose.Types.ObjectId(userId),
     // });
@@ -79,6 +77,7 @@ const createTodo = async (req, res) => {
     //   throw new Error("User not found in DB");
     // }
 
+    const author = userId;
     Object.defineProperty(todoObj, "author", {
       value: author,
       enumerable: true,

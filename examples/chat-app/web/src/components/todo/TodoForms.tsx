@@ -1,4 +1,7 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { useAuth } from "../../context/AuthContext";
+
 // import {
 //   showToastLoading,
 //   showToastSuccess,
@@ -13,7 +16,6 @@ import {
 } from "./HotToastHandler";
 
 // axios
-import axios from "axios";
 
 // context
 // import userContext from "../context/userContext";
@@ -35,14 +37,16 @@ import toast from "react-hot-toast";
  * @returns - Form element - Which can be used to update or create a todo.
  */
 
-const TodoForm: React.FC<{
+interface TodoFormProps {
   task: string;
   buttonName: string;
-  todo?: any; // You might want to replace 'any' with a more specific type.
-  makeRequest: () => void;
+  todo?: any; // Replace 'any' with a more specific type if available
+  makeRequest: () => any;
   setMakeRequest: (value: boolean) => void;
   setEditTodo: (value: boolean) => void;
-}> = ({
+}
+
+const TodoForm: React.FC<TodoFormProps> = ({
   task,
   buttonName,
   todo = "",
@@ -61,9 +65,10 @@ const TodoForm: React.FC<{
    * isImportant - To prioritize a todo.
    */
 
-  const [title, setTitle] = useState(!todo ? "" : todo.title);
-  const [tasks, setTasks] = useState(!todo ? [] : todo.tasks);
-  const [isImportant, setIsImportant] = useState(
+  const user = useAuth();
+  const [title, setTitle] = useState<string>(!todo ? "" : todo.title);
+  const [tasks, setTasks] = useState<string[]>(!todo ? [] : todo.tasks);
+  const [isImportant, setIsImportant] = useState<boolean>(
     !todo ? false : todo.isImportant
   );
 
@@ -73,7 +78,7 @@ const TodoForm: React.FC<{
    *                - Finally resets the values of all the inputfield and updates makeRequest state
    */
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     try {
       event.preventDefault();
 
@@ -84,7 +89,7 @@ const TodoForm: React.FC<{
             title,
             tasks,
             isImportant,
-            userId: user.$id,
+            userId: user?._id,
           })
           .then((response) => {
             console.log("Response from handleDelete method: ", response);
@@ -101,7 +106,7 @@ const TodoForm: React.FC<{
         const toastId = showToastLoading("Updating Todo...");
         console.log("inside the update todo,userId  todoId is ", todo);
         await axios
-          .put(`todo/${user.$id}/${todo._id}`, {
+          .put(`todo/${user?._id}/${todo._id}`, {
             title,
             tasks,
             isImportant,
@@ -124,7 +129,7 @@ const TodoForm: React.FC<{
         // setEditTodo(false);
         // document.body.style.overflow = "auto";
       }
-    } catch (error:any) {
+    } catch (error: any) {
       if (task === "create") {
         showToastError(error.message);
         // add alert
@@ -193,7 +198,7 @@ const TodoForm: React.FC<{
                   name="isImportant"
                   id="isImportant"
                   checked={isImportant}
-                  value={isImportant}
+                  value={isImportant?.toString()}
                   onChange={handleHighlightTodo}
                 />
                 Highlight Todo

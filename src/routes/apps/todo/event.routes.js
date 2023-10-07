@@ -25,7 +25,7 @@ router
   .get(getAllEventsQueryValidators(), validate, getAllEvents);
 
 router
-  .route("/:eventId")
+  .route("/:eventId/:userId")
   .get(
     mongoIdPathVariableValidator("eventId"),
 

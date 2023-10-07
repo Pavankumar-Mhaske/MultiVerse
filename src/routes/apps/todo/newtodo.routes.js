@@ -9,14 +9,14 @@ import { Router } from "express";
 //   updateTodo,
 // } from "../../../controllers/apps/todo/todo.controllers.js";
 
-const {
+import {
   createTodo,
   getAllTodos,
   getTodoById,
   updateTodo,
   deleteTodo,
   searchTodos,
-} = require("../../../controllers/apps/todo/newtodo.controllers.js");
+} from "../../../controllers/apps/todo/newtodo.controllers";
 
 // const {
 //     createTodo,

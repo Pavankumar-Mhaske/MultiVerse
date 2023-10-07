@@ -73,4 +73,4 @@ const TodoSchema = new Schema(
  */
 // exports const  = model("Todo", TodoSchema);
 
-export const Todo = mongoose.model("Todo", TodoSchema);
+export const Todo = model("Todo", TodoSchema);

@@ -2,7 +2,7 @@
  * Importing mongoose
  */
 const mongoose = require("mongoose");
-
+const { User } = require("../auth/user.models.js");
 /**
  * Destructuring from mongoose
  *      - Schema Constructor
@@ -48,7 +48,12 @@ const TodoSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    user: {
+    // user: {
+    //   type: Schema.Types.ObjectId, // This is a reference to the User model
+    //   ref: "User",
+    //   required: [true, "User is required to store todo"],
+    // },
+    author: {
       type: Schema.Types.ObjectId, // This is a reference to the User model
       ref: "User",
       required: [true, "User is required to store todo"],

@@ -373,7 +373,7 @@ exports.deleteTodo = async (req, res) => {
       throw new Error("User not found in DB");
     }
 
-    if (todo.user.equals(user._id) === false) {
+    if (todo.author.equals(user._id) === false) {
       throw new Error("User is not the owner of todo");
     }
 
@@ -472,7 +472,7 @@ exports.searchTodos = async (req, res) => {
     }
 
     const filteredTodos = unfilteredTodos.filter((todo) =>
-      todo.user.equals(user._id)
+      todo.author.equals(user._id)
     );
 
     res.status(200).json({

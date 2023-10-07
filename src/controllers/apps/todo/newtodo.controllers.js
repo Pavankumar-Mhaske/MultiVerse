@@ -361,8 +361,8 @@ const deleteTodo = async (req, res) => {
       throw new Error("userId should be of type string");
     }
 
-    const todo = await Todo.findByIdAndDelete(todoId.trim());
     const user = await User.findById(userId.trim());
+    const todo = await Todo.findByIdAndDelete(todoId.trim());
 
     if (!todo) {
       throw new Error("Todo not found in DB");

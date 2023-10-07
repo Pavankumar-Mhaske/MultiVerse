@@ -164,7 +164,8 @@ import socialProfileRouter from "./routes/apps/social-media/profile.routes.js";
 import chatRouter from "./routes/apps/chat-app/chat.routes.js"; /**TODO: chatApp */
 import messageRouter from "./routes/apps/chat-app/message.routes.js"; /**TODO: chatApp */
 
-import todoRouter from "./routes/apps/todo/todo.routes.js";
+// import todoRouter from "./routes/apps/todo/todo.routes.js";
+import todoRouter from "./routes/apps/todo/newtodo.routes.js";
 
 /**
  * "Kitchen sink routes" refer to a set of routes that are used for testing and debugging purposes.

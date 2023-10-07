@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker";
-import { Todo } from "../models/apps/todo/todo.models.js";
+// import { Todo } from "../models/apps/todo/todo.models.js";
+import { Todo } from "../models/apps/todo/newtodo.models.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { TODOS_COUNT } from "./_constants.js";

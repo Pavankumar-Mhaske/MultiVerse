@@ -65,7 +65,7 @@ const TodoForm: React.FC<TodoFormProps> = ({
    * isImportant - To prioritize a todo.
    */
 
-  const user = useAuth();
+  const {user} = useAuth();
   const [title, setTitle] = useState<string>(!todo ? "" : todo.title);
   const [tasks, setTasks] = useState<string[]>(!todo ? [] : todo.tasks);
   const [isImportant, setIsImportant] = useState<boolean>(

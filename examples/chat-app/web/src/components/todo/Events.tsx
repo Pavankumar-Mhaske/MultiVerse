@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Calender from "./Calender";
 import "./styles/Events.css";
 import axios from "axios";
@@ -304,7 +304,10 @@ function EventList() {
                 defaultCountry="RU"
                 placeholder="Enter phone number"
                 value={contactNumber}
-                onChange={setContactNumber}
+                // onChange={setContactNumber}
+                onChange={(value?: string | undefined) =>
+                  setContactNumber(value || "")
+                }
               />
               <button
                 className={` ${
@@ -371,7 +374,13 @@ function EventList() {
               onChange={(e) => setReminderMsg(e.target.value)}
             />
             <div className="calender">
-              <Calender setRemindeAt={setRemindeAt} />
+              <Calender
+                setRemindeAt={(date: Date | null) => {
+                  if (date !== null) {
+                    setRemindeAt;
+                  }
+                }}
+              />
             </div>
             <div className="button" onClick={addReminder}>
               submit

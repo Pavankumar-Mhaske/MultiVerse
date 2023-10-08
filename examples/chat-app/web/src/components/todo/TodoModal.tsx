@@ -1,10 +1,10 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 // import axios
 import axios from "axios";
 
 // import context
-import userContext from "../context/userContext";
+import { useAuth } from "../../context/AuthContext";
 
 /**
  *
@@ -15,12 +15,25 @@ import userContext from "../context/userContext";
  * @param updated - It is used to populate the todo updated date and time.
  * @returns
  */
+interface TodoModalProps {
+  popup: boolean;
+  todoId: string;
+  makeRequest: boolean;
+  created: string;
+  updated: string;
+}
 
-const TodoModal = ({ popup, todoId, makeRequest, created, updated }) => {
+const TodoModal: React.FC<TodoModalProps> = ({
+  popup,
+  todoId,
+  makeRequest,
+  created,
+  updated,
+}) => {
   /**
    * It is used to pass appwrite Id in DB request parmas
    */
-  const { user } = useContext(userContext);
+  const { user } = useAuth();
 
   /**
    * To maintain concurrency in tasks of todo. (When we have a unsuccessful update)
@@ -48,7 +61,7 @@ const TodoModal = ({ popup, todoId, makeRequest, created, updated }) => {
       // });
       // if (deletedTodoFound) {
 
-      const response = await axios.get(`/todo/${user.$id}/${todoId}`);
+      const response = await axios.get(`/todo/${user?._id}/${todoId}`);
 
       console.log("Tasks Fetched Successfully");
       console.log(response);
@@ -62,7 +75,7 @@ const TodoModal = ({ popup, todoId, makeRequest, created, updated }) => {
       console.log("Error in Fetching Tasks of Todo");
       console.log("Custom error message: Unable to fetch tasks");
     }
-  }, [user.$id, todoId]);
+  }, [user?._id, todoId]);
 
   useEffect(() => {
     getTodoTasks();

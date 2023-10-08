@@ -1,5 +1,12 @@
+import React from "react";
 // Importing the images
 import bin from "../assets/icons/delete.png";
+
+interface TaskProps {
+  body: string;
+  tasks: string[];
+  setTasks: React.Dispatch<React.SetStateAction<string[]>>;
+}
 
 /**
  *
@@ -8,8 +15,7 @@ import bin from "../assets/icons/delete.png";
  * @param setTasks - function (Update State). To handle delete task operation
  * @returns Task Element.
  */
-
-const Task = ({ body, tasks, setTasks }) => {
+const Task: React.FC<TaskProps> = ({ body, tasks, setTasks }) => {
   /**
    * deleteTask() - It deletes the task from tasks array.
    *              - Finds the task index and splices the array.

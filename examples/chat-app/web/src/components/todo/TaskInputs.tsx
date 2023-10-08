@@ -1,6 +1,12 @@
-import { useState } from "react";
+import React, { useState, ChangeEvent, MouseEvent, KeyboardEvent } from "react";
 import "../pages/styles/customStyles.css";
 import Task from "./Task";
+
+interface TaskInputProps {
+  tasks: string[];
+  setTasks: React.Dispatch<React.SetStateAction<string[]>>;
+}
+
 /**
  *
  * @param tasks - Array (State).
@@ -8,11 +14,11 @@ import Task from "./Task";
  * @returns Task Collection and Task Input Element.
  */
 
-const TaskInput = ({ tasks, setTasks }) => {
+const TaskInput: React.FC<TaskInputProps> = ({ tasks, setTasks }) => {
   /**
    * Used to update the task input value when input changes.
    */
-  const [taskInput, setTaskInput] = useState("");
+  const [taskInput, setTaskInput] = useState<string>("");
 
   /**
    * addTask() - It adds the task to tasks array.
@@ -20,19 +26,48 @@ const TaskInput = ({ tasks, setTasks }) => {
    *         - Clears the task input value.
    */
 
-  const addTask = (e) => {
+  // const addTask = (e: MouseEvent<HTMLButtonElement> | KeyboardEvent) => {
+  //   e.preventDefault();
+  //   console.log("taskinput:", taskInput);
+  //   if (taskInput === "") return;
+  //   setTasks([...tasks, taskInput]);
+  //   setTaskInput("");
+  // };
+
+  /**
+   * MouseEvent<HTMLButtonElement> -
+   * -> A MouseEvent is an event that is triggered by a mouse action, such as a click or hover. The HTMLButtonElement type specifies that the event target must be a button element.
+   *
+   * KeyboardEvent<HTMLInputElement> -
+   * -> A KeyboardEvent is an event that is triggered by a keyboard action, such as a key press or release. The HTMLInputElement type specifies that the event target must be an input element.
+   */
+  const addTask = (
+    e: MouseEvent<HTMLButtonElement> | KeyboardEvent<HTMLInputElement>
+  ) => {
     e.preventDefault();
-    console.log("taskinput:", taskInput);
     if (taskInput === "") return;
     setTasks([...tasks, taskInput]);
     setTaskInput("");
   };
 
+  // const addTask = () => {
+  //   if (taskInput === "") return;
+  //   setTasks([...tasks, taskInput]);
+  //   setTaskInput("");
+  // };
+
+  // const handleEnterKey = (e: KeyboardEvent<HTMLInputElement>) => {
+  //   if (e.key === "Enter") {
+  //     e.preventDefault();
+  //     addTask();
+  //   }
+  // };
+
   /**
    * handleChange() - Updates the task value.
    */
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTaskInput(e.target.value);
     console.log(taskInput);
   };
@@ -65,11 +100,7 @@ const TaskInput = ({ tasks, setTasks }) => {
             placeholder="Enter your task"
             value={taskInput}
             onChange={handleChange}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                addTask(e);
-              }
-            }}
+            onKeyDown={addTask}
           />
         </label>
         <button

@@ -1,10 +1,10 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 // import axios
 import axios from "axios";
 
 // import context
-import userContext from "../context/userContext";
+import { useAuth } from "../../context/AuthContext";
 
 import "../pages/styles/customStyles.css";
 // import images
@@ -35,34 +35,47 @@ import DeleteModal from "./DeleteModal";
  * @returns A Todo element.
  */
 
-const Todo = ({ todo, makeRequest, setMakeRequest }) => {
+interface TodoProps {
+  todo: {
+    _id: string;
+    title: string;
+    isImportant: boolean;
+    isCompleted: boolean;
+    createdAt: string;
+    updatedAt: string;
+  };
+  makeRequest: boolean;
+  setMakeRequest: (value: boolean) => void;
+}
+
+const Todo: React.FC<TodoProps> = ({ todo, makeRequest, setMakeRequest }) => {
   // console.log("type of setMakeRequest", typeof setMakeRequest);
   // console.log("Inside Todo.js todo is ", todo);
   /**
    * It is used to pass appwrite Id in DB request parmas
    */
-  const { user } = useContext(userContext);
+  const { user } = useAuth();
 
   /**
    * Used to display Todo Modal (tasks) when todo title is clicked
    */
 
   // const [showTodoModal, setShowTodoModal] = useState(false);
-  const [popup, setPopup] = useState(false); // for todo modal
+  const [popup, setPopup] = useState<boolean>(false); // for todo modal
 
   /**
    * Used to display EditForm Modal when todo edit button is clicked
    */
 
   // const [showEditModal, setShowEditModal] = useState(false);
-  const [editTodoc, setEditTodo] = useState(false); // for edit modal
+  const [editTodoc, setEditTodo] = useState<boolean>(false); // for edit modal
 
   /**
    * Used to display EditForm Modal when todo edit button is clicked
    */
 
   // const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [deleteTodo, setDeleteTodo] = useState(false); // for delete modal
+  const [deleteTodo, setDeleteTodo] = useState<boolean>(false); // for delete modal
 
   /**
    * @param todo - stores todo object which has to update its isImportant field
@@ -74,24 +87,25 @@ const Todo = ({ todo, makeRequest, setMakeRequest }) => {
    */
 
   const handleHighlight = useCallback(
-    async (event, todo) => {
+    async (event: React.MouseEvent, todo: TodoProps["todo"]) => {
       try {
         // prevent default behaviour of form submission (reloading)
         console.log("inside the handleHighlight");
         console.log("todo is ", todo);
 
         event.preventDefault();
-        let { _id, isImportant } = todo;
+        const { _id } = todo;
+        let { isImportant } = todo;
 
         console.log("todo is ", todo);
         isImportant = !isImportant;
         console.log(
-          `before the put request,${user.$id} ${_id}, ${isImportant}`
+          `before the put request,${user?._id} ${_id}, ${isImportant}`
         );
         // /api/todo/${user.uid}/${_id}
 
         await axios
-          .put(`/todo/${user.$id}/${_id}`, {
+          .put(`/todo/${user?._id}/${_id}`, {
             isImportant,
           })
           .then((response) => {
@@ -110,13 +124,22 @@ const Todo = ({ todo, makeRequest, setMakeRequest }) => {
         console.log("Error: ", error);
       }
     },
-    [makeRequest, setMakeRequest, user.$id]
+    [makeRequest, setMakeRequest, user?._id]
   );
 
   useEffect(() => {
     console.log("inside the useeffect of todo");
-    handleHighlight();
-  }, [handleHighlight]);
+    const handleClickHighlight = (
+      event: React.MouseEvent<Element, MouseEvent> | undefined
+    ) => {
+      if (event) {
+        handleHighlight(event as React.MouseEvent<Element, MouseEvent>, todo);
+      }
+    };
+    handleClickHighlight(
+      event as React.MouseEvent<Element, MouseEvent> | undefined
+    );
+  }, [handleHighlight, todo]);
   /**
    * @param todo - stores todo object which has to update its isImportant field
    * handleCompleted() - Prevent default behaviour of form submission (reloading).
@@ -127,17 +150,19 @@ const Todo = ({ todo, makeRequest, setMakeRequest }) => {
    */
 
   const handleCompleted = useCallback(
-    async (event, todo) => {
+    async (event: React.MouseEvent, todo: TodoProps["todo"]) => {
       try {
         // prevent default behaviour of form submission (reloading)
         event.preventDefault();
-        let { _id, isCompleted } = todo;
+        const { _id } = todo;
+        let { isCompleted } = todo;
         isCompleted = !isCompleted;
         // /api/todo/${user.uid}/${_id}
         await axios
-          .put(`/todo/${user.$id}/${_id}`, { isCompleted })
+          .put(`/todo/${user?._id}/${_id}`, { isCompleted })
           .then((response) => {
             console.log("before the setMakeRequest");
+            console.log(response);
             setMakeRequest(!makeRequest);
           })
           .catch((error) => {
@@ -151,13 +176,20 @@ const Todo = ({ todo, makeRequest, setMakeRequest }) => {
         console.log("Error: ", error);
       }
     },
-    [makeRequest, setMakeRequest, user.$id]
+    [makeRequest, setMakeRequest, user?._id]
   );
 
   useEffect(() => {
     console.log("inside the useeffect of todo");
-    handleCompleted();
-  }, [handleCompleted]);
+    const handleClickCompleted = (
+      event: React.MouseEvent<Element, MouseEvent> | undefined
+    ) => {
+      handleCompleted(event as React.MouseEvent<Element, MouseEvent>, todo);
+    };
+    handleClickCompleted(
+      event as React.MouseEvent<Element, MouseEvent> | undefined
+    );
+  }, [handleCompleted, todo]);
 
   return (
     <>
@@ -230,7 +262,7 @@ const Todo = ({ todo, makeRequest, setMakeRequest }) => {
           onClick={() => {
             window.scrollTo({
               top: 0,
-              bahaivior: "auto",
+              behavior: "auto",
             });
             document.body.style.overflow = "hidden";
             setEditTodo(true);
@@ -247,7 +279,7 @@ const Todo = ({ todo, makeRequest, setMakeRequest }) => {
           onClick={() => {
             window.scrollTo({
               top: 0,
-              bahaivior: "auto",
+              behavior: "auto",
             });
             document.body.style.overflow = "hidden";
             setDeleteTodo(true);

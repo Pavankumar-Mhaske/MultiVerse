@@ -1,6 +1,6 @@
 import React from "react";
 // Importing the images
-import bin from "../assets/icons/delete.png";
+import bin from "../../assets/icons/delete.png";
 
 interface TaskProps {
   body: string;

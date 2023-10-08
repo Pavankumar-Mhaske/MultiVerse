@@ -22,13 +22,22 @@ interface TodoListProps {
   makeRequest: boolean;
   setMakeRequest: (value: boolean) => void;
 }
+
 interface Todo {
   _id: string;
   title: string;
   isImportant: boolean;
-  createdAt: string; // Replace with the actual type of createdAt
-  // Add other properties as needed
+  isCompleted: boolean;
+  createdAt: string;
+  updatedAt: string;
 }
+// interface Todo {
+//   _id: string;
+//   title: string;
+//   isImportant: boolean;
+//   createdAt: string; // Replace with the actual type of createdAt
+//   // Add other properties as needed
+// }
 
 const TodoList: React.FC<TodoListProps> = ({ makeRequest, setMakeRequest }) => {
   /**

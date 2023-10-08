@@ -6,7 +6,8 @@ import axios from "axios";
 // import context
 import { useAuth } from "../../context/AuthContext";
 
-import "../pages/styles/customStyles.css";
+import "../../pages/styles/customStyles.css";
+
 // import images
 /**
  *
@@ -18,12 +19,12 @@ import "../pages/styles/customStyles.css";
  * ckecked
  */
 
-import bin from "../assets/icons/delete.png";
-import edit from "../assets/icons/edit.png";
-import star from "../assets/icons/star.png";
-import starFill from "../assets/icons/starFill.png";
-import check from "../assets/icons/redCheck.png";
-import checked from "../assets/icons/check.png";
+import bin from "../../assets/icons/delete.png";
+import edit from "../../assets/icons/edit.png";
+import star from "../../assets/icons/star.png";
+import starFill from "../../assets/icons/starFill.png";
+import check from "../../assets/icons/redCheck.png";
+import checked from "../../assets/icons/check.png";
 
 // import components
 import TodoModal from "./TodoModal";

@@ -25,7 +25,7 @@ import {
 import TitleInput from "./TitleInputs";
 // import TaskInput from "./TaskInput";
 import TaskInput from "./TaskInputs";
-import TodoButton from "./TodoButton";
+import TodoButton from "./TodoButtons";
 // import TodoButton from "./TodoButtons";
 import "./styles/TodoForms.css";
 // import toast from "react-hot-toast";
@@ -48,7 +48,7 @@ interface TodoFormProps {
   task: string;
   buttonName: string;
   todo: any;
-  makeRequest:boolean;
+  makeRequest: boolean;
   setMakeRequest: (value: boolean) => void;
   setEditTodo: (value: boolean) => void;
 }

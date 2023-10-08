@@ -36,11 +36,18 @@ import "./styles/TodoForms.css";
  * @param  setMakeRequest - To make DB call and populate todos in todoList once form is submitted.
  * @returns - Form element - Which can be used to update or create a todo.
  */
-
+// interface Todo {
+//   _id: string;
+//   title: string;
+//   isImportant: boolean;
+//   isCompleted: boolean;
+//   createdAt: string;
+//   updatedAt: string;
+// }
 interface TodoFormProps {
   task: string;
   buttonName: string;
-  todo?: any; // Replace 'any' with a more specific type if available
+  todo: any;
   makeRequest: () => any;
   setMakeRequest: (value: boolean) => void;
   setEditTodo: (value: boolean) => void;

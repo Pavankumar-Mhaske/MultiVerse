@@ -46,7 +46,8 @@ const Homepage: React.FC = () => {
           <TodoForm
             task="create"
             buttonName="Create Todo"
-            makeRequest={() => makeRequest}
+            todo={""}
+            makeRequest={makeRequest}
             setMakeRequest={setMakeRequest}
             setEditTodo={() => false}
           />

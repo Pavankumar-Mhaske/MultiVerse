@@ -24,7 +24,7 @@ interface DeleteModalProps {
   todo: Todo;
   deleteTodo: boolean;
   setDeleteTodo: React.Dispatch<React.SetStateAction<boolean>>;
-  makeRequest: () => boolean;
+  makeRequest:boolean;
   setMakeRequest: React.Dispatch<React.SetStateAction<any>>;
 }
 

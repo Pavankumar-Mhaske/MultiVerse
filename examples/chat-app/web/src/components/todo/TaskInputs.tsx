@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent, MouseEvent, KeyboardEvent } from "react";
-import "../pages/styles/customStyles.css";
+// import "../pages/styles/customStyles.css";
+import "../../pages/styles/customStyles.css";
 import Task from "./Task";
 
 interface TaskInputProps {

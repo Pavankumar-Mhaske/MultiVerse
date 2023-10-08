@@ -48,7 +48,7 @@ interface TodoFormProps {
   task: string;
   buttonName: string;
   todo: any;
-  makeRequest: () => any;
+  makeRequest:boolean;
   setMakeRequest: (value: boolean) => void;
   setEditTodo: (value: boolean) => void;
 }

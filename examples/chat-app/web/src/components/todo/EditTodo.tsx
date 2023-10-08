@@ -4,6 +4,14 @@ import TodoForm from "./TodoForms";
 
 // import {useNavigate} from "react-router-dom";
 
+interface EditTodoProps {
+  todo: any;
+  editTodoc: boolean;
+  setEditTodo: React.Dispatch<React.SetStateAction<boolean>>;
+  makeRequest: any;
+  setMakeRequest: React.Dispatch<React.SetStateAction<any>>;
+}
+
 /**
  *
  * @param todo - Todo Object to fill initial values.
@@ -12,14 +20,14 @@ import TodoForm from "./TodoForms";
  * @returns Todo Updation Form with values populated.
  */
 
-const EditTodo = ({
+const EditTodo: React.FC<EditTodoProps> = ({
   todo,
   editTodoc,
   setEditTodo,
   makeRequest,
   setMakeRequest,
 }) => {
-  if (!editTodoc) return "";
+  if (!editTodoc) return null;
   return (
     <div
       className={`w-full h-screen absolute top-0 left-0 border border-green-500  `}

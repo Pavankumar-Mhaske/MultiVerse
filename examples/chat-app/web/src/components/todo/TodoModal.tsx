@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 // import axios
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 
 // import context
 import { useAuth } from "../../context/AuthContext";
@@ -15,6 +15,20 @@ import { useAuth } from "../../context/AuthContext";
  * @param updated - It is used to populate the todo updated date and time.
  * @returns
  */
+
+interface Task {
+  _id: string;
+  name: string;
+}
+
+interface TodoData {
+  _id: string;
+  title: string;
+  tasks: Task[];
+  created: string;
+  updated: string;
+}
+
 interface TodoModalProps {
   popup: boolean;
   todoId: string;
@@ -38,7 +52,7 @@ const TodoModal: React.FC<TodoModalProps> = ({
   /**
    * To maintain concurrency in tasks of todo. (When we have a unsuccessful update)
    */
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState<Task[]>([]);
 
   /**
    * getTodoTasks() - Asynchronous Function
@@ -47,6 +61,9 @@ const TodoModal: React.FC<TodoModalProps> = ({
 
   const getTodoTasks = useCallback(async () => {
     try {
+      /**
+       * if (!user?._id || !todoId) return;
+       */
       // /api/v1/todos/${todoId}/tasks
       console.log("inside the getTodoTasks method in", todoId);
       // if (!user.$id) return;
@@ -61,15 +78,20 @@ const TodoModal: React.FC<TodoModalProps> = ({
       // });
       // if (deletedTodoFound) {
 
-      const response = await axios.get(`/todo/${user?._id}/${todoId}`);
+      const response: AxiosResponse<{ data: TodoData }> = await axios.get(
+        `/todo/${user?._id}/${todoId}`
+      );
 
       console.log("Tasks Fetched Successfully");
       console.log(response);
       console.log("tasks : ", response.data.data.tasks);
 
-      if (response.data.data.tasks) {
+      const todoData = response.data.data;
+      console.log("todoData : ", todoData);
+
+      if (todoData.tasks) {
         console.log("inside the if condition");
-        setTasks(response.data.data.tasks);
+        setTasks(todoData.tasks);
       }
     } catch (error) {
       console.log("Error in Fetching Tasks of Todo");
@@ -78,14 +100,16 @@ const TodoModal: React.FC<TodoModalProps> = ({
   }, [user?._id, todoId]);
 
   useEffect(() => {
-    getTodoTasks();
+    if (makeRequest) {
+      getTodoTasks();
+    }
   }, [getTodoTasks, makeRequest]);
 
   /**
    * Conditional rendering: Check if param pop is true and display tasks else display "".
    */
 
-  if (!popup) return "";
+  if (!popup) return null;
   return (
     <div className=" w-[95%] border-2  hover:border-violet-300  p-2  rounded text-sm sm:text-md md:text-lg xl:text-xl  text-blue-300  font-medium m-auto max-h-24 md:max-h-44 overflow-auto my-4">
       <div>
@@ -94,13 +118,13 @@ const TodoModal: React.FC<TodoModalProps> = ({
           tasks.length === 0 ? (
             <p>No Tasks Available</p>
           ) : (
-            tasks.map((task, index) =>
+            tasks.map((task) =>
               task ? (
                 <p
                   className="inline-block m-1 border-2 border-blue-500 rounded p-1"
-                  key={index}
+                  key={task?._id}
                 >
-                  {task}
+                  {task?.name}
                 </p>
               ) : (
                 ""

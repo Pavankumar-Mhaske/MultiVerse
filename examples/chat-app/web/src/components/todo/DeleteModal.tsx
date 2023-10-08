@@ -1,10 +1,9 @@
-import { useContext } from "react";
-
+import React from "react";
 // import axios
 import axios from "axios";
 
 // import context
-import userContext from "../context/userContext";
+import { useAuth } from "../../context/AuthContext";
 
 import {
   showToastLoading,
@@ -13,14 +12,30 @@ import {
   Toast,
 } from "./HotToastHandler";
 
-const DeleteModal = ({
+interface Todo {
+  _id: string;
+  title: string;
+  isImportant: boolean;
+  isCompleted: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+interface DeleteModalProps {
+  todo: Todo;
+  deleteTodo: boolean;
+  setDeleteTodo: React.Dispatch<React.SetStateAction<boolean>>;
+  makeRequest: () => boolean;
+  setMakeRequest: React.Dispatch<React.SetStateAction<any>>;
+}
+
+const DeleteModal: React.FC<DeleteModalProps> = ({
   deleteTodo,
   setDeleteTodo,
   todo,
   makeRequest,
   setMakeRequest,
 }) => {
-  const { user } = useContext(userContext);
+  const { user } = useAuth();
   /**
    * @param todoId - ._id value of a todo .
    * handleDelete() - Asynchronous Function (Server Request).
@@ -28,13 +43,16 @@ const DeleteModal = ({
    *                - Updates makeRequest state
    */
 
-  const handleDelete = async (event, todoId) => {
+  const handleDelete = async (
+    event: React.MouseEvent<HTMLButtonElement>,
+    todoId: string
+  ) => {
     try {
       event.preventDefault();
       // /api/todo/${user._id}/${todoId}
       const toastId = showToastLoading("Deleting Todo..."); // show loading toast
       axios
-        .delete(`/todo/${user.$id}/${todoId}`)
+        .delete(`/todo/${user?._id}/${todoId}`)
         .then((response) => {
           console.log("Response from handleDelete method: ", response);
           setMakeRequest(!makeRequest);
@@ -50,7 +68,7 @@ const DeleteModal = ({
         .finally(() => {
           document.body.style.overflow = "auto";
         });
-    } catch (error) {
+    } catch (error: any) {
       showToastError(error.message);
       console.log("Error while deleting a todo in handleDelete method");
       console.log("Error: ", error);

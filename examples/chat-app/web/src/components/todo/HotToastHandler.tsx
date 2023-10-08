@@ -12,18 +12,18 @@ const calculateToastOffset = () => {
   return `${scrollY + 30}px `;
 };
 
-export const showToastLoading = (message) => {
+export const showToastLoading = (message: string) => {
   return toast.loading(message);
 };
 
-export const showToastSuccess = (successMessage, toastId) => {
+export const showToastSuccess = (successMessage: string, toastId: string) => {
   toast.success(successMessage, {
     id: toastId,
     icon: "👏",
   });
 };
 
-export const showToastError = (errorMessage) => {
+export const showToastError = (errorMessage: string) => {
   toast.error(errorMessage, {
     duration: 2000,
     icon: "😥",

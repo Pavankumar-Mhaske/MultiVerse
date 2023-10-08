@@ -8,7 +8,7 @@ interface EditTodoProps {
   todo: any;
   editTodoc: boolean;
   setEditTodo: React.Dispatch<React.SetStateAction<boolean>>;
-  makeRequest: any;
+  makeRequest: boolean;
   setMakeRequest: React.Dispatch<React.SetStateAction<any>>;
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import dayjs from "dayjs";
 import { DemoContainer } from "@mui/x-date-pickers/internals/demo";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -6,8 +6,14 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 // import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { MobileDateTimePicker } from "@mui/x-date-pickers/MobileDateTimePicker";
 
-function Calender({ setRemindeAt }) {
-  const handleChange = (newValue) => {
+interface CalenderProps {
+  setRemindeAt: (date: Date | null) => void;
+}
+
+
+const Calender: React.FC<CalenderProps> = ({ setRemindeAt }) => {
+// function Calender({ setRemindeAt }) {
+  const handleChange = (newValue: Date | null) => {
     setRemindeAt(newValue);
   };
 
@@ -27,7 +33,7 @@ function Calender({ setRemindeAt }) {
       <DemoContainer components={["MobileDateTimePicker"]}>
         <MobileDateTimePicker
           onChange={handleChange}
-          defaultValue={dayjs(new Date())}
+          defaultValue={dayjs(new Date()).toDate()}
           disablePast
         />
         {/* </DemoItem> */}

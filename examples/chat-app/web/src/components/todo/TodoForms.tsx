@@ -52,6 +52,7 @@ interface TodoFormProps {
   setMakeRequest: (value: boolean) => void;
   setEditTodo: (value: boolean) => void;
 }
+const BASE_URL = "http://localhost:8080/api/v1";
 
 const TodoForm: React.FC<TodoFormProps> = ({
   task,
@@ -92,7 +93,7 @@ const TodoForm: React.FC<TodoFormProps> = ({
       if (task === "create") {
         const toastId = showToastLoading("Adding Todo..."); // show loading toast
         await axios
-          .post(`/todos`, {
+          .post(`${BASE_URL}/todos`, {
             title,
             tasks,
             isImportant,
@@ -113,7 +114,7 @@ const TodoForm: React.FC<TodoFormProps> = ({
         const toastId = showToastLoading("Updating Todo...");
         console.log("inside the update todo,userId  todoId is ", todo);
         await axios
-          .patch(`/todos/${todo?._id}/${user?._id}`, {
+          .patch(`${BASE_URL}/todos/${todo?._id}/${user?._id}`, {
             title,
             tasks,
             isImportant,

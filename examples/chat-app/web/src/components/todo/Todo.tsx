@@ -151,19 +151,24 @@ const Todo: React.FC<TodoProps> = ({ todo, makeRequest, setMakeRequest }) => {
     [makeRequest, setMakeRequest, user?._id]
   );
 
-  useEffect(() => {
-    console.log("inside the useeffect of todo");
-    const handleClickHighlight = (
-      event: React.MouseEvent<Element, MouseEvent> | undefined
-    ) => {
-      if (event) {
-        handleHighlight(event as React.MouseEvent<Element, MouseEvent>, todo);
-      }
-    };
-    handleClickHighlight(
-      event as React.MouseEvent<Element, MouseEvent> | undefined
-    );
-  }, []);
+  // useEffect(() => {
+  //   console.log("inside the useeffect of todo handleHighlight");
+  //   console.log(
+  //     "***********************************makeRequest is ",
+  //     makeRequest
+  //   );
+
+  //   const handleClickHighlight = (
+  //     event: React.MouseEvent<Element, MouseEvent> | undefined
+  //   ) => {
+  //     if (event) {
+  //       handleHighlight(event as React.MouseEvent<Element, MouseEvent>, todo);
+  //     }
+  //   };
+  //   handleClickHighlight(
+  //     event as React.MouseEvent<Element, MouseEvent> | undefined
+  //   );
+  // }, []);
   /**
    * @param todo - stores todo object which has to update its isImportant field
    * handleCompleted() - Prevent default behaviour of form submission (reloading).
@@ -223,17 +228,21 @@ const Todo: React.FC<TodoProps> = ({ todo, makeRequest, setMakeRequest }) => {
     [makeRequest, setMakeRequest, user?._id]
   );
 
-  useEffect(() => {
-    console.log("inside the useeffect of todo");
-    const handleClickCompleted = (
-      event: React.MouseEvent<Element, MouseEvent> | undefined
-    ) => {
-      handleCompleted(event as React.MouseEvent<Element, MouseEvent>, todo);
-    };
-    handleClickCompleted(
-      event as React.MouseEvent<Element, MouseEvent> | undefined
-    );
-  }, []);
+  // useEffect(() => {
+  //   console.log("inside the useeffect of todo");
+  //   console.log(
+  //     "***********************************makeRequest is ",
+  //     makeRequest
+  //   );
+  //   const handleClickCompleted = (
+  //     event: React.MouseEvent<Element, MouseEvent> | undefined
+  //   ) => {
+  //     handleCompleted(event as React.MouseEvent<Element, MouseEvent>, todo);
+  //   };
+  //   handleClickCompleted(
+  //     event as React.MouseEvent<Element, MouseEvent> | undefined
+  //   );
+  // }, []);
 
   return (
     <>

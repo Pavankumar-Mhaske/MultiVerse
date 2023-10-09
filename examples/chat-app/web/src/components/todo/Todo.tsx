@@ -49,6 +49,8 @@ interface TodoProps {
   setMakeRequest: (value: boolean) => void;
 }
 
+const BASE_URL = "http://localhost:8080/api/v1";
+
 const Todo: React.FC<TodoProps> = ({ todo, makeRequest, setMakeRequest }) => {
   // console.log("type of setMakeRequest", typeof setMakeRequest);
   // console.log("Inside Todo.js todo is ", todo);
@@ -92,6 +94,26 @@ const Todo: React.FC<TodoProps> = ({ todo, makeRequest, setMakeRequest }) => {
       try {
         // prevent default behaviour of form submission (reloading)
         console.log("inside the handleHighlight");
+        // console.log(`.
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // `);
         console.log("todo is ", todo);
 
         event.preventDefault();
@@ -106,7 +128,7 @@ const Todo: React.FC<TodoProps> = ({ todo, makeRequest, setMakeRequest }) => {
         // /api/todo/${user.uid}/${_id}
 
         await axios
-          .put(`/todos/${_id}/${user?._id}`, {
+          .put(`${BASE_URL}/todos/${_id}/${user?._id}`, {
             isImportant,
           })
           .then((response) => {
@@ -140,7 +162,7 @@ const Todo: React.FC<TodoProps> = ({ todo, makeRequest, setMakeRequest }) => {
     handleClickHighlight(
       event as React.MouseEvent<Element, MouseEvent> | undefined
     );
-  }, [handleHighlight, todo]);
+  }, []);
   /**
    * @param todo - stores todo object which has to update its isImportant field
    * handleCompleted() - Prevent default behaviour of form submission (reloading).
@@ -153,6 +175,26 @@ const Todo: React.FC<TodoProps> = ({ todo, makeRequest, setMakeRequest }) => {
   const handleCompleted = useCallback(
     async (event: React.MouseEvent, todo: TodoProps["todo"]) => {
       try {
+        console.log(`.
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        `);
         // prevent default behaviour of form submission (reloading)
         event.preventDefault();
         const { _id } = todo;
@@ -160,7 +202,7 @@ const Todo: React.FC<TodoProps> = ({ todo, makeRequest, setMakeRequest }) => {
         isCompleted = !isCompleted;
         // /api/todo/${user.uid}/${_id}
         await axios
-          .patch(`/todos/${_id}/${user?._id}`, { isCompleted })
+          .patch(`${BASE_URL}/todos/${_id}/${user?._id}`, { isCompleted })
           .then((response) => {
             console.log("before the setMakeRequest");
             console.log(response);
@@ -190,7 +232,7 @@ const Todo: React.FC<TodoProps> = ({ todo, makeRequest, setMakeRequest }) => {
     handleClickCompleted(
       event as React.MouseEvent<Element, MouseEvent> | undefined
     );
-  }, [handleCompleted, todo]);
+  }, []);
 
   return (
     <>

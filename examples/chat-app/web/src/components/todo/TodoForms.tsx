@@ -92,7 +92,7 @@ const TodoForm: React.FC<TodoFormProps> = ({
       if (task === "create") {
         const toastId = showToastLoading("Adding Todo..."); // show loading toast
         await axios
-          .post(`todo/create`, {
+          .post(`/todos`, {
             title,
             tasks,
             isImportant,
@@ -113,7 +113,7 @@ const TodoForm: React.FC<TodoFormProps> = ({
         const toastId = showToastLoading("Updating Todo...");
         console.log("inside the update todo,userId  todoId is ", todo);
         await axios
-          .put(`todo/${user?._id}/${todo._id}`, {
+          .patch(`/todos/${todo?._id}/${user?._id}`, {
             title,
             tasks,
             isImportant,

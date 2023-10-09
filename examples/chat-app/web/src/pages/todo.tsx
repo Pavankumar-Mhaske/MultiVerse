@@ -12,7 +12,7 @@ import { useAuth } from "../context/AuthContext";
 // import EventList from "../components/Events";
 import TodoForm from "../components/todo/TodoForms";
 import TodoList from "../components/todo/TodoLists";
-// import EventList from "../components/todo/Events";
+import EventList from "../components/todo/Events";
 import "./styles/HomePages.css";
 
 const Homepage: React.FC = () => {
@@ -57,7 +57,7 @@ const Homepage: React.FC = () => {
         </h1>
         <TodoList makeRequest={makeRequest} setMakeRequest={setMakeRequest} />
 
-        <div className="w-[98%] sm:w-5/6 md:w-full">{/* <EventList /> */}</div>
+        <div className="w-[98%] sm:w-5/6 md:w-full">{<EventList />}</div>
       </div>
     );
   }

@@ -12,6 +12,7 @@ import { Router } from "express";
 import {
   createTodo,
   getAllTodos,
+  getUserTodos,
   getTodoById,
   updateTodo,
   deleteTodo,
@@ -43,6 +44,10 @@ router
   .route("/")
   .post(createTodoValidator(), validate, createTodo)
   .get(getAllTodosQueryValidators(), validate, getAllTodos);
+
+router
+  .route("/:userId")
+  .get(mongoIdPathVariableValidator("userId"), validate, getUserTodos);
 
 router
   .route("/:todoId/:userId")

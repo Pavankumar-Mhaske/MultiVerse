@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 // import "./styles/GuidePages.css";
 import "./styles/GuidePage.css";
 
-const GuidePages = () => {
+const GuidePage: React.FC = () => {
   const navigate = useNavigate();
   const navigateToHome = () => {
     navigate("/todo");
@@ -12,7 +12,7 @@ const GuidePages = () => {
   return (
     <html lang="en">
       <head>
-        <meta charset="UTF-8" />
+        <meta charSet="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>GuidePage</title>
         <link rel="stylesheet" type="text/css" href="/style.css" />
@@ -109,4 +109,4 @@ const GuidePages = () => {
   );
 };
 
-export default GuidePages;
+export default GuidePage;

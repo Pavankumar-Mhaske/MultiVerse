@@ -73,7 +73,7 @@ router
 
 router
   //   .route("/search/:userId")
-  .route("/search")
+  .route("/search/:userId/:search")
   .get(
     // mongoIdPathVariableValidator("userId"),
     validate,

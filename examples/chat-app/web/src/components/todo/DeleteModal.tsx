@@ -24,7 +24,7 @@ interface DeleteModalProps {
   todo: Todo;
   deleteTodo: boolean;
   setDeleteTodo: React.Dispatch<React.SetStateAction<boolean>>;
-  makeRequest:boolean;
+  makeRequest: boolean;
   setMakeRequest: React.Dispatch<React.SetStateAction<any>>;
 }
 
@@ -52,7 +52,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
       // /api/todo/${user._id}/${todoId}
       const toastId = showToastLoading("Deleting Todo..."); // show loading toast
       axios
-        .delete(`/todo/${user?._id}/${todoId}`)
+        .delete(`/todos/${todoId}/${user?._id}`)
         .then((response) => {
           console.log("Response from handleDelete method: ", response);
           setMakeRequest(!makeRequest);

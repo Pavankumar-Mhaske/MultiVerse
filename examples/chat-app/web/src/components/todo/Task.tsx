@@ -5,7 +5,7 @@ import bin from "../../assets/icons/delete.png";
 interface TaskProps {
   body: string;
   tasks: string[];
-  setTasks: React.Dispatch<React.SetStateAction<string[]>>;
+  setTasks: (newTitles: string[]) => void;
 }
 
 /**

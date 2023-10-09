@@ -22,7 +22,7 @@ import {
   showToastError,
   Toast,
 } from "./HotToastHandler";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // const otpGenerator = require("otp-generator");
 
 function EventList() {
@@ -266,11 +266,10 @@ function EventList() {
     }
   };
 
-  // const navigate = useNavigate();
-  // const navigateToGuide = () => {
-
-  //   navigate("/guide"); // Replace '/welcome' with the actual URL of your welcome page
-  // };
+  const navigate = useNavigate();
+  const navigateToGuide = () => {
+    navigate("/guide"); // Replace '/welcome' with the actual URL of your welcome page
+  };
 
   return (
     <div className="eventPage">
@@ -280,9 +279,9 @@ function EventList() {
         <div className="verification_box w-[95%] sm:w-5/6 md:w-full m-auto">
           <button
             className="Guide_button mt-2 md:mt-0 sm:ml-2  px-5  py-2 text-md  lg:text-lg   text-white  font-medium  rounded  active:bg-violet-400  active:text-gray-500"
-            // onClick={navigateToGuide}
+            onClick={navigateToGuide}
           >
-            <a href="./pages/GuidePages.tsx">Guide</a>
+            Guide
           </button>
           <p className="mt-2 md:mt-0 sm:ml-2  px-5  py-2 text-md  lg:text-lg   text-white  font-medium  rounded  active:bg-violet-400  active:text-gray-500">
             👆🏻

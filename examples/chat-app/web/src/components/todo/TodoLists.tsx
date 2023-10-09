@@ -125,10 +125,12 @@ const TodoList: React.FC<TodoListProps> = ({ makeRequest, setMakeRequest }) => {
     try {
       // e.preventDefault();
       setSearch(search.trim());
+      console.log("inside the handlesearch method");
+      console.log(search);
 
       if (!search) return;
       const response = await axios.get(
-        `${BASE_URL}/todos/search?userId=${user?._id}&search=${search}`
+        `${BASE_URL}/todos/search/${user?._id}/${search}`
       );
 
       const { data } = response.data;

@@ -8,7 +8,7 @@ import { useAuth } from "../../context/AuthContext";
 
 // images
 // import searchIcon from "../assets/icons/search.png";
-import searchIcon from "../../assets/icons/search.png"
+import searchIcon from "../../assets/icons/search.png";
 import closeIcon from "../../assets/icons/close.png";
 
 // components
@@ -75,7 +75,7 @@ const TodoList: React.FC<TodoListProps> = ({ makeRequest, setMakeRequest }) => {
       console.log(
         "************************************************************************************************"
       );
-      const response = await axios.get(`/user/todos?userId=${user?._id}`);
+      const response = await axios.get(`/todos/${user?._id}`);
       // const response = await axios.get("/user/todos", {
       //   params: { userId: user.$id },
       // });
@@ -125,9 +125,9 @@ const TodoList: React.FC<TodoListProps> = ({ makeRequest, setMakeRequest }) => {
       setSearch(search.trim());
 
       if (!search) return;
-      const response = await axios.get("/todo/search", {
-        params: { userId: user?._id, search },
-      });
+      const response = await axios.get(
+        `/todos/search?userId=${user?._id}&search=${search}`
+      );
 
       const { data } = response.data;
       console.log("data inside the handlesearch", data);

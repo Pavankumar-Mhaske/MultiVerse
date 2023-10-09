@@ -94,26 +94,26 @@ const Todo: React.FC<TodoProps> = ({ todo, makeRequest, setMakeRequest }) => {
       try {
         // prevent default behaviour of form submission (reloading)
         console.log("inside the handleHighlight");
-        // console.log(`.
-        // .
-        // .
-        // .
-        // .
-        // .
-        // .
-        // .
-        // .
-        // .
-        // .
-        // .
-        // .
-        // .
-        // .
-        // .
-        // .
-        // .
-        // .
-        // `);
+        console.log(`.
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        .
+        `);
         console.log("todo is ", todo);
 
         event.preventDefault();
@@ -122,13 +122,14 @@ const Todo: React.FC<TodoProps> = ({ todo, makeRequest, setMakeRequest }) => {
 
         console.log("todo is ", todo);
         isImportant = !isImportant;
+        console.log("isImportant:", isImportant);
         console.log(
           `before the put request,${user?._id} ${_id}, ${isImportant}`
         );
         // /api/todo/${user.uid}/${_id}
 
         await axios
-          .put(`${BASE_URL}/todos/${_id}/${user?._id}`, {
+          .patch(`${BASE_URL}/todos/${_id}/${user?._id}`, {
             isImportant,
           })
           .then((response) => {
@@ -175,26 +176,26 @@ const Todo: React.FC<TodoProps> = ({ todo, makeRequest, setMakeRequest }) => {
   const handleCompleted = useCallback(
     async (event: React.MouseEvent, todo: TodoProps["todo"]) => {
       try {
-        console.log(`.
-        .
-        .
-        .
-        .
-        .
-        .
-        .
-        .
-        .
-        .
-        .
-        .
-        .
-        .
-        .
-        .
-        .
-        .
-        `);
+        // console.log(`.
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // .
+        // `);
         // prevent default behaviour of form submission (reloading)
         event.preventDefault();
         const { _id } = todo;

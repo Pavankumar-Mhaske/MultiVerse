@@ -79,7 +79,7 @@ const TodoModal: React.FC<TodoModalProps> = ({
       // if (deletedTodoFound) {
 
       const response: AxiosResponse<{ data: TodoData }> = await axios.get(
-        `/todo/${user?._id}/${todoId}`
+        `/todos/${todoId}/${user?._id}`
       );
 
       console.log("Tasks Fetched Successfully");

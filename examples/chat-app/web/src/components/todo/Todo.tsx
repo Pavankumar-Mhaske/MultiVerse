@@ -106,7 +106,7 @@ const Todo: React.FC<TodoProps> = ({ todo, makeRequest, setMakeRequest }) => {
         // /api/todo/${user.uid}/${_id}
 
         await axios
-          .put(`/todo/${user?._id}/${_id}`, {
+          .put(`/todos/${_id}/${user?._id}`, {
             isImportant,
           })
           .then((response) => {
@@ -160,7 +160,7 @@ const Todo: React.FC<TodoProps> = ({ todo, makeRequest, setMakeRequest }) => {
         isCompleted = !isCompleted;
         // /api/todo/${user.uid}/${_id}
         await axios
-          .put(`/todo/${user?._id}/${_id}`, { isCompleted })
+          .patch(`/todos/${_id}/${user?._id}`, { isCompleted })
           .then((response) => {
             console.log("before the setMakeRequest");
             console.log(response);

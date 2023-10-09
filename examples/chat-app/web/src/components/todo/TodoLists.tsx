@@ -41,6 +41,8 @@ interface Todo {
 //   // Add other properties as needed
 // }
 
+const BASE_URL = "http://localhost:8080/api/v1";
+
 const TodoList: React.FC<TodoListProps> = ({ makeRequest, setMakeRequest }) => {
   /**
    * It is used to pass appwrite Id in DB request parmas
@@ -75,7 +77,7 @@ const TodoList: React.FC<TodoListProps> = ({ makeRequest, setMakeRequest }) => {
       console.log(
         "************************************************************************************************"
       );
-      const response = await axios.get(`/todos/${user?._id}`);
+      const response = await axios.get(`${BASE_URL}/todos/${user?._id}`);
       // const response = await axios.get("/user/todos", {
       //   params: { userId: user.$id },
       // });
@@ -126,7 +128,7 @@ const TodoList: React.FC<TodoListProps> = ({ makeRequest, setMakeRequest }) => {
 
       if (!search) return;
       const response = await axios.get(
-        `/todos/search?userId=${user?._id}&search=${search}`
+        `${BASE_URL}/todos/search?userId=${user?._id}&search=${search}`
       );
 
       const { data } = response.data;

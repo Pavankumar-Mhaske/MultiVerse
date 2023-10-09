@@ -3,9 +3,13 @@ import React, { useState, ChangeEvent, MouseEvent, KeyboardEvent } from "react";
 import "../../pages/styles/customStyles.css";
 import Task from "./Task";
 
+// interface TaskInputProps {
+//   tasks: string[];
+//   setTasks: React.Dispatch<React.SetStateAction<string[]>>;
+// }
 interface TaskInputProps {
   tasks: string[];
-  setTasks: React.Dispatch<React.SetStateAction<string[]>>;
+  setTasks: (newTitles: string[]) => void;
 }
 
 /**
@@ -45,6 +49,7 @@ const TaskInput: React.FC<TaskInputProps> = ({ tasks, setTasks }) => {
   const addTask = (
     e: MouseEvent<HTMLButtonElement> | KeyboardEvent<HTMLInputElement>
   ) => {
+    console.log("inside the addTask function");
     e.preventDefault();
     if (taskInput === "") return;
     setTasks([...tasks, taskInput]);
@@ -70,7 +75,8 @@ const TaskInput: React.FC<TaskInputProps> = ({ tasks, setTasks }) => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTaskInput(e.target.value);
-    console.log(taskInput);
+    console.log(e.target.value);
+    console.log("taskinput:", taskInput);
   };
 
   return (
@@ -101,7 +107,12 @@ const TaskInput: React.FC<TaskInputProps> = ({ tasks, setTasks }) => {
             placeholder="Enter your task"
             value={taskInput}
             onChange={handleChange}
-            onKeyDown={addTask}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                addTask(e);
+              }
+            }}
           />
         </label>
         <button

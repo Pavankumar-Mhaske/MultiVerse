@@ -8,6 +8,7 @@ import Todo from "./pages/todo";
 import { useAuth } from "./context/AuthContext";
 import PrivateRoute from "./components/PrivateRoute";
 import PublicRoute from "./components/PublicRoute";
+import GuidePage from "./components/todo/pages/GuidePage";
 
 // Main App component
 const App = () => {
@@ -38,6 +39,15 @@ const App = () => {
         element={
           <PrivateRoute>
             <Welcome />
+          </PrivateRoute>
+        }
+      />
+
+      <Route
+        path="/guide"
+        element={
+          <PrivateRoute>
+            <GuidePage />
           </PrivateRoute>
         }
       />

@@ -28,6 +28,8 @@ interface DeleteModalProps {
   setMakeRequest: React.Dispatch<React.SetStateAction<any>>;
 }
 
+const BASE_URL = "http://localhost:8080/api/v1";
+
 const DeleteModal: React.FC<DeleteModalProps> = ({
   deleteTodo,
   setDeleteTodo,
@@ -52,7 +54,7 @@ const DeleteModal: React.FC<DeleteModalProps> = ({
       // /api/todo/${user._id}/${todoId}
       const toastId = showToastLoading("Deleting Todo..."); // show loading toast
       axios
-        .delete(`/todos/${todoId}/${user?._id}`)
+        .delete(`${BASE_URL}/todos/${todoId}/${user?._id}`)
         .then((response) => {
           console.log("Response from handleDelete method: ", response);
           setMakeRequest(!makeRequest);

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 
 // import axios
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 
 // import context
 import { useAuth } from "../../context/AuthContext";
@@ -16,18 +16,18 @@ import { useAuth } from "../../context/AuthContext";
  * @returns
  */
 
-interface Task {
-  _id: string;
-  name: string;
-}
+// interface Task {
+//   _id: string;
+//   name: string;
+// }
 
-interface TodoData {
-  _id: string;
-  title: string;
-  tasks: Task[];
-  created: string;
-  updated: string;
-}
+// interface TodoData {
+//   _id: string;
+//   title: string;
+//   tasks: Task[];
+//   created: string;
+//   updated: string;
+// }
 
 interface TodoModalProps {
   popup: boolean;
@@ -54,7 +54,7 @@ const TodoModal: React.FC<TodoModalProps> = ({
   /**
    * To maintain concurrency in tasks of todo. (When we have a unsuccessful update)
    */
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<string[]>([]);
 
   /**
    * getTodoTasks() - Asynchronous Function
@@ -120,13 +120,13 @@ const TodoModal: React.FC<TodoModalProps> = ({
           tasks.length === 0 ? (
             <p>No Tasks Available</p>
           ) : (
-            tasks.map((task) =>
+            tasks.map((task, index) =>
               task ? (
                 <p
                   className="inline-block m-1 border-2 border-blue-500 rounded p-1"
-                  key={task?._id}
+                  key={index}
                 >
-                  {task?.name}
+                  {task}
                 </p>
               ) : (
                 ""

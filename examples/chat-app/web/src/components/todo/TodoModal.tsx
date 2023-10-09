@@ -37,6 +37,8 @@ interface TodoModalProps {
   updated: string;
 }
 
+const BASE_URL = "http://localhost:8080/api/v1";
+
 const TodoModal: React.FC<TodoModalProps> = ({
   popup,
   todoId,
@@ -78,8 +80,8 @@ const TodoModal: React.FC<TodoModalProps> = ({
       // });
       // if (deletedTodoFound) {
 
-      const response: AxiosResponse<{ data: TodoData }> = await axios.get(
-        `/todos/${todoId}/${user?._id}`
+      const response = await axios.get(
+        `${BASE_URL}/todos/${todoId}/${user?._id}`
       );
 
       console.log("Tasks Fetched Successfully");

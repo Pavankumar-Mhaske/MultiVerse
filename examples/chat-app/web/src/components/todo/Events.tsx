@@ -47,7 +47,7 @@ function EventList() {
   const fetchData = async () => {
     await axios
       // .get(`${BASE_URL}/users/current-user`)
-      
+      .get(`${BASE_URL}/events/getUser/${user?._id}`)
       .then((response) => {
         console.log(
           "******************???************************response in getUser: ",

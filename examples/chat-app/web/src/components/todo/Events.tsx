@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import Calender from "./Calender";
+// import Calender from "./Calender";
 import "./styles/Events.css";
 import axios from "axios";
 
@@ -25,6 +25,8 @@ import {
 import { useNavigate } from "react-router-dom";
 // const otpGenerator = require("otp-generator");
 
+const BASE_URL = "http://localhost:8080/api/v1";
+
 function EventList() {
   const { user } = useAuth();
 
@@ -44,19 +46,27 @@ function EventList() {
 
   const fetchData = async () => {
     await axios
-      .get(`/user/getUser?userId=${user?._id}`)
+      // .get(`${BASE_URL}/users/current-user`)
+      
       .then((response) => {
-        console.log("response in getUser: ", response);
+        console.log(
+          "******************???************************response in getUser: ",
+          response
+        );
         console.log("isVeried", response.data.data[0].isVerified);
         setIsVerified(response.data.data[0].isVerified);
       })
       .catch((error) => {
         console.log("error", error);
       });
+    // if (user?.isVerified !== undefined) {
+    //   setIsVerified(user?.isVerified);
+    //   console.log("inside the fetchData: ", user?.isVerified);
+    // }
 
     await axios
       // .get("/event/getAll")
-      .get(`/user/events?userId=${user?._id}`)
+      .get(`${BASE_URL}/events/${user?._id}`)
       .then((response) => {
         console.log("response in 1st getReminder : ", response);
         // setReminderList(response.data);
@@ -122,7 +132,7 @@ function EventList() {
     console.log("***********************************************");
     const toastId = showToastLoading("Adding an Event..."); // show loading toast
     await axios
-      .post("/event/create", {
+      .post(`${BASE_URL}/events`, {
         reminderMsg: reminderMsg,
         remindAt: remindeAtISO,
         userId: user?._id,
@@ -134,7 +144,8 @@ function EventList() {
 
         await axios
           // .get("/event/getAll")
-          .get(`/user/events?userId=${user?._id}`)
+          // .get(`/user/events?userId=${user?._id}`)
+          .get(`${BASE_URL}/events/${user?._id}`)
           .then((response) => {
             console.log(
               "response in getReminder  inside the addReminder : ",
@@ -169,13 +180,15 @@ function EventList() {
       // {params: { userId: user.$id, eventId: id },}
       const toastId = showToastLoading("Deleting an Event..."); // show loading toast
       await axios
-        .delete(`/event/${user?._id}/${id}`)
+        // .delete(`/event/${user?._id}/${id}`)
+        .delete(`${BASE_URL}/events/${id}/${user?._id}`)
         .then(async (res) => {
           console.log("response in deleteReminder : ", res);
           // get all reminders from db and set reminderList on every addReminder call
           await axios
             // .get("/event/getAll")
-            .get(`/user/events?userId=${user?._id}`)
+            // .get(`/user/events?userId=${user?._id}`)
+            .get(`${BASE_URL}/events/${user?._id}`)
             .then((response) => {
               console.log(
                 "response in getReminder  inside the deleteReminder : ",
@@ -374,13 +387,13 @@ function EventList() {
               onChange={(e) => setReminderMsg(e.target.value)}
             />
             <div className="calender">
-              <Calender
+              {/* <Calender
                 setRemindeAt={(date: Date | null) => {
                   if (date !== null) {
                     setRemindeAt;
                   }
                 }}
-              />
+              /> */}
             </div>
             <div className="button" onClick={addReminder}>
               submit

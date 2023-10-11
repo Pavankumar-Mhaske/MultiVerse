@@ -444,6 +444,7 @@ const updateIsVerified = async (req, res) => {
 
 const getEventsOwner = async (req, res) => {
   try {
+    console.log("inside the getEventsOwner controller");
     const { userId } = req.params;
     if (!userId || typeof userId !== "string") {
       if (!userId) {

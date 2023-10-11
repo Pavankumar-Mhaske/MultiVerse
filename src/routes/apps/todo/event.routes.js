@@ -19,6 +19,7 @@ import {
 import { mongoIdPathVariableValidator } from "../../../validators/common/mongodb.validators.js";
 
 import { validate } from "../../../validators/validate.js";
+// import { get } from "mongoose";
 
 const router = Router();
 
@@ -34,16 +35,29 @@ router
 
 router
   .route("/:eventId/:userId")
-  .get(mongoIdPathVariableValidator("eventId"), validate, getEventById)
-  .delete(mongoIdPathVariableValidator("eventId"), validate, deleteEvent);
-
-router
-  .route("/getUser/:userId")
-  .patch(
+  .get(
     mongoIdPathVariableValidator("eventId"),
+    mongoIdPathVariableValidator("userId"),
     validate,
-    updateEventValidator()
+    getEventById
   )
-  .get(mongoIdPathVariableValidator("userId"), validate, getEventsOwner);
+  .delete(
+    mongoIdPathVariableValidator("eventId"),
+    mongoIdPathVariableValidator("userId"),
+    validate,
+    deleteEvent
+  );
+
+router.route("/event/getUser/:userId").get(getEventsOwner);
+
+// router.route("/getUser/:userId").get(
+// mongoIdPathVariableValidator("userId"), validate,
+// getEventsOwner
+// );
+// .patch(
+//   mongoIdPathVariableValidator("userId"),
+//   validate,
+//   updateEventValidator()
+// );
 
 export default router;

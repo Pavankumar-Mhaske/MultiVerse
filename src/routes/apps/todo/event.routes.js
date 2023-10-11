@@ -3,8 +3,11 @@ import { Router } from "express";
 import {
   createEvent,
   getAllEvents,
+  getUserEvents,
   getEventById,
   deleteEvent,
+  updateIsVerified,
+  getEventsOwner,
 } from "../../../controllers/apps/todo/event.controllers.js";
 
 import {
@@ -25,13 +28,22 @@ router
   .get(getAllEventsQueryValidators(), validate, getAllEvents);
 
 router
-  .route("/:eventId/:userId")
-  .get(
-    mongoIdPathVariableValidator("eventId"),
+  .route("/:userId")
+  .get(mongoIdPathVariableValidator("userId"), validate, getUserEvents)
+  .patch(mongoIdPathVariableValidator("userId"), validate, updateIsVerified);
 
-    validate,
-    getEventById
-  )
+router
+  .route("/:eventId/:userId")
+  .get(mongoIdPathVariableValidator("eventId"), validate, getEventById)
   .delete(mongoIdPathVariableValidator("eventId"), validate, deleteEvent);
+
+router
+  .route("/getUser/:userId")
+  .patch(
+    mongoIdPathVariableValidator("eventId"),
+    validate,
+    updateEventValidator()
+  )
+  .get(mongoIdPathVariableValidator("userId"), validate, getEventsOwner);
 
 export default router;

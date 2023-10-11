@@ -48,7 +48,19 @@ router
     deleteEvent
   );
 
-router.route("/event/getUser/:userId").get(getEventsOwner);
+/**
+ * - router.route("/:eventId/:userId").get(getEventById)
+ * - router.route("/getUser/:userId").get(getEventsOwner);
+ *
+ * Bug: as this two routes are similar in pattern, they are creating conflict
+ *        /:eventId/:userId  ~  /getUser/:userId
+ *  due to this similarity in pattern, getUser will be treated as eventId and hence 'invalied eventId' error is thrown
+ * thus to avoid that we need to change the pattern of routes
+ */
+
+router
+  .route("/event/getUser/:userId")
+  .get(mongoIdPathVariableValidator("userId"), validate, getEventsOwner);
 
 // router.route("/getUser/:userId").get(
 // mongoIdPathVariableValidator("userId"), validate,

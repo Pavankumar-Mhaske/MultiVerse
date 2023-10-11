@@ -45,14 +45,17 @@ function EventList() {
   console.log("In EventsList user is  : ", user);
 
   const fetchData = async () => {
+    if (Array.isArray(reminderList)) {
+      console.log(
+        "******************???************************type of ReminderList",
+        typeof reminderList
+      );
+    }
     await axios
       // .get(`${BASE_URL}/users/current-user`)
-      .get(`${BASE_URL}/events/getUser/${user?._id}`)
+      .get(`${BASE_URL}/events/event/getUser/${user?._id}`)
       .then((response) => {
-        console.log(
-          "******************???************************response in getUser: ",
-          response
-        );
+        console.log("response in getUser: ", response);
         console.log("isVeried", response.data.data[0].isVerified);
         setIsVerified(response.data.data[0].isVerified);
       })
@@ -405,9 +408,8 @@ function EventList() {
           </h1>
 
           <div className="eventsBox_body">
-            {/* <Toast /> */}
-            {/* {console.log("inside the reminder List: ", reminderList)} */}
-            {reminderList ? (
+            {/* {console.log("typeof reminderList", typeof reminderList)} */}
+            {reminderList && Array.isArray(reminderList) ? (
               reminderList.map((reminder) => (
                 <div className="reminder_card" key={reminder._id}>
                   <h2>{reminder.reminderMsg}</h2>

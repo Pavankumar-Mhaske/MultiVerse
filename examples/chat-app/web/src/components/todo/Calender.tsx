@@ -10,16 +10,15 @@ interface CalenderProps {
   setRemindeAt: (date: Date | null) => void;
 }
 
-
 const Calender: React.FC<CalenderProps> = ({ setRemindeAt }) => {
-// function Calender({ setRemindeAt }) {
+  // function Calender({ setRemindeAt }) {
   const handleChange = (newValue: Date | null) => {
     setRemindeAt(newValue);
   };
 
-  const currentDateTime = new Date(); // Get the current date and time
-  const currentHour = currentDateTime.getHours(); // Get the current hour
-  const currentMinute = currentDateTime.getMinutes(); // Get the current minute
+  // const currentDateTime = new Date(); // Get the current date and time
+  // const currentHour = currentDateTime.getHours(); // Get the current hour
+  // const currentMinute = currentDateTime.getMinutes(); // Get the current minute
 
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -45,6 +44,6 @@ const Calender: React.FC<CalenderProps> = ({ setRemindeAt }) => {
       </DemoContainer>
     </LocalizationProvider>
   );
-}
+};
 
 export default Calender;

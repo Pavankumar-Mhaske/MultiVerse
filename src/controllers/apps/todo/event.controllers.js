@@ -160,6 +160,60 @@ const getAllEvents = async (req, res) => {
 };
 
 /**
+ * getUserTodos() - Asynchronous Function
+ *      - Destructures the input received in req.params.
+ *      - Validated if userId is received.
+ *      - Validated if userId received is of type string.
+ *      - Fetches the user with respect to userId and populate todos field. (Asynchronous operation - find())
+ */
+
+const getUserEvents = async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    if (userId) {
+      if (typeof userId === "string") {
+        const user = await Event.find({ author: userId });
+
+        if (user) {
+          // check whether user has events or not
+          // console.log(user.events);
+          return res.status(200).json({
+            success: true,
+            message: "User Events fetched successfully",
+            data: user,
+            status: 200,
+          });
+        } else {
+          return res.status(400).json({
+            success: false,
+            message: "User not found",
+          });
+        }
+      } else {
+        return res.status(400).json({
+          success: false,
+          message: "userId should be of type string",
+        });
+      }
+    } else {
+      return res.status(400).json({
+        success: false,
+        message: "userId is required",
+      });
+    }
+  } catch (error) {
+    console.log("Error in get user events controller");
+    console.log("ERROR: ", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      error: error.message,
+    });
+  }
+};
+
+/**
  * getEvent() - Asynchronous Function
  *   - Destructures the input received in req.params.
  * - Validated if eventId is received.
@@ -345,4 +399,85 @@ const deleteEvent = async (req, res) => {
      */
 };
 
-export { createEvent, getAllEvents, getEventById, deleteEvent };
+const updateIsVerified = async (req, res) => {
+  try {
+    // const { userId } = req.body;
+    const { userId } = req.params;
+    const { isVerified, contactNumber } = req.body;
+
+    if (!userId || typeof userId !== "string") {
+      if (!userId) {
+        throw new Error("userId is Required!");
+      } else {
+        throw new Error("userId should be of type String");
+      }
+    }
+
+    console.log("userId: ", userId);
+    const user = await User.findById(userId);
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    user.contactNumber = contactNumber;
+
+    user.isVerified = isVerified;
+
+    await user.save();
+    // console.log("**************** inside the verify user:::::***********");
+    res.status(200).json({
+      success: true,
+      message: "User is verified successfully!",
+      data: user,
+    });
+  } catch (error) {
+    console.log("Error in updateIsVerified controller");
+    console.log("ERROR: ", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      error: error.message,
+    });
+  }
+};
+
+const getEventsOwner = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    if (!userId || typeof userId !== "string") {
+      if (!userId) {
+        throw new Error("userId is Required!");
+      } else {
+        throw new Error("userId should be of type String");
+      }
+    }
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new Error("User not found");
+    }
+    res.status(200).json({
+      success: true,
+      message: "User fetched successfully!",
+      data: user,
+    });
+  } catch (error) {
+    console.log("Error in getUser controller");
+    console.log("ERROR: ", error);
+    return res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+      error: error.message,
+    });
+  }
+};
+
+export {
+  createEvent,
+  getAllEvents,
+  getUserEvents,
+  getEventById,
+  deleteEvent,
+  updateIsVerified,
+  getEventsOwner,
+};

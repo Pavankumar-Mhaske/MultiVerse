@@ -58,6 +58,7 @@ router
   .patch(verifyJWT, upload.single("avatar"), updateUserAvatar);
 
 router.route("/current-user").get(verifyJWT, getCurrentUser);
+
 router
   .route("/change-password")
   .post(

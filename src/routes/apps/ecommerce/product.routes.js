@@ -25,7 +25,7 @@ const router = Router();
 
 router
   .route("/")
-  .get(getAllProducts)
+  .get(validate, getAllProducts)
   .post(
     verifyJWT,
     verifyPermission([UserRolesEnum.ADMIN]),

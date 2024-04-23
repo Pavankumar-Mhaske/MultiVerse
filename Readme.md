@@ -22,6 +22,7 @@ In today's digital age, our lives are inundated with various apps and platforms 
 
 Multiverse aims to solve this modern-day dilemma by offering a centralized application that seamlessly combines the functionalities of popular social media platforms like Instagram and YouTube 📸🎥, communication apps like WhatsApp 💬, e-commerce giants like Amazon and Flipkart 🛍️, and handy to-do lists 📝.
 
+
 ## 🚀 The Problem at Hand:
 
 Today, users are faced with several challenges:

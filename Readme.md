@@ -22,7 +22,6 @@ In today's digital age, our lives are inundated with various apps and platforms 
 
 Multiverse aims to solve this modern-day dilemma by offering a centralized application that seamlessly combines the functionalities of popular social media platforms like Instagram and YouTube 📸🎥, communication apps like WhatsApp 💬, e-commerce giants like Amazon and Flipkart 🛍️, and handy to-do lists 📝.
 
-
 ## 🚀 The Problem at Hand:
 
 Today, users are faced with several challenges:
@@ -188,7 +187,6 @@ To self-host the MultiVerse application, you can take advantage of a pre-built t
 # 📜 Swagger Docs
 
 [Swagger Docs](http://localhost:8080): http://localhost:8080
-
 
 ## Documentation
 
@@ -528,13 +526,11 @@ If you have any feedback, please reach out to us at mhaskepavankumar@gmial.com
 
 Takes two numbers and returns the sum.
 
-
 # Hi, I'm Pavankumar Mhaske! 👋
 
 ## 🚀 About Me
 
 I'm a full stack developer...
-
 
 ## 🔗 Links
 
@@ -549,7 +545,6 @@ I'm a full stack developer...
 ## 🛠 Skills
 
 MERN, Node.js, Express, MongoDB, Mongoose,React.js, Javascript, HTML, TailwindCSS, CSS, Context API, Third Party APIs, Angular, VueJS, Vue Cli, Next.js ...
-
 
 ## Badges
 

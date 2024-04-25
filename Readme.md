@@ -22,6 +22,88 @@ In today's digital age, our lives are inundated with various apps and platforms 
 
 Multiverse aims to solve this modern-day dilemma by offering a centralized application that seamlessly combines the functionalities of popular social media platforms like Instagram and YouTube 📸🎥, communication apps like WhatsApp 💬, e-commerce giants like Amazon and Flipkart 🛍️, and handy to-do lists 📝.
 
+## 📸 Screenshots 📷🎥
+
+<p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+</p>
+
+<p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+</p>
+
+<p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+</p>
+
+<p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+</p>
+
+<p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+</p>
+
+<p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+</p>
+
+<p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+</p>
+
+<p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+</p>
+
+<p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+</p>
+
+<p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+</p>
+
+<p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+</p>
+
+<p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+</p>
+
+<p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+</p>
+
+<p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+</p>
+
+<p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+</p>
+
+<p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+</p>
+
+<p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+</p>
+
+<p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+</p>
+
+<p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+</p>
+
+<p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+</p>
+
 ## 🚀 The Problem at Hand:
 
 Today, users are faced with several challenges:
@@ -195,12 +277,6 @@ To self-host the MultiVerse application, you can take advantage of a pre-built t
 ## Demo
 
 Insert gif or link to demo
-
-## Screenshots
-
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
-
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
 
 ## Tech Stack
 

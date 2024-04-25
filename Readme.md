@@ -256,13 +256,13 @@ Multiverse aims to solve this modern-day dilemma by offering a centralized appli
 
 ![19](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/4e57e89d-0005-4869-8d9b-612bbd8fd268)
 
-<p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
-</p>
-
 # 🕔 ⚙ Venture-Catalyst ✌🏻 ⭐
 
 ### 🙏 Welcome to Venture-Catalyst 🙏 -(Web3 + Blockchain Early Funding Platform App)😃
+
+<p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - Venture-Catalyst - 💖⭐ 🌲🌳🎄🌴 </b>
+</p>
 
 ![1](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/1551cb1a-df0c-4138-9214-10a6767b80db)
 

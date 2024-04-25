@@ -24,296 +24,234 @@ Multiverse aims to solve this modern-day dilemma by offering a centralized appli
 
 ## 📸 Screenshots 📷🎥
 
+# . . . .🌟 ChitChat (ChatApp) 🌟 . . . .
+
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - ChitChat - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![1](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/4969da7d-e5e2-48ca-9201-fb48fe8845dc)
 
-
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - ChitChat - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![2](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/f7accf6c-c7fb-41e3-9f09-10a42abd7681)
 
-
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - ChitChat - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![3](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/da120bcf-2762-4a1d-81c1-432d0965d9c8)
 
-
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - ChitChat - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![4](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/a228783f-1130-4e2e-89dd-bf2740fe980d)
 
-
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - ChitChat - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![5](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/e0f82e1c-9825-4097-b13c-b31bc8b7a931)
 
-
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - ChitChat - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![6](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/43192b8c-a3c5-4ca5-861d-0d1c2dd656fe)
 
-
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - ChitChat - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![7](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/80fbfd18-a427-4434-9e1f-4bde25a3a2b7)
 
-
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - ChitChat - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![8](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/0cb1da23-18f1-4bfe-9863-10957fae486d)
 
-
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - ChitChat - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![9](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/14117fc1-43cc-45ac-916d-6d7360d38c55)
 
-
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - ChitChat - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![10](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/1cc28df7-fa30-4d70-a7ce-d3139bc15507)
 
+# 🕔 ⚙ SnapGram ✌🏻 ⭐
+
+### 🙏 Welcome to SnapGram 🙏 - A social media application with the capabilities of Instagram📱and Snapchat.🗨️
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SnapGram - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
-
-![1](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/c87e4913-57f7-4c9e-9447-029ece682825)
-
-
-<p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
-</p>
-
-![4](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/0a846f69-ab95-4f96-9453-bb80b07d1b61)
-
-<p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
-</p>
-
-![11](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/9c413038-4f32-4f26-994c-479bea61384a)
-
-
-<p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
-</p>
-
-![12](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/d4da60be-3a96-43f3-96bc-f3bd021d97f9)
-
-
-<p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
-</p>
-
-![13](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/8b6f558e-3e4a-49f7-9336-1925ea43e79a)
-
-
-<p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
-</p>
-
-![17](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/421d9452-b6f4-4192-9185-a2615f7acf1c)
-
-<p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
-</p>
-
-![18](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/61f78f5f-dad0-458b-b769-83f0eac3f9c8)
-
-<p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
-</p>
-
-![21](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/4a847ee9-b49c-429c-8886-24fa34e0debf)
-
-
-<p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
-</p>
-
 
 ![1](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/6aefd36a-1525-42fc-a732-ae1a267939fc)
 
-
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SnapGram - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![2](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/c4bc3eb1-8e77-4173-93f2-f8722fa3724b)
 
-
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SnapGram - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![3](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/bec6f784-d98a-4143-88fe-b65fe56f980e)
 
-
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SnapGram - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![4](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/15bda4cd-6fd9-4252-8b09-e28a40863650)
 
-
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SnapGram - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![5](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/8213f410-68ce-4fdd-9ac9-3ecbdbb39a47)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SnapGram - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![6](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/f53fcb08-c50d-468e-9ed2-eddb9970dd3b)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SnapGram - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![7](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/f9ce70db-510b-487d-a61f-2b006fa49c5d)
 
-
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SnapGram - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
-
 
 ![8](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/659fedfe-40d4-4736-8ff4-82df7cb96c25)
 
+# 🕔 ⚙ SwiftCart ✌🏻 ⭐
+
+### 🙏 Welcome to SwiftCart 🙏 - (Ecommerce-Business-App)😃
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SwiftCart - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![1](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/3bd289cc-c6e8-4ba8-b2e1-edcf94ef1922)
 
-
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SwiftCart - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![2](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/16d0727c-ea14-4c75-bbe2-e12c0d339477)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SwiftCart - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![3](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/06be2490-8477-4dd3-91bb-d943429a7663)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SwiftCart - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![4](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/8587b240-8e97-447d-b49e-94872cef3d28)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SwiftCart - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![5](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/8ef87350-aff2-4439-8474-3bdc12beb527)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SwiftCart - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![6](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/93403d70-d18a-4f1a-8ef5-20638a4842b0)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SwiftCart - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![7](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/89b18644-5eb7-496b-825b-d3c6dbf4bd01)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SwiftCart - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![8](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/9324c68c-4f02-4c0c-895f-d29613d7d42e)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SwiftCart - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![9](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/81c41444-2ff5-4164-b1d1-403cb9c10130)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SwiftCart - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![10](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/3faa7a0d-9aeb-4c77-973b-9d4fbede91f9)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SwiftCart - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![11](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/92f84390-ae03-4cc4-a9a7-3f9fa8675a5d)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SwiftCart - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![12](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/abee2047-3d77-4295-ac70-087b1fb8566a)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SwiftCart - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![13](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/3edc3810-9f93-49a0-80f8-4e8afccb4056)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SwiftCart - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![14](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/e9c366b5-59f8-48d1-a1f9-b1631b3fa968)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SwiftCart - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![15](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/84cdc253-c02b-4b04-adda-3288f82e5c01)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SwiftCart - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![16](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/e74ab134-7288-4132-ac5a-1cbe14317bcb)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SwiftCart - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![17](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/fcd70426-c91b-4ea8-8244-d66911fcf32a)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SwiftCart - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![18](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/c4399942-41f8-43d3-90e4-3bcf26d2dbfe)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SwiftCart - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![19](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/4e57e89d-0005-4869-8d9b-612bbd8fd268)
@@ -322,102 +260,117 @@ Multiverse aims to solve this modern-day dilemma by offering a centralized appli
   <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
+# 🕔 ⚙ Venture-Catalyst ✌🏻 ⭐
+
+### 🙏 Welcome to Venture-Catalyst 🙏 -(Web3 + Blockchain Early Funding Platform App)😃
+
 ![1](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/1551cb1a-df0c-4138-9214-10a6767b80db)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - Venture-Catalyst - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![2](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/435ef481-40b4-4402-bb23-1500d847c053)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - Venture-Catalyst - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![3](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/66282042-7639-4dc8-8fd6-5378871461e9)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - Venture-Catalyst - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![4](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/5d48a775-e202-434f-9689-495b36a358ac)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - Venture-Catalyst - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![5](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/dfad8353-f374-45d6-ab7b-549ebbe665ae)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - Venture-Catalyst - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![6](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/f0cce960-4622-4d00-b018-921cdc552200)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - Venture-Catalyst - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![7](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/94c51603-dc72-4805-b4d3-bed6689a1ee6)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - Venture-Catalyst - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![8](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/36fb6462-93d5-4cc4-affd-0dff927a93ac)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - Venture-Catalyst - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![9](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/76d9a6af-aadf-4f99-a131-ecd380a40f44)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - Venture-Catalyst - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
 ![10](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/db9c31ed-3f8f-41ce-96fa-778d204329cb)
 
-<p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
-</p>
+# 🕔 ⚙ SmaDuleX ✌🏻 ⭐
 
-
-<p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
-</p>
-
+### Welcome to SmaDuleX - Your Smart ♟, Scheduling ⌚and Exploration 🧪 Company.
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SmaDuleX - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
+![1](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/c87e4913-57f7-4c9e-9447-029ece682825)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SmaDuleX - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
+![4](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/0a846f69-ab95-4f96-9453-bb80b07d1b61)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SmaDuleX - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
+![11](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/9c413038-4f32-4f26-994c-479bea61384a)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SmaDuleX - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
+![12](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/d4da60be-3a96-43f3-96bc-f3bd021d97f9)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SmaDuleX - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
+![13](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/8b6f558e-3e4a-49f7-9336-1925ea43e79a)
 
 <p align="center">
-  <b> 🌴🎄🌳🌲 ⭐💖 - Home - 💖⭐ 🌲🌳🎄🌴 </b>
+  <b> 🌴🎄🌳🌲 ⭐💖 - SmaDuleX - 💖⭐ 🌲🌳🎄🌴 </b>
 </p>
 
+![17](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/421d9452-b6f4-4192-9185-a2615f7acf1c)
 
+<p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - SmaDuleX - 💖⭐ 🌲🌳🎄🌴 </b>
+</p>
+
+![18](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/61f78f5f-dad0-458b-b769-83f0eac3f9c8)
+
+<p align="center">
+  <b> 🌴🎄🌳🌲 ⭐💖 - SmaDuleX - 💖⭐ 🌲🌳🎄🌴 </b>
+</p>
+
+![21](https://github.com/Pavankumar-Mhaske/MultiVerse/assets/104865937/4a847ee9-b49c-429c-8886-24fa34e0debf)
 
 ## 🚀 The Problem at Hand:
 
